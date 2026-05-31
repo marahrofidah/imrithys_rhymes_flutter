@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TeacherDashboardPage extends StatefulWidget {
-  const TeacherDashboardPage({super.key});
+class StudentDashboardPage extends StatefulWidget {
+  const StudentDashboardPage({super.key});
 
   @override
-  State<TeacherDashboardPage> createState() => _TeacherDashboardPageState();
+  State<StudentDashboardPage> createState() => _StudentDashboardPageState();
 }
 
-class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
+class _StudentDashboardPageState extends State<StudentDashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +63,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                           color: Colors.blue.shade100,
                         ),
                         child: const Center(
-                          child: Text('👨‍🏫', style: TextStyle(fontSize: 32)),
+                          child: Text('👦', style: TextStyle(fontSize: 32)),
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -72,7 +72,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Halo, Guru!',
+                              'Halo, Murid!',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -94,49 +94,66 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                // Statistics Cards
-                Row(
-                  children: [
-                    Expanded(
-                      child: _buildStatCard(
-                        title: 'Siswa',
-                        value: '25',
-                        icon: Icons.people,
-                        color: Colors.blue,
+                // Progress Card
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildStatCard(
-                        title: 'Kelas',
-                        value: '4',
-                        icon: Icons.class_,
-                        color: Colors.orange,
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Progress Pembelajaran',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _buildStatCard(
-                        title: 'Materi',
-                        value: '10',
-                        icon: Icons.book,
-                        color: Colors.green,
+                      const SizedBox(height: 16),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: LinearProgressIndicator(
+                          minHeight: 8,
+                          value: 0.65,
+                          backgroundColor: Colors.grey.shade200,
+                          valueColor: AlwaysStoppedAnimation(
+                            Colors.green.shade400,
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildStatCard(
-                        title: 'Rating',
-                        value: '4.8',
-                        icon: Icons.star,
-                        color: Colors.yellow.shade700,
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '65% Selesai',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                          Text(
+                            '13 dari 20 Pelajaran',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 24),
                 // Menu Section
@@ -158,23 +175,23 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                   mainAxisSpacing: 12,
                   children: [
                     _buildMenuCard(
-                      icon: Icons.add_circle,
-                      title: 'Buat Materi',
-                      color: Colors.blue,
-                    ),
-                    _buildMenuCard(
-                      icon: Icons.people,
-                      title: 'Kelola Siswa',
+                      icon: Icons.play_circle,
+                      title: 'Mulai Belajar',
                       color: Colors.orange,
                     ),
                     _buildMenuCard(
-                      icon: Icons.assignment,
-                      title: 'Tugas & Quiz',
+                      icon: Icons.emoji_events,
+                      title: 'Achievment',
+                      color: Colors.pink,
+                    ),
+                    _buildMenuCard(
+                      icon: Icons.person_add,
+                      title: 'Referral',
                       color: Colors.green,
                     ),
                     _buildMenuCard(
-                      icon: Icons.analytics,
-                      title: 'Laporan',
+                      icon: Icons.settings,
+                      title: 'Pengaturan',
                       color: Colors.purple,
                     ),
                   ],
@@ -184,48 +201,6 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildStatCard({
-    required String title,
-    required String value,
-    required IconData icon,
-    required Color color,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: color, size: 24),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            title,
-            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-          ),
-        ],
       ),
     );
   }
