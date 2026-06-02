@@ -98,7 +98,6 @@ class _LandingPageState extends State<LandingPage>
                             ),
                           ),
                         ),
-                        const SizedBox(height: 24),
                         // App Title
                         Image.asset(
                           'assets/images/imrithys_rhymes.png',
