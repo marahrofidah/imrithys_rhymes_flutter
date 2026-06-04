@@ -81,19 +81,15 @@ class _LoginPageState extends State<LoginPage>
         opacity: _opacityAnimation,
         child: Column(
           children: [
-            Container(
+            SizedBox(
               width: 100,
               height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0xFFE8F1FC),
-              ),
               child: Center(
                 child: Image.asset(
                   'assets/images/person.png',
                   fit: BoxFit.contain,
-                  width: 80,
-                  height: 80,
+                  width: 100,
+                  height: 100,
                 ),
               ),
             ),
@@ -126,21 +122,21 @@ class _LoginPageState extends State<LoginPage>
                 fontSize: 14,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   color: Color(0xFF65A6F1),
                   width: 1.5,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   color: Color(0xFF65A6F1),
                   width: 1.5,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   color: Color(0xFF65A6F1),
                   width: 2,
@@ -163,21 +159,21 @@ class _LoginPageState extends State<LoginPage>
                 fontSize: 14,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   color: Color(0xFF65A6F1),
                   width: 1.5,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   color: Color(0xFF65A6F1),
                   width: 1.5,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
                   color: Color(0xFF65A6F1),
                   width: 2,
@@ -223,7 +219,7 @@ class _LoginPageState extends State<LoginPage>
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF65A6F1),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(30),
                 ),
                 elevation: 3,
               ),
