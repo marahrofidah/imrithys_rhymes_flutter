@@ -65,12 +65,6 @@ class _LandingPageState extends State<LandingPage>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/images/star.png',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.contain,
-                  ),
                   const SizedBox(height: 20),
                   Image.asset(
                     'assets/images/person.png',
