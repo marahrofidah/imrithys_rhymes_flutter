@@ -69,8 +69,8 @@ class _LandingPageState extends State<LandingPage>
                   Image.asset(
                     'assets/images/person.png',
                     fit: BoxFit.contain,
-                    width: 120,
-                    height: 120,
+                    width: 150,
+                    height: 150,
                   ),
                   const SizedBox(height: 20),
                   Image.asset(
