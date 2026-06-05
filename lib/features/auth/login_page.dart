@@ -221,7 +221,7 @@ class _LoginPageState extends State<LoginPage>
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF65A6F1),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(18),
                   ),
                   elevation: 3,
                 ),
@@ -236,7 +236,7 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
