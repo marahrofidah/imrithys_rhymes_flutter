@@ -64,17 +64,6 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 const SizedBox(height: 16),
                 // Register title
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'register',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 32),
                 // Logo section
                 _buildLogoSection(),
