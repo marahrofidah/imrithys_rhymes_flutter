@@ -47,7 +47,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.2),
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -201,7 +201,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -241,7 +241,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -259,7 +259,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                 width: 50,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.2),
+                  color: color.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(child: Icon(icon, color: color, size: 28)),
