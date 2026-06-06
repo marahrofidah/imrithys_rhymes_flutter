@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../services/supabase_service.dart';
+import '../../services/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -11,6 +13,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String _selectedRole = ''; // 'student' atau 'teacher'
   bool _showPassword = false;
   bool _showConfirmPassword = false;
+  bool _isLoading = false;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
@@ -27,11 +30,18 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  void _handleRegister() {
-    if (_nameController.text.isEmpty ||
-        _usernameController.text.isEmpty ||
-        _passwordController.text.isEmpty ||
-        _confirmPasswordController.text.isEmpty ||
+  void _handleRegister() async {
+    final name = _nameController.text.trim();
+    final username = _usernameController.text.trim();
+    final email = '${username}@imrithys.local'; // Generate email dari username
+    final password = _passwordController.text.trim();
+    final confirmPassword = _confirmPasswordController.text.trim();
+
+    // Validasi
+    if (name.isEmpty ||
+        username.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty ||
         _selectedRole.isEmpty) {
       ScaffoldMessenger.of(
         context,
@@ -39,17 +49,89 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    if (_passwordController.text != _confirmPasswordController.text) {
+    if (password != confirmPassword) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Password tidak cocok!')));
       return;
     }
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Pendaftaran berhasil!')));
-    Navigator.pushReplacementNamed(context, '/teacher-dashboard');
+    if (password.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password minimal 6 karakter')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    try {
+      final supabase = SupabaseService();
+
+      // Check apakah username sudah ada
+      final usernameExists = await supabase.isUsernameExists(username);
+      if (usernameExists) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Username sudah digunakan')),
+          );
+        }
+        setState(() => _isLoading = false);
+        return;
+      }
+
+      // Register user
+      final newUser = await supabase.register(
+        email,
+        username,
+        password,
+        _selectedRole,
+        fullName: name,
+      );
+
+      if (!mounted) return;
+
+      if (newUser == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Gagal membuat akun')));
+        setState(() => _isLoading = false);
+        return;
+      }
+
+      // Auto login setelah register
+      final authService = AuthService();
+      final loggedIn = await authService.login(username, password);
+
+      if (!mounted) return;
+
+      if (loggedIn != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              _selectedRole == 'teacher'
+                  ? 'Pendaftaran guru berhasil! Selamat datang'
+                  : 'Pendaftaran murid berhasil! Selamat datang',
+            ),
+          ),
+        );
+
+        // Navigate ke login page (mana nanti akan deteksi role)
+        Navigator.pushReplacementNamed(context, '/login');
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Gagal login otomatis')));
+        setState(() => _isLoading = false);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
+      }
+      setState(() => _isLoading = false);
+    }
   }
 
   @override
@@ -82,12 +164,14 @@ class _RegisterPageState extends State<RegisterPage> {
                       _buildTextField(
                         controller: _nameController,
                         hintText: 'Nama Lengkap',
+                        enabled: !_isLoading,
                       ),
                       const SizedBox(height: 16),
                       // Username
                       _buildTextField(
                         controller: _usernameController,
                         hintText: 'Username',
+                        enabled: !_isLoading,
                       ),
                       const SizedBox(height: 16),
                       // Password
@@ -97,6 +181,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: !_showPassword,
                         isPassword: true,
                         showPassword: _showPassword,
+                        enabled: !_isLoading,
                         onPasswordToggle: () {
                           setState(() {
                             _showPassword = !_showPassword;
@@ -111,6 +196,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: !_showConfirmPassword,
                         isPassword: true,
                         showPassword: _showConfirmPassword,
+                        enabled: !_isLoading,
                         onPasswordToggle: () {
                           setState(() {
                             _showConfirmPassword = !_showConfirmPassword;
@@ -132,11 +218,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _selectedRole = 'teacher';
-                                });
-                              },
+                              onTap: _isLoading
+                                  ? null
+                                  : () {
+                                      setState(() {
+                                        _selectedRole = 'teacher';
+                                      });
+                                    },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 12,
@@ -146,6 +234,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ? const Color(0xFF4CAF50)
                                       : Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(24),
+                                  opacity: _isLoading ? 0.6 : 1.0,
                                 ),
                                 child: Center(
                                   child: Text(
@@ -165,11 +254,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           const SizedBox(width: 12),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _selectedRole = 'student';
-                                });
-                              },
+                              onTap: _isLoading
+                                  ? null
+                                  : () {
+                                      setState(() {
+                                        _selectedRole = 'student';
+                                      });
+                                    },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 12,
@@ -179,6 +270,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ? const Color(0xFFFFC107)
                                       : Colors.grey.shade300,
                                   borderRadius: BorderRadius.circular(24),
+                                  opacity: _isLoading ? 0.6 : 1.0,
                                 ),
                                 child: Center(
                                   child: Text(
@@ -213,14 +305,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/login');
-                      },
-                      child: const Text(
+                      onTap: _isLoading
+                          ? null
+                          : () {
+                              Navigator.pushReplacementNamed(context, '/login');
+                            },
+                      child: Text(
                         'Login',
                         style: TextStyle(
                           fontSize: 12,
-                          color: Color(0xFF65A6F1),
+                          color: _isLoading
+                              ? Colors.grey.shade400
+                              : const Color(0xFF65A6F1),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -239,15 +335,26 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    onPressed: _handleRegister,
-                    child: const Text(
-                      'Sign up',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    onPressed: _isLoading ? null : _handleRegister,
+                    child: _isLoading
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.5,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.white,
+                              ),
+                            ),
+                          )
+                        : const Text(
+                            'Sign up',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -291,10 +398,12 @@ class _RegisterPageState extends State<RegisterPage> {
     bool obscureText = false,
     bool isPassword = false,
     bool showPassword = false,
+    bool enabled = true,
     VoidCallback? onPasswordToggle,
   }) {
     return TextFormField(
       controller: controller,
+      enabled: enabled,
       obscureText: obscureText,
       decoration: InputDecoration(
         hintText: hintText,
@@ -316,7 +425,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: Colors.grey.shade400,
                   size: 20,
                 ),
-                onPressed: onPasswordToggle,
+                onPressed: enabled ? onPasswordToggle : null,
               )
             : null,
       ),
