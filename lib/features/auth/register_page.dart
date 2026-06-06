@@ -59,11 +59,9 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
             child: Column(
               children: [
-                const SizedBox(height: 16),
-                // Register title
                 const SizedBox(height: 32),
                 // Logo section
                 _buildLogoSection(),
@@ -264,19 +262,15 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget _buildLogoSection() {
     return Column(
       children: [
-        Container(
+        SizedBox(
           width: 100,
           height: 100,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: const Color(0xFFE8F1FC),
-          ),
           child: Center(
             child: Image.asset(
               'assets/images/person.png',
               fit: BoxFit.contain,
-              width: 80,
-              height: 80,
+              width: 100,
+              height: 100,
             ),
           ),
         ),

@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'services/supabase_service.dart';
+import 'services/auth_service.dart';
 import 'features/auth/landing_page.dart';
 import 'features/auth/login_page.dart';
 import 'features/auth/register_page.dart';
 import 'features/teacher/dashboard_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Supabase
+  try {
+    await SupabaseService().initialize();
+  } catch (e) {
+    debugPrint('Supabase initialization error: $e');
+  }
+
+  // Initialize Auth Service
+  await AuthService().initialize();
+
   runApp(const MyApp());
 }
 
