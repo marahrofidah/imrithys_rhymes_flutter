@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'services/supabase_service.dart';
 import 'services/auth_service.dart';
 import 'features/auth/landing_page.dart';
@@ -9,14 +11,22 @@ import 'features/teacher/dashboard_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Supabase
+  // Load environment variables dari .env
+  await dotenv.load(fileName: ".env");
+
+  // Initialize Supabase dengan credentials dari .env
+  await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+  );
+
+  // Initialize SupabaseService & AuthService
   try {
     await SupabaseService().initialize();
   } catch (e) {
     debugPrint('Supabase initialization error: $e');
   }
 
-  // Initialize Auth Service
   await AuthService().initialize();
 
   runApp(const MyApp());

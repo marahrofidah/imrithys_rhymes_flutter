@@ -225,26 +225,28 @@ class _RegisterPageState extends State<RegisterPage> {
                                         _selectedRole = 'teacher';
                                       });
                                     },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 12,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: _selectedRole == 'teacher'
-                                      ? const Color(0xFF4CAF50)
-                                      : Colors.grey.shade300,
-                                  borderRadius: BorderRadius.circular(24),
-                                  opacity: _isLoading ? 0.6 : 1.0,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Guru',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: _selectedRole == 'teacher'
-                                          ? Colors.white
-                                          : Colors.grey.shade700,
+                              child: Opacity(
+                                opacity: _isLoading ? 0.6 : 1.0,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: _selectedRole == 'teacher'
+                                        ? const Color(0xFF4CAF50)
+                                        : Colors.grey.shade300,
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Guru',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: _selectedRole == 'teacher'
+                                            ? Colors.white
+                                            : Colors.grey.shade700,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -261,26 +263,28 @@ class _RegisterPageState extends State<RegisterPage> {
                                         _selectedRole = 'student';
                                       });
                                     },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 12,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: _selectedRole == 'student'
-                                      ? const Color(0xFFFFC107)
-                                      : Colors.grey.shade300,
-                                  borderRadius: BorderRadius.circular(24),
-                                  opacity: _isLoading ? 0.6 : 1.0,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Murid',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: _selectedRole == 'student'
-                                          ? Colors.white
-                                          : Colors.grey.shade700,
+                              child: Opacity(
+                                opacity: _isLoading ? 0.6 : 1.0,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: _selectedRole == 'student'
+                                        ? const Color(0xFFFFC107)
+                                        : Colors.grey.shade300,
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Murid',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: _selectedRole == 'student'
+                                            ? Colors.white
+                                            : Colors.grey.shade700,
+                                      ),
                                     ),
                                   ),
                                 ),
