@@ -7,6 +7,7 @@ import 'features/auth/landing_page.dart';
 import 'features/auth/login_page.dart';
 import 'features/auth/register_page.dart';
 import 'features/teacher/dashboard_page.dart';
+import 'features/student/dashboard_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/teacher-dashboard': (context) => const TeacherDashboardPage(),
+        '/student-dashboard': (context) => const StudentDashboardPage(),
       },
     );
   }

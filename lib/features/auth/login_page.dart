@@ -343,9 +343,11 @@ class _LoginPageState extends State<LoginPage>
         ),
       ),
     );
-    // : Buat student dashboard page dan navigate ke sini
-    // Navigator.pushReplacementNamed(context, '/student-dashboard',
-    //     arguments: {'classId': classId});
+    Navigator.pushReplacementNamed(
+      context,
+      '/student-dashboard',
+      arguments: {'classId': classId},
+    );
   }
 
   @override
