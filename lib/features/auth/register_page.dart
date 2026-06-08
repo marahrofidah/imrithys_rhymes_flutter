@@ -33,7 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void _handleRegister() async {
     final name = _nameController.text.trim();
     final username = _usernameController.text.trim();
-    final email = '${username}@imrithys.local'; // Generate email dari username
+    final email = '$username @imrithys.local'; // Generate email dari username
     final password = _passwordController.text.trim();
     final confirmPassword = _confirmPasswordController.text.trim();
 

@@ -17,7 +17,7 @@ void main() async {
   // Initialize Supabase dengan credentials dari .env
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+    publishableKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
   // Initialize SupabaseService & AuthService
