@@ -91,14 +91,14 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 height: 150,
                 decoration: BoxDecoration(
                   color: const Color(0xFF65A6F1),
-                  borderRadius: BorderRadius.circular(22),
+                  borderRadius: BorderRadius.circular(50),
                 ),
                 clipBehavior: Clip.hardEdge,
                 child: Stack(
                   children: [
                     // Teks kiri
                     Positioned(
-                      left: 20,
+                      left: 30,
                       top: 0,
                       bottom: 0,
                       child: Column(
@@ -108,7 +108,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           Text(
                             'Assalamualaikum,\n$userName',
                             style: const TextStyle(
-                              fontSize: 17,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               height: 1.3,
@@ -118,7 +118,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           const Text(
                             'Siap menaklukkan\nbait hari ini?',
                             style: TextStyle(
-                              fontSize: 12.5,
+                              fontSize: 14,
                               color: Colors.white,
                               height: 1.4,
                             ),
@@ -129,30 +129,12 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
 
                     // Gambar orang di kanan (menonjol ke atas)
                     Positioned(
-                      right: -4,
+                      right: 20,
                       bottom: 0,
                       child: Image.asset(
                         'assets/images/person.png',
-                        height: 155,
+                        height: 110,
                         fit: BoxFit.contain,
-                      ),
-                    ),
-
-                    // Bintang kecil dekorasi
-                    const Positioned(
-                      right: 110,
-                      top: 14,
-                      child: Text(
-                        '✦',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      ),
-                    ),
-                    const Positioned(
-                      right: 95,
-                      top: 30,
-                      child: Text(
-                        '✦',
-                        style: TextStyle(color: Colors.white60, fontSize: 8),
                       ),
                     ),
                   ],
@@ -160,7 +142,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               ),
               const SizedBox(height: 14),
 
-              // ===== FOCUS TRACK CARD (Orange) =====
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(
@@ -169,44 +150,46 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFA231),
-                  borderRadius: BorderRadius.circular(22),
+                  borderRadius: BorderRadius.circular(50),
                 ),
                 child: Row(
                   children: [
                     // Lingkaran putih dengan api + angka streak
                     Container(
-                      width: 56,
-                      height: 56,
+                      width: 100,
+                      height: 80,
                       decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
+                        color: Color.fromARGB(139, 255, 255, 255),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          bottomLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
+                          bottomRight: Radius.circular(40),
+                        ),
                       ),
-                      child: Stack(
-                        alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
                             'assets/images/api.png',
-                            width: 32,
-                            height: 32,
+                            width: 50,
+                            height: 50,
                             fit: BoxFit.contain,
                           ),
-                          Positioned(
-                            bottom: 8,
-                            right: 8,
-                            child: Text(
-                              '$_streakCount',
-                              style: const TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFFF6B00),
-                              ),
+                          const SizedBox(width: 0),
+                          Text(
+                            '$_streakCount',
+                            style: const TextStyle(
+                              fontSize: 38,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFFF6B00),
                             ),
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(width: 14),
-
                     // Teks Focus Track
                     const Expanded(
                       child: Column(
@@ -215,7 +198,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           Text(
                             'Focus Track',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -224,7 +207,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           Text(
                             'Dengarkan 1 Bab Syair\nsebanyak 5x agar Focus\nTrack bertambah',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               color: Colors.white,
                               height: 1.4,
                             ),
@@ -237,26 +220,23 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               ),
               const SizedBox(height: 20),
 
-              // ===== RHYMES ACTIVITY HEADER =====
               const Center(
                 child: Text(
                   'Rhymes Activity',
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: Color.fromARGB(221, 106, 106, 106),
                   ),
                 ),
               ),
               const SizedBox(height: 14),
-
-              // ===== DENGARKAN SYAIR CARD (Purple) =====
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(0),
                 decoration: BoxDecoration(
                   color: const Color(0xFF6E6EB0),
-                  borderRadius: BorderRadius.circular(22),
+                  borderRadius: BorderRadius.circular(40),
                 ),
                 clipBehavior: Clip.hardEdge,
                 child: Row(
@@ -289,7 +269,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                             Text(
                               'Dengarkan Syair',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
@@ -298,7 +278,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                             Text(
                               'Pilih bab yang ingin kamu\ndengarkan!',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 14,
                                 color: Colors.white,
                                 height: 1.4,
                               ),
@@ -312,7 +292,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               ),
               const SizedBox(height: 14),
 
-              // ===== GRID 2 KARTU: Kerjakan Kuis + Pelajari Kitab =====
               Row(
                 children: [
                   // Kerjakan Kuis (Pink)
