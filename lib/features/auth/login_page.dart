@@ -125,6 +125,7 @@ class _LoginPageState extends State<LoginPage>
                       'Masukkan Kode Kelas',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 55, 138, 232),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -145,21 +146,21 @@ class _LoginPageState extends State<LoginPage>
                           fontSize: 14,
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(
                             color: Color(0xFF65A6F1),
                             width: 1.5,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(
                             color: Color(0xFF65A6F1),
                             width: 1.5,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(
                             color: Color(0xFF65A6F1),
                             width: 2,
@@ -170,25 +171,40 @@ class _LoginPageState extends State<LoginPage>
                     ),
                     const SizedBox(height: 12),
 
-                    // Link "Tidak punya kode kelas? Next"
-                    GestureDetector(
-                      onTap: isLoadingCode
-                          ? null
-                          : () {
-                              classCodeController.clear();
-                              Navigator.pop(context);
-                              // Navigate ke student dashboard tanpa kelas
-                              _navigateToStudentDashboard(studentId, null);
-                            },
-                      child: const Text(
-                        'Tidak punya kode kelas? Next',
-                        style: TextStyle(
-                          color: Color(0xFF65A6F1),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
+                    // "Tidak punya kode kelas?" teks biasa + "Next" link
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Tidak punya kode kelas? ',
+                          style: TextStyle(
+                            color: Color(0xFF697B91),
+                            fontSize: 12,
+                          ),
                         ),
-                      ),
+                        GestureDetector(
+                          onTap: isLoadingCode
+                              ? null
+                              : () {
+                                  classCodeController.clear();
+                                  Navigator.pop(context);
+                                  // Navigate ke student dashboard tanpa kelas
+                                  _navigateToStudentDashboard(studentId, null);
+                                },
+                          child: Text(
+                            'Next',
+                            style: TextStyle(
+                              color: isLoadingCode
+                                  ? const Color(0xFF697B91)
+                                  : const Color(0xFF65A6F1),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline,
+                              decorationColor: const Color(0xFF65A6F1),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 20),
 
@@ -314,7 +330,7 @@ class _LoginPageState extends State<LoginPage>
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white,
+                                        Color.fromARGB(255, 255, 255, 255),
                                       ),
                                     ),
                                   )
