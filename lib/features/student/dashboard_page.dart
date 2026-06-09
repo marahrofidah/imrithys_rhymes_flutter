@@ -41,7 +41,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               height: 42,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF5BAEF0).withValues(alpha: 0.18),
+                color: const Color(0xFFA3C7F0).withValues(alpha: 0.18),
               ),
               child: const Center(
                 child: Text(
@@ -50,7 +50,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
-                    color: Color(0xFF5BAEF0),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
@@ -90,7 +90,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 width: double.infinity,
                 height: 150,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF5BAEF0),
+                  color: const Color(0xFF65A6F1),
                   borderRadius: BorderRadius.circular(22),
                 ),
                 clipBehavior: Clip.hardEdge,
@@ -142,12 +142,18 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                     const Positioned(
                       right: 110,
                       top: 14,
-                      child: Text('✦', style: TextStyle(color: Colors.white, fontSize: 14)),
+                      child: Text(
+                        '✦',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
                     ),
                     const Positioned(
                       right: 95,
                       top: 30,
-                      child: Text('✦', style: TextStyle(color: Colors.white60, fontSize: 8)),
+                      child: Text(
+                        '✦',
+                        style: TextStyle(color: Colors.white60, fontSize: 8),
+                      ),
                     ),
                   ],
                 ),
@@ -157,9 +163,12 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               // ===== FOCUS TRACK CARD (Orange) =====
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFC436),
+                  color: const Color(0xFFFFA231),
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: Row(
@@ -246,7 +255,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(0),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF7B6FB5),
+                  color: const Color(0xFF6E6EB0),
                   borderRadius: BorderRadius.circular(22),
                 ),
                 clipBehavior: Clip.hardEdge,
@@ -254,7 +263,11 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                   children: [
                     // Gambar earphone menonjol ke kiri
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 8, bottom: 8),
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                        top: 8,
+                        bottom: 8,
+                      ),
                       child: Image.asset(
                         'assets/images/earphone.png',
                         width: 110,
@@ -266,7 +279,10 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                     // Teks
                     const Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 8,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -304,7 +320,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                     child: _buildSquareCard(
                       imagePath: 'assets/images/kius.png',
                       label: 'Kerjakan\nKuis',
-                      color: const Color(0xFFEF6285),
+                      color: const Color(0xFFF66893),
                     ),
                   ),
                   const SizedBox(width: 14),
@@ -314,7 +330,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                     child: _buildSquareCard(
                       imagePath: 'assets/images/kitab.png',
                       label: 'Pelajari\nKitab',
-                      color: const Color(0xFFFFC436),
+                      color: const Color(0xFFFCC100),
                     ),
                   ),
                 ],
@@ -379,11 +395,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
             // Gambar di atas
             Positioned(
               top: 10,
-              child: Image.asset(
-                imagePath,
-                height: 80,
-                fit: BoxFit.contain,
-              ),
+              child: Image.asset(imagePath, height: 80, fit: BoxFit.contain),
             ),
 
             // Label di bawah
