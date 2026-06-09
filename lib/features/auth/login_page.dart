@@ -334,7 +334,10 @@ class _LoginPageState extends State<LoginPage>
                                       ),
                                     ),
                                   )
-                                : const Text('Masuk Kelas'),
+                                : const Text(
+                                    'Masuk Kelas',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                           ),
                         ),
                       ],
