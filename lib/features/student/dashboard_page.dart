@@ -294,23 +294,28 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               const SizedBox(height: 14),
 
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Kerjakan Kuis (Pink)
+                  // Kerjakan Kuis (Pink) - image kiri atas, teks kiri bawah
                   Expanded(
                     child: _buildSquareCard(
-                      imagePath: 'assets/images/kius.png',
+                      imagePath: 'assets/images/kuis.png',
                       label: 'Kerjakan\nKuis',
                       color: const Color(0xFFF66893),
+                      imageAlignment: Alignment.topLeft,
+                      textAlign: TextAlign.right,
                     ),
                   ),
                   const SizedBox(width: 14),
 
-                  // Pelajari Kitab (Yellow/Amber)
+                  // Pelajari Kitab (Yellow) - image kanan atas, teks kanan bawah
                   Expanded(
                     child: _buildSquareCard(
                       imagePath: 'assets/images/kitab.png',
                       label: 'Pelajari\nKitab',
                       color: const Color(0xFFFCC100),
+                      imageAlignment: Alignment.topRight,
+                      textAlign: TextAlign.left,
                     ),
                   ),
                 ],
@@ -355,39 +360,63 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     required String imagePath,
     required String label,
     required Color color,
+    Alignment imageAlignment = Alignment.topLeft,
+    TextAlign textAlign = TextAlign.center,
   }) {
+    final bool isRight = imageAlignment == Alignment.topRight;
+    final bool isTextRight =
+        textAlign == TextAlign.right; // posisi teks independen
+
     return GestureDetector(
       onTap: () {},
-      child: Container(
-        height: 150,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(50),
-        ),
-        clipBehavior: Clip.hardEdge,
+      child: AspectRatio(
+        aspectRatio: 1.0,
         child: Stack(
-          alignment: Alignment.center,
+          clipBehavior: Clip.none,
           children: [
-            // Gambar di atas
+            // Card background
             Positioned(
-              top: 10,
-              child: Image.asset(imagePath, height: 80, fit: BoxFit.contain),
+              left: 2,
+              right: 2,
+              bottom: -14,
+              top: 14,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                alignment: isTextRight
+                    ? Alignment
+                          .bottomRight // teks mepet kanan
+                    : Alignment.bottomLeft, // teks mepet kiri
+                padding: EdgeInsets.only(
+                  bottom: 18,
+                  left: isTextRight ? 0 : 26,
+                  right: isTextRight ? 26 : 0,
+                ),
+                child: Text(
+                  label,
+                  textAlign: textAlign,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    height: 1.3,
+                  ),
+                ),
+              ),
             ),
 
-            // Label di bawah
+            // Image overflow ke atas
             Positioned(
-              bottom: 14,
-              left: 10,
-              right: 10,
-              child: Text(
-                label,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  height: 1.3,
-                ),
+              top: -10,
+              left: isRight ? null : -8,
+              right: isRight ? -8 : null,
+              child: Image.asset(
+                imagePath,
+                width: 120,
+                height: 120,
+                fit: BoxFit.contain,
               ),
             ),
           ],
