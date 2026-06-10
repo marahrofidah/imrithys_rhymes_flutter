@@ -81,11 +81,10 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ===== WELCOME CARD (Biru) =====
               Container(
                 width: double.infinity,
                 height: 150,
@@ -118,7 +117,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           const Text(
                             'Siap menaklukkan\nbait hari ini?',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 15,
                               color: Colors.white,
                               height: 1.4,
                             ),
@@ -145,7 +144,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
+                  horizontal: 30,
                   vertical: 14,
                 ),
                 decoration: BoxDecoration(
@@ -156,25 +155,25 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                   children: [
                     // Lingkaran putih dengan api + angka streak
                     Container(
-                      width: 100,
-                      height: 80,
+                      padding: const EdgeInsets.only(
+                        left: 12,
+                        right: 18,
+                        top: 12,
+                        bottom: 12,
+                      ),
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(139, 255, 255, 255),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          bottomLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
-                          bottomRight: Radius.circular(40),
-                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(40)),
                       ),
                       child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
                             'assets/images/api.png',
-                            width: 50,
-                            height: 50,
+                            width: 38,
+                            height: 38,
                             fit: BoxFit.contain,
                           ),
                           const SizedBox(width: 0),
@@ -205,9 +204,9 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            'Dengarkan 1 Bab Syair\nsebanyak 5x agar Focus\nTrack bertambah',
+                            'Dengarkan 1 Bab Syair sebanyak 5x agar Focus Track bertambah',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 15,
                               color: Colors.white,
                               height: 1.4,
                             ),
@@ -224,47 +223,39 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 child: Text(
                   'Rhymes Activity',
                   style: TextStyle(
-                    fontSize: 17,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(221, 106, 106, 106),
+                    color: Color.fromARGB(221, 131, 131, 131),
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(0),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF6E6EB0),
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                clipBehavior: Clip.hardEdge,
-                child: Row(
-                  children: [
-                    // Gambar earphone menonjol ke kiri
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        top: 8,
-                        bottom: 8,
-                      ),
-                      child: Image.asset(
-                        'assets/images/earphone.png',
-                        width: 110,
-                        height: 90,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+              const SizedBox(height: 0),
 
-                    // Teks
-                    const Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 8,
+              SizedBox(
+                height: 140,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    // Card background
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      top: 20,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF6E6EB0),
+                          borderRadius: BorderRadius.circular(50),
                         ),
-                        child: Column(
+                        padding: const EdgeInsets.only(
+                          left: 130,
+                          right: 20,
+                          top: 12,
+                          bottom: 12,
+                        ),
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               'Dengarkan Syair',
@@ -278,13 +269,23 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                             Text(
                               'Pilih bab yang ingin kamu\ndengarkan!',
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 15,
                                 color: Colors.white,
                                 height: 1.4,
                               ),
                             ),
                           ],
                         ),
+                      ),
+                    ),
+                    Positioned(
+                      left: -5,
+                      top: 0,
+                      child: Image.asset(
+                        'assets/images/earphone.png',
+                        width: 124,
+                        height: 124,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ],
@@ -320,19 +321,15 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
         ),
       ),
 
-      // ===== BOTTOM NAVIGATION BAR =====
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
+          borderRadius: const BorderRadius.all(Radius.circular(40)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 12,
-              offset: const Offset(0, -2),
+              offset: const Offset(0, -5),
             ),
           ],
         ),
@@ -365,7 +362,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
         height: 150,
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(22),
+          borderRadius: BorderRadius.circular(50),
         ),
         clipBehavior: Clip.hardEdge,
         child: Stack(
