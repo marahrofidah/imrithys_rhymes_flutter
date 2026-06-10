@@ -391,8 +391,8 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                     : Alignment.bottomLeft, // teks mepet kiri
                 padding: EdgeInsets.only(
                   bottom: 18,
-                  left: isTextRight ? 0 : 26,
-                  right: isTextRight ? 26 : 0,
+                  left: isTextRight ? 0 : 28,
+                  right: isTextRight ? 28 : 0,
                 ),
                 child: Text(
                   label,
@@ -409,13 +409,13 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
 
             // Image overflow ke atas
             Positioned(
-              top: -10,
-              left: isRight ? null : -8,
-              right: isRight ? -8 : null,
+              top: -12,
+              left: isRight ? null : -10,
+              right: isRight ? -7 : null,
               child: Image.asset(
                 imagePath,
-                width: 120,
-                height: 120,
+                width: 130,
+                height: 130,
                 fit: BoxFit.contain,
               ),
             ),
