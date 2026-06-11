@@ -10,7 +10,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String _selectedRole = ''; // 'student' atau 'teacher'
+  String _selectedRole = '';
+  String _selectedGender = ''; // 'laki-laki' atau 'perempuan'
   bool _showPassword = false;
   bool _showConfirmPassword = false;
   bool _isLoading = false;
@@ -46,6 +47,13 @@ class _RegisterPageState extends State<RegisterPage> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Semua field harus diisi!')));
+      return;
+    }
+
+    if (_selectedGender.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pilih gender terlebih dahulu!')),
+      );
       return;
     }
 
@@ -87,6 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
         password,
         _selectedRole,
         fullName: name,
+        gender: _selectedGender,
       );
 
       if (!mounted) return;
@@ -202,6 +211,90 @@ class _RegisterPageState extends State<RegisterPage> {
                             _showConfirmPassword = !_showConfirmPassword;
                           });
                         },
+                      ),
+                      const SizedBox(height: 20),
+                      // Pilih Gender
+                      Text(
+                        'Pilih Gender',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          // Laki-laki (biru)
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: _isLoading
+                                  ? null
+                                  : () {
+                                      setState(() {
+                                        _selectedGender = 'laki-laki';
+                                      });
+                                    },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                decoration: BoxDecoration(
+                                  color: _selectedGender == 'laki-laki'
+                                      ? const Color(0xFF65A6F1)
+                                      : Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Laki-laki',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: _selectedGender == 'laki-laki'
+                                          ? Colors.white
+                                          : Colors.grey.shade700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          // Perempuan (pink)
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: _isLoading
+                                  ? null
+                                  : () {
+                                      setState(() {
+                                        _selectedGender = 'perempuan';
+                                      });
+                                    },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                decoration: BoxDecoration(
+                                  color: _selectedGender == 'perempuan'
+                                      ? const Color(0xFFEF6285)
+                                      : Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Perempuan',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: _selectedGender == 'perempuan'
+                                          ? Colors.white
+                                          : Colors.grey.shade700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 20),
                       // Pilih Role

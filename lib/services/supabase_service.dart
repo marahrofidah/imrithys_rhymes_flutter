@@ -58,6 +58,7 @@ class SupabaseService {
     String password,
     String role, {
     String? fullName,
+    String? gender,
   }) async {
     try {
       final passwordHash = sha256.convert(password.codeUnits).toString();
@@ -70,6 +71,7 @@ class SupabaseService {
             'password_hash': passwordHash,
             'role': role,
             'full_name': fullName,
+            'gender': gender,
           })
           .select()
           .single();
