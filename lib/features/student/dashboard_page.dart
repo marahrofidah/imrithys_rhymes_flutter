@@ -71,7 +71,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 shape: BoxShape.circle,
                 color: Colors.grey.shade200,
                 image: const DecorationImage(
-                  image: AssetImage('assets/images/person.png'),
+                  image: AssetImage('assets/images/perempuan.png'),
                   fit: BoxFit.cover,
                 ),
               ),
