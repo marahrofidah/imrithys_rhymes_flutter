@@ -13,14 +13,15 @@ class StudentDashboardPage extends StatefulWidget {
 class _StudentDashboardPageState extends State<StudentDashboardPage> {
   int _selectedIndex = 0;
   late final String userName;
-  final int _streakCount = 9; // Bisa diambil dari backend nanti
+  late final String userGender;
+  final int _streakCount = 9;
 
   @override
   void initState() {
     super.initState();
     final user = AuthService().currentUser;
-    // Gunakan fullName (nama lengkap dari register), bukan username
     userName = user?.fullName ?? user?.username ?? 'Murid';
+    userGender = user?.gender ?? ''; // 'laki-laki', 'perempuan', atau ''
   }
 
   @override
@@ -63,15 +64,21 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               fit: BoxFit.contain,
             ),
 
-            // User avatar (foto orang bulat)
+            // User avatar — sesuai gender dari database
             Container(
               width: 42,
               height: 42,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey.shade200,
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/perempuan.png'),
+                image: DecorationImage(
+                  image: AssetImage(
+                    userGender == 'laki-laki'
+                        ? 'assets/images/laki-laki.png'
+                        : userGender == 'perempuan'
+                        ? 'assets/images/perempuan.png'
+                        : 'assets/images/person.png', // default
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
