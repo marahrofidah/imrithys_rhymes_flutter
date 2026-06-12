@@ -133,7 +133,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                       ),
                     ),
 
-                    // Gambar orang di kanan (menonjol ke atas)
                     Positioned(
                       right: 20,
                       bottom: 0,
