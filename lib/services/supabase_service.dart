@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -85,6 +86,67 @@ class SupabaseService {
 
   // ========== CLASS METHODS ==========
 
+  /// Generate kode kelas acak 6 karakter (huruf kapital + angka)
+  String _generateClassCode() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final random = Random.secure();
+    return List.generate(6, (_) => chars[random.nextInt(chars.length)]).join();
+  }
+
+  /// Buat kelas baru untuk guru saat register
+  Future<ClassModel?> createClassForTeacher(
+    String teacherId,
+    String teacherName,
+  ) async {
+    try {
+      // Generate kode unik — coba sampai tidak bentrok
+      String code;
+      bool codeExists = true;
+      do {
+        code = _generateClassCode();
+        final existing = await _client
+            .from('classes')
+            .select('id')
+            .eq('code', code)
+            .maybeSingle();
+        codeExists = existing != null;
+      } while (codeExists);
+
+      final response = await _client
+          .from('classes')
+          .insert({
+            'code': code,
+            'name': 'Kelas $teacherName',
+            'teacher_id': teacherId,
+            'description': 'Kelas milik $teacherName',
+          })
+          .select()
+          .single();
+
+      return ClassModel.fromJson(response);
+    } catch (e) {
+      debugPrint('Create class error: $e');
+      return null;
+    }
+  }
+
+  /// Ambil kelas milik guru berdasarkan teacher_id
+  Future<ClassModel?> getClassByTeacherId(String teacherId) async {
+    try {
+      final response = await _client
+          .from('classes')
+          .select()
+          .eq('teacher_id', teacherId)
+          .maybeSingle();
+
+      if (response == null) return null;
+      return ClassModel.fromJson(response);
+    } catch (e) {
+      debugPrint('Get class by teacher error: $e');
+      return null;
+    }
+  }
+
   /// Cari class berdasarkan code
   Future<ClassModel?> getClassByCode(String code) async {
     try {
@@ -116,6 +178,38 @@ class SupabaseService {
     } catch (e) {
       debugPrint('Enroll error: $e');
       return false;
+    }
+  }
+
+  /// Cek apakah murid sudah terdaftar di kelas manapun
+  Future<bool> isStudentEnrolled(String studentId) async {
+    try {
+      final response = await _client
+          .from('student_enrollments')
+          .select('id')
+          .eq('student_id', studentId)
+          .maybeSingle();
+      return response != null;
+    } catch (e) {
+      debugPrint('Check enrollment error: $e');
+      return false;
+    }
+  }
+
+  /// Ambil semua murid dalam kelas (join dengan tabel users)
+  Future<List<Map<String, dynamic>>> getStudentsInClass(String classId) async {
+    try {
+      final response = await _client
+          .from('student_enrollments')
+          .select('student_id, users(id, full_name, username, gender)')
+          .eq('class_id', classId);
+
+      return (response as List)
+          .map((e) => e['users'] as Map<String, dynamic>)
+          .toList();
+    } catch (e) {
+      debugPrint('Get students in class error: $e');
+      return [];
     }
   }
 

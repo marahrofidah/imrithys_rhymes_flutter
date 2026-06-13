@@ -34,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void _handleRegister() async {
     final name = _nameController.text.trim();
     final username = _usernameController.text.trim();
-    final email = '$username @imrithys.local'; // Generate email dari username
+    final email = '$username@imrithys.local'; // Generate email dari username
     final password = _passwordController.text.trim();
     final confirmPassword = _confirmPasswordController.text.trim();
 
@@ -108,6 +108,21 @@ class _RegisterPageState extends State<RegisterPage> {
         return;
       }
 
+      // Jika guru, buat kelas otomatis dengan kode acak
+      if (_selectedRole == 'teacher') {
+        final newClass = await supabase.createClassForTeacher(
+          newUser.id,
+          name,
+        );
+        if (newClass == null) {
+          debugPrint('Warning: Gagal membuat kelas untuk guru ${newUser.id}');
+        } else {
+          debugPrint('Kelas berhasil dibuat dengan kode: ${newClass.code}');
+        }
+      }
+
+      if (!mounted) return;
+
       // Auto login setelah register
       final authService = AuthService();
       final loggedIn = await authService.login(username, password);
@@ -119,13 +134,13 @@ class _RegisterPageState extends State<RegisterPage> {
           SnackBar(
             content: Text(
               _selectedRole == 'teacher'
-                  ? 'Pendaftaran guru berhasil! Selamat datang'
+                  ? 'Pendaftaran guru berhasil! Kode kelas sudah dibuat 🎉'
                   : 'Pendaftaran murid berhasil! Selamat datang',
             ),
           ),
         );
 
-        // Navigate ke login page (mana nanti akan deteksi role)
+        // Navigate ke login page (nanti akan deteksi role)
         Navigator.pushReplacementNamed(context, '/login');
       } else {
         ScaffoldMessenger.of(

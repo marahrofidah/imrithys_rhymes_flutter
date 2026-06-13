@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
+import '../../services/supabase_service.dart';
 
 class StudentDashboardPage extends StatefulWidget {
   final String? classId;
@@ -14,18 +15,268 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
   int _selectedIndex = 0;
   late final String userName;
   late final String userGender;
+  late final String userId;
   final int _streakCount = 9;
+
+  bool _checkingEnrollment = true;
+  bool _isEnrolled = false;
 
   @override
   void initState() {
     super.initState();
     final user = AuthService().currentUser;
     userName = user?.fullName ?? user?.username ?? 'Murid';
-    userGender = user?.gender ?? ''; // 'laki-laki', 'perempuan', atau ''
+    userGender = user?.gender ?? '';
+    userId = user?.id ?? '';
+    _checkEnrollment();
+  }
+
+  Future<void> _checkEnrollment() async {
+    final enrolled = await SupabaseService().isStudentEnrolled(userId);
+    if (!mounted) return;
+    setState(() {
+      _isEnrolled = enrolled;
+      _checkingEnrollment = false;
+    });
+
+    // Tampilkan dialog jika belum punya kelas
+    if (!enrolled) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showJoinClassDialog();
+      });
+    }
+  }
+
+  void _showJoinClassDialog() {
+    final codeController = TextEditingController();
+    bool isJoining = false;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Icon kelas
+                    Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF65A6F1).withValues(alpha: 0.12),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Center(
+                        child: Text('🏫', style: TextStyle(fontSize: 34)),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Masukkan Kode Kelas',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF2D2D2D),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Minta kode kelas kepada gurumu\nuntuk bergabung ke kelas.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey.shade500,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Input kode
+                    TextField(
+                      controller: codeController,
+                      textCapitalization: TextCapitalization.characters,
+                      textAlign: TextAlign.center,
+                      maxLength: 6,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 4,
+                        color: Color(0xFF2D2D2D),
+                      ),
+                      decoration: InputDecoration(
+                        counterText: '',
+                        hintText: 'XXXXXX',
+                        hintStyle: TextStyle(
+                          fontSize: 22,
+                          letterSpacing: 4,
+                          color: Colors.grey.shade300,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey.shade50,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14),
+                          borderSide: BorderSide(color: Colors.grey.shade200),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14),
+                          borderSide: BorderSide(color: Colors.grey.shade200),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF65A6F1),
+                            width: 2,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 20,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Tombol Gabung
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF65A6F1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          elevation: 0,
+                        ),
+                        onPressed: isJoining
+                            ? null
+                            : () async {
+                                final code = codeController.text
+                                    .trim()
+                                    .toUpperCase();
+                                if (code.length != 6) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Kode kelas harus 6 karakter!',
+                                      ),
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                setDialogState(() => isJoining = true);
+
+                                final supabase = SupabaseService();
+                                final classData = await supabase.getClassByCode(
+                                  code,
+                                );
+
+                                if (classData == null) {
+                                  if (context.mounted) {
+                                    setDialogState(() => isJoining = false);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: const Text(
+                                          'Kode kelas tidak ditemukan!',
+                                        ),
+                                        backgroundColor: Colors.red.shade400,
+                                        behavior: SnackBarBehavior.floating,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  return;
+                                }
+
+                                final success = await supabase
+                                    .enrollStudentToClass(userId, classData.id);
+
+                                if (!context.mounted) return;
+
+                                if (success) {
+                                  Navigator.of(dialogContext).pop();
+                                  setState(() => _isEnrolled = true);
+                                  ScaffoldMessenger.of(
+                                    mounted ? this.context : dialogContext,
+                                  ).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Berhasil bergabung ke ${classData.name}! 🎉',
+                                      ),
+                                      backgroundColor: const Color(0xFF65A6F1),
+                                      behavior: SnackBarBehavior.floating,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  setDialogState(() => isJoining = false);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: const Text(
+                                        'Gagal bergabung ke kelas.',
+                                      ),
+                                      backgroundColor: Colors.red.shade400,
+                                    ),
+                                  );
+                                }
+                              },
+                        child: isJoining
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.5,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.white,
+                                  ),
+                                ),
+                              )
+                            : const Text(
+                                'Gabung Kelas',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_checkingEnrollment) {
+      return const Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: CircularProgressIndicator(color: Color(0xFF65A6F1)),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -36,7 +287,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Info icon (lingkaran biru muda)
+            // Info icon
             Container(
               width: 42,
               height: 42,
@@ -51,7 +302,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: Color(0xFF65A6F1),
                   ),
                 ),
               ),
@@ -77,7 +328,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                         ? 'assets/images/laki-laki.png'
                         : userGender == 'perempuan'
                         ? 'assets/images/perempuan.png'
-                        : 'assets/images/person.png', // default
+                        : 'assets/images/person.png',
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -302,7 +553,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Kerjakan Kuis (Pink) - image kiri atas, teks kiri bawah
+                  // Kerjakan Kuis (Pink)
                   Expanded(
                     child: _buildSquareCard(
                       imagePath: 'assets/images/kuis.png',
@@ -314,7 +565,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                   ),
                   const SizedBox(width: 14),
 
-                  // Pelajari Kitab (Yellow) - image kanan atas, teks kanan bawah
+                  // Pelajari Kitab (Yellow)
                   Expanded(
                     child: _buildSquareCard(
                       imagePath: 'assets/images/kitab.png',
@@ -370,8 +621,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     TextAlign textAlign = TextAlign.center,
   }) {
     final bool isRight = imageAlignment == Alignment.topRight;
-    final bool isTextRight =
-        textAlign == TextAlign.right; // posisi teks independen
+    final bool isTextRight = textAlign == TextAlign.right;
 
     return GestureDetector(
       onTap: () {},
@@ -392,9 +642,8 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                   borderRadius: BorderRadius.circular(50),
                 ),
                 alignment: isTextRight
-                    ? Alignment
-                          .bottomRight // teks mepet kanan
-                    : Alignment.bottomLeft, // teks mepet kiri
+                    ? Alignment.bottomRight
+                    : Alignment.bottomLeft,
                 padding: EdgeInsets.only(
                   bottom: 18,
                   left: isTextRight ? 0 : 28,
@@ -462,6 +711,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text('Logout'),
         content: const Text('Apakah Anda yakin ingin keluar?'),
         actions: [
