@@ -19,7 +19,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
   final int _streakCount = 9;
 
   bool _checkingEnrollment = true;
-  bool _isEnrolled = false;
 
   @override
   void initState() {
@@ -35,7 +34,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     final enrolled = await SupabaseService().isStudentEnrolled(userId);
     if (!mounted) return;
     setState(() {
-      _isEnrolled = enrolled;
       _checkingEnrollment = false;
     });
 
@@ -208,10 +206,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
 
                                 if (success) {
                                   Navigator.of(dialogContext).pop();
-                                  setState(() => _isEnrolled = true);
-                                  ScaffoldMessenger.of(
-                                    mounted ? this.context : dialogContext,
-                                  ).showSnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
                                         'Berhasil bergabung ke ${classData.name}! 🎉',
@@ -493,7 +488,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    // Card background
                     Positioned(
                       left: 0,
                       right: 0,
@@ -553,7 +547,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Kerjakan Kuis (Pink)
                   Expanded(
                     child: _buildSquareCard(
                       imagePath: 'assets/images/kuis.png',
@@ -564,8 +557,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                     ),
                   ),
                   const SizedBox(width: 14),
-
-                  // Pelajari Kitab (Yellow)
                   Expanded(
                     child: _buildSquareCard(
                       imagePath: 'assets/images/kitab.png',
@@ -630,7 +621,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            // Card background
             Positioned(
               left: 2,
               right: 2,
@@ -661,8 +651,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 ),
               ),
             ),
-
-            // Image overflow ke atas
             Positioned(
               top: -12,
               left: isRight ? null : -10,
@@ -685,9 +673,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     return GestureDetector(
       onTap: () {
         setState(() => _selectedIndex = index);
-        if (index == 3) {
-          _handleLogout();
-        }
+        if (index == 3) _handleLogout();
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
