@@ -125,7 +125,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
+                    horizontal: 24,
                     vertical: 8,
                   ),
                   child: Column(
@@ -195,7 +195,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                 Text(
                   'Assalamualaikum,\n$teacherName',
                   style: const TextStyle(
-                    fontSize: 19,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     height: 1.3,
@@ -205,9 +205,9 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                 const SizedBox(
                   width: 190,
                   child: Text(
-                    'Pantau perkembangan\nhafalan kelas Anda sekarang!',
+                    'Pantau perkembangan hafalan kelas Anda sekarang!',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 14,
                       color: Colors.white,
                       height: 1.4,
                     ),
@@ -252,18 +252,14 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
             Expanded(
               child: RichText(
                 text: TextSpan(
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  style: const TextStyle(fontSize: 22, color: Colors.white),
                   children: [
                     const TextSpan(text: 'Kode Kelas : '),
                     TextSpan(
                       text: '" $code "',
                       style: const TextStyle(
-                        fontSize: 20,
-                        letterSpacing: 2,
+                        fontSize: 22,
+                        letterSpacing: 1,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -319,7 +315,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
           child: _buildStatCard(
             value: '$totalMurid',
             label: 'Total Murid',
-            color: const Color(0xFF7B6FE8),
+            color: const Color(0xFF6E6EB0),
           ),
         ),
         const SizedBox(width: 14),
@@ -327,7 +323,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
           child: _buildStatCard(
             value: '$aktifHariIni',
             label: 'Aktif Hari ini',
-            color: const Color(0xFFF06292),
+            color: const Color(0xFFF66893),
           ),
         ),
       ],
@@ -343,7 +339,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
       padding: const EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(40),
       ),
       child: Column(
         children: [
@@ -359,7 +355,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
           Text(
             label,
             style: const TextStyle(
-              fontSize: 13,
+              fontSize: 20,
               color: Colors.white,
               fontWeight: FontWeight.w500,
             ),
