@@ -131,7 +131,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // ── Welcome Card ──
+                      // ── Welcome Card 
                       _buildWelcomeCard(),
                       const SizedBox(height: 14),
 
