@@ -129,9 +129,9 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                     vertical: 8,
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // ── Welcome Card 
+                      // ── Welcome Card
                       _buildWelcomeCard(),
                       const SizedBox(height: 14),
 
@@ -149,7 +149,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF2D2D2D),
+                          color: Color.fromARGB(221, 107, 107, 107),
                         ),
                       ),
                       const SizedBox(height: 12),

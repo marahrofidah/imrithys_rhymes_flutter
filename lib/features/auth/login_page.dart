@@ -84,9 +84,23 @@ class _LoginPageState extends State<LoginPage>
         return;
       }
 
-      // Jika student, tunjukkan dialog kode kelas
+      // Jika student, cek dulu apakah sudah terdaftar di kelas
       if (user.isStudent) {
-        _showClassCodeDialog(user.id);
+        final supabase = SupabaseService();
+        final isEnrolled = await supabase.isStudentEnrolled(user.id);
+
+        if (!mounted) return;
+
+        if (isEnrolled) {
+          // Sudah punya kelas, langsung masuk dashboard
+          final classes = await supabase.getStudentClasses(user.id);
+          if (!mounted) return;
+          final classId = classes.isNotEmpty ? classes.first.id : null;
+          _navigateToStudentDashboard(user.id, classId);
+        } else {
+          // Belum punya kelas, minta input kode kelas
+          _showClassCodeDialog(user.id);
+        }
       }
     } catch (e) {
       if (mounted) {
