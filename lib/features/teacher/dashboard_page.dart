@@ -71,6 +71,14 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: const Color(0xFFA3C7F0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.15),
+                    blurRadius: 4,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
               child: const Center(
                 child: Text(
