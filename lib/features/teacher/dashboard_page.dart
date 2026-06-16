@@ -78,7 +78,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF65A6F1),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
