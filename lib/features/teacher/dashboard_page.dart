@@ -106,6 +106,14 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey.shade200,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.15),
+                    blurRadius: 5,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
                 image: DecorationImage(
                   image: AssetImage(
                     teacherGender == 'laki-laki'
@@ -363,6 +371,14 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(40),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 5,
+            spreadRadius: 1,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -429,8 +445,9 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.07),
-            blurRadius: 10,
+            color: Colors.black.withValues(alpha: 0.15),
+            blurRadius: 5,
+            spreadRadius: 1,
             offset: const Offset(0, 3),
           ),
         ],
