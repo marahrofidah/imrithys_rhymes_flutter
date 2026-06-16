@@ -66,8 +66,8 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
           children: [
             // Info icon (lingkaran biru muda)
             Container(
-              width: 42,
-              height: 42,
+              width: 50,
+              height: 50,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: const Color(0xFFA3C7F0).withValues(alpha: 0.18),
@@ -76,7 +76,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                 child: Text(
                   'i',
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF65A6F1),
                   ),
@@ -93,8 +93,8 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
 
             // Avatar guru sesuai gender
             Container(
-              width: 42,
-              height: 42,
+              width: 50,
+              height: 50,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey.shade200,
