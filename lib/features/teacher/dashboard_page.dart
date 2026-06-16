@@ -70,13 +70,13 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
               height: 50,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFFA3C7F0).withValues(alpha: 0.18),
+                color: const Color(0xFFA3C7F0),
               ),
               child: const Center(
                 child: Text(
                   'i',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
