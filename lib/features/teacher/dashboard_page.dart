@@ -74,7 +74,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.15),
-                    blurRadius: 4,
+                    blurRadius: 5,
                     spreadRadius: 1,
                     offset: const Offset(0, 2),
                   ),
@@ -186,6 +186,14 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
       decoration: BoxDecoration(
         color: const Color(0xFF65A6F1),
         borderRadius: BorderRadius.circular(50),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.15),
+            blurRadius: 5,
+            spreadRadius: 1,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       clipBehavior: Clip.hardEdge,
       child: Stack(
@@ -253,6 +261,14 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
         decoration: BoxDecoration(
           color: const Color(0xFFFFA231),
           borderRadius: BorderRadius.circular(50),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.15),
+              blurRadius: 5,
+              spreadRadius: 1,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: Row(
           children: [
