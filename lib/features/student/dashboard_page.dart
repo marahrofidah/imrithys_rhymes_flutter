@@ -669,6 +669,14 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.15),
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
                 alignment: isTextRight
                     ? Alignment.bottomRight
