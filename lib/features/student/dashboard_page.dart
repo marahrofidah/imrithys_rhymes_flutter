@@ -324,6 +324,14 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey.shade200,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.15),
+                    blurRadius: 5,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
                 image: DecorationImage(
                   image: AssetImage(
                     userGender == 'laki-laki'
