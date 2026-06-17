@@ -284,20 +284,27 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
           children: [
             // Info icon
             Container(
-              width: 42,
-              height: 42,
+              width: 50,
+              height: 50,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFFA3C7F0).withValues(alpha: 0.18),
+                color: const Color(0xFFA3C7F0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.15),
+                    blurRadius: 5,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
               child: const Center(
                 child: Text(
                   'i',
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    color: Color(0xFF65A6F1),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ),
