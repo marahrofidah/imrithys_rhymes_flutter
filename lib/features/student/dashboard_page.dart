@@ -349,7 +349,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -425,6 +425,14 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFA231),
                   borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.15),
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
                 child: Row(
                   children: [
@@ -520,6 +528,14 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                         decoration: BoxDecoration(
                           color: const Color(0xFF6E6EB0),
                           borderRadius: BorderRadius.circular(50),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.15),
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
                         padding: const EdgeInsets.only(
                           left: 130,
