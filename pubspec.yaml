@@ -45,6 +45,9 @@ dependencies:
   
   # Password hashing
   crypto: ^3.0.3
+  
+  # Audio player untuk streaming audio dari Supabase Storage
+  audioplayers: ^6.1.0
 
 dev_dependencies:
   flutter_test:

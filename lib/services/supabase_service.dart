@@ -286,4 +286,166 @@ class SupabaseService {
       return false;
     }
   }
+
+  // ========== LISTENING & STREAK METHODS (TIKROR) ==========
+
+  /// Catat satu kali mendengarkan audio selesai
+  Future<void> recordListening({
+    required String studentId,
+    required String babKey,
+    required String babLabel,
+  }) async {
+    try {
+      await _client.from('listening_logs').insert({
+        'student_id': studentId,
+        'bab_key': babKey,
+        'bab_label': babLabel,
+        'listened_at': DateTime.now().toUtc().toIso8601String(),
+      });
+      debugPrint('Listening recorded: $babKey');
+    } catch (e) {
+      debugPrint('Record listening error: $e');
+    }
+  }
+
+  /// Ambil jumlah tiap bab yang didengarkan hari ini
+  /// Return: Map(babKey, count)
+  Future<Map<String, int>> getTodayListeningCounts(String studentId) async {
+    try {
+      final now = DateTime.now();
+      final todayStart = DateTime(now.year, now.month, now.day).toUtc();
+      final todayEnd = todayStart.add(const Duration(days: 1));
+
+      final response = await _client
+          .from('listening_logs')
+          .select('bab_key, bab_label')
+          .eq('student_id', studentId)
+          .gte('listened_at', todayStart.toIso8601String())
+          .lt('listened_at', todayEnd.toIso8601String());
+
+      final Map<String, int> counts = {};
+      for (final row in response as List) {
+        final key = row['bab_key'] as String;
+        counts[key] = (counts[key] ?? 0) + 1;
+      }
+      return counts;
+    } catch (e) {
+      debugPrint('Get today listening counts error: $e');
+      return {};
+    }
+  }
+
+  /// Ambil top 3 bab yang paling banyak didengar hari ini
+  /// Return: List of Map {babKey, babLabel, count}
+  Future<List<Map<String, dynamic>>> getTodayTopBabs(
+    String studentId, {
+    int limit = 3,
+  }) async {
+    try {
+      final now = DateTime.now();
+      final todayStart = DateTime(now.year, now.month, now.day).toUtc();
+      final todayEnd = todayStart.add(const Duration(days: 1));
+
+      final response = await _client
+          .from('listening_logs')
+          .select('bab_key, bab_label')
+          .eq('student_id', studentId)
+          .gte('listened_at', todayStart.toIso8601String())
+          .lt('listened_at', todayEnd.toIso8601String());
+
+      // Hitung per bab
+      final Map<String, Map<String, dynamic>> babMap = {};
+      for (final row in response as List) {
+        final key = row['bab_key'] as String;
+        final label = row['bab_label'] as String;
+        if (!babMap.containsKey(key)) {
+          babMap[key] = {'babKey': key, 'babLabel': label, 'count': 0};
+        }
+        babMap[key]!['count'] = (babMap[key]!['count'] as int) + 1;
+      }
+
+      // Sort by count descending, ambil top N
+      final sorted = babMap.values.toList()
+        ..sort((a, b) => (b['count'] as int).compareTo(a['count'] as int));
+
+      return sorted.take(limit).toList();
+    } catch (e) {
+      debugPrint('Get today top babs error: $e');
+      return [];
+    }
+  }
+
+  /// Ambil jumlah streak total murid
+  Future<int> getStudentStreakCount(String studentId) async {
+    try {
+      final response = await _client
+          .from('student_streaks')
+          .select('streak_count')
+          .eq('student_id', studentId)
+          .maybeSingle();
+
+      if (response == null) return 0;
+      return (response['streak_count'] as int?) ?? 0;
+    } catch (e) {
+      debugPrint('Get streak error: $e');
+      return 0;
+    }
+  }
+
+  /// Update streak jika hari ini ada bab yang sudah didengar ≥ 5x
+  /// Return true jika streak berhasil bertambah hari ini
+  Future<bool> updateStreakIfNeeded(String studentId) async {
+    try {
+      // Ambil counts hari ini
+      final counts = await getTodayListeningCounts(studentId);
+
+      // Cek apakah ada bab yang sudah ≥ 5x
+      final hasCompletedBab = counts.values.any((c) => c >= 5);
+      if (!hasCompletedBab) return false;
+
+      final today = DateTime.now();
+      final todayDate =
+          '${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}';
+
+      // Cek apakah streak sudah di-update hari ini
+      final existing = await _client
+          .from('student_streaks')
+          .select()
+          .eq('student_id', studentId)
+          .maybeSingle();
+
+      if (existing == null) {
+        // Buat record baru
+        await _client.from('student_streaks').insert({
+          'student_id': studentId,
+          'streak_count': 1,
+          'last_active_date': todayDate,
+          'updated_at': DateTime.now().toUtc().toIso8601String(),
+        });
+        return true;
+      }
+
+      final lastActiveDate = existing['last_active_date'] as String?;
+      if (lastActiveDate == todayDate) {
+        // Sudah di-update hari ini, jangan tambah lagi
+        return false;
+      }
+
+      // Tambah streak count
+      final newCount = (existing['streak_count'] as int) + 1;
+      await _client
+          .from('student_streaks')
+          .update({
+            'streak_count': newCount,
+            'last_active_date': todayDate,
+            'updated_at': DateTime.now().toUtc().toIso8601String(),
+          })
+          .eq('student_id', studentId);
+
+      return true;
+    } catch (e) {
+      debugPrint('Update streak error: $e');
+      return false;
+    }
+  }
 }

@@ -16,9 +16,8 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
   late final String userName;
   late final String userGender;
   late final String userId;
-  final int _streakCount = 9;
-
   bool _checkingEnrollment = true;
+  int _streakCount = 0;
 
   @override
   void initState() {
@@ -28,6 +27,13 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     userGender = user?.gender ?? '';
     userId = user?.id ?? '';
     _checkEnrollment();
+    _loadStreak();
+  }
+
+  Future<void> _loadStreak() async {
+    if (userId.isEmpty) return;
+    final count = await SupabaseService().getStudentStreakCount(userId);
+    if (mounted) setState(() => _streakCount = count);
   }
 
   Future<void> _checkEnrollment() async {
@@ -514,71 +520,78 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               ),
               const SizedBox(height: 0),
 
-              SizedBox(
-                height: 140,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      top: 20,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF6E6EB0),
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.15),
-                              blurRadius: 5,
-                              spreadRadius: 1,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.only(
-                          left: 130,
-                          right: 20,
-                          top: 12,
-                          bottom: 12,
-                        ),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Dengarkan Syair',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+              GestureDetector(
+                onTap: () async {
+                  await Navigator.pushNamed(context, '/dengarkan-syair');
+                  // Refresh streak setelah kembali dari halaman syair
+                  _loadStreak();
+                },
+                child: SizedBox(
+                  height: 140,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        top: 20,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF6E6EB0),
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.15),
+                                blurRadius: 5,
+                                spreadRadius: 1,
+                                offset: const Offset(0, 2),
                               ),
-                            ),
-                            SizedBox(height: 6),
-                            Text(
-                              'Pilih bab yang ingin kamu\ndengarkan!',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
-                                height: 1.4,
+                            ],
+                          ),
+                          padding: const EdgeInsets.only(
+                            left: 130,
+                            right: 20,
+                            top: 12,
+                            bottom: 12,
+                          ),
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Dengarkan Syair',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 6),
+                              Text(
+                                'Pilih bab yang ingin kamu\ndengarkan!',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      left: -5,
-                      top: 0,
-                      child: Image.asset(
-                        'assets/images/earphone.png',
-                        width: 124,
-                        height: 124,
-                        fit: BoxFit.contain,
+                      Positioned(
+                        left: -5,
+                        top: 0,
+                        child: Image.asset(
+                          'assets/images/earphone.png',
+                          width: 124,
+                          height: 124,
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 14),
