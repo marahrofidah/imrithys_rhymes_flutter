@@ -319,8 +319,8 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
 
             // User avatar — sesuai gender dari database
             Container(
-              width: 42,
-              height: 42,
+              width: 50,
+              height: 50,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey.shade200,
