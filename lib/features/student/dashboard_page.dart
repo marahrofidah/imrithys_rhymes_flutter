@@ -523,7 +523,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               GestureDetector(
                 onTap: () async {
                   await Navigator.pushNamed(context, '/dengarkan-syair');
-                  // Refresh streak setelah kembali dari halaman syair
+                  // Refresh streak setelah kembali dari halaman sy
                   _loadStreak();
                 },
                 child: SizedBox(
