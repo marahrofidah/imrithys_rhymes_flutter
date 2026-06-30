@@ -210,7 +210,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           // ---- Scrollable list ----
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               child: Column(
                 children: [
                   // Progress papan hari ini

@@ -8,7 +8,6 @@ class KerjakanKuisPage extends StatefulWidget {
 }
 
 class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
-  // Dummy data bab (nanti diganti dari Supabase)
   final List<Map<String, String>> _babList = [
     {'key': 'pembukaan', 'label': 'Pembukaan – المقدمة'},
     {'key': 'bab_kalam', 'label': 'Bab Kalam – باب الكلام'},
@@ -30,7 +29,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     },
   ];
 
-  // Dummy history
   final List<Map<String, dynamic>> _historyList = [
     {
       'babLabel': "Bab I'rob – باب الإعراب",
@@ -51,156 +49,244 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
 
   Map<String, String>? _selectedBab;
   bool _dropdownOpen = false;
-
-  // Dummy progress
   final int _completedBabs = 5;
   final int _totalBabs = 33;
 
+  // Overlay dropdown – pakai GlobalKey untuk ukur tinggi container
+  final LayerLink _layerLink = LayerLink();
+  final GlobalKey _babContainerKey = GlobalKey();
+  OverlayEntry? _overlayEntry;
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        titleSpacing: 20,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 8),
-
-            _buildHeader(),
-            const SizedBox(height: 20),
-
-            _buildProgressCard(),
-            const SizedBox(height: 20),
-
-            _buildBabSelector(),
-            const SizedBox(height: 16),
-
-            _buildMulaiKuisButton(),
-            const SizedBox(height: 28),
-
-            _buildHistorySection(),
-            const SizedBox(height: 24),
-          ],
-        ),
-      ),
-
-      bottomNavigationBar: _buildBottomNav(),
-    );
+  void dispose() {
+    _overlayEntry?.remove();
+    super.dispose();
   }
 
-  Widget _buildHeader() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Clock icon
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: const Color(0xFFFFF3E0),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.orange.withValues(alpha: 0.2),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
+  void _showDropdown() {
+    final RenderBox box =
+        _babContainerKey.currentContext!.findRenderObject() as RenderBox;
+    final double containerH = box.size.height;
+    final double containerW = box.size.width;
+
+    _overlayEntry = OverlayEntry(
+      builder: (_) => Stack(
+        children: [
+          // Tap di luar → tutup
+          Positioned.fill(
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: _hideDropdown,
+            ),
           ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const Icon(
-                Icons.timer_rounded,
-                size: 50,
-                color: Color(0xFFF59E0B),
-              ),
-              Positioned(
-                right: 10,
-                top: 10,
-                child: Container(
-                  width: 22,
-                  height: 22,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFEF4444),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      '?',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
+          // List dropdown — muncul tepat di bawah container
+          CompositedTransformFollower(
+            link: _layerLink,
+            showWhenUnlinked: false,
+            offset: Offset(0, containerH + 8),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(
+                width: containerW,
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    constraints: const BoxConstraints(maxHeight: 240),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.12),
+                          blurRadius: 16,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: ListView.separated(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: _babList.length,
+                        separatorBuilder: (context, index) =>
+                            Divider(height: 1, color: Colors.grey.shade100),
+                        itemBuilder: (context, index) {
+                          final bab = _babList[index];
+                          final isSelected = _selectedBab?['key'] == bab['key'];
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() => _selectedBab = bab);
+                              _hideDropdown();
+                            },
+                            child: Container(
+                              color: isSelected
+                                  ? const Color(
+                                      0xFFFF3270,
+                                    ).withValues(alpha: 0.06)
+                                  : Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 13,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      bab['label']!,
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: isSelected
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
+                                        color: isSelected
+                                            ? const Color(0xFFFF3270)
+                                            : const Color(0xFF2D2D2D),
+                                      ),
+                                    ),
+                                  ),
+                                  if (isSelected)
+                                    const Icon(
+                                      Icons.check_rounded,
+                                      color: Color(0xFFFF3270),
+                                      size: 18,
+                                    ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-        const SizedBox(width: 16),
+        ],
+      ),
+    );
+    Overlay.of(context).insert(_overlayEntry!);
+    setState(() => _dropdownOpen = true);
+  }
 
-        // Teks kuis
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Kuis',
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
+  void _hideDropdown() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+    if (mounted) setState(() => _dropdownOpen = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SafeArea(bottom: false, child: SizedBox(height: 8)),
+            _buildHeader(),
+            const SizedBox(height: 16),
+            _buildProgressCard(),
+            const SizedBox(height: 20),
+            _buildBabSelector(),
+            const SizedBox(height: 16),
+            _buildMulaiKuisButton(),
+            const SizedBox(height: 24),
+            _buildHistorySection(),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _buildBottomNav(),
+    );
+  }
+
+  // ── HEADER ────────────────────────────────────────────────
+  Widget _buildHeader() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  size: 18,
                   color: Color(0xFF2D2D2D),
                 ),
               ),
-              const SizedBox(height: 4),
-              const Text(
-                'Pertahankan streakmu\ndengan quiz setiap hari!',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Color(0xFF697B91),
-                  height: 1.4,
-                ),
-              ),
-            ],
-          ),
+            ),
+            Image.asset(
+              'assets/images/logo.png',
+              height: 40,
+              fit: BoxFit.contain,
+            ),
+          ],
         ),
-
-        // Logo
-        Image.asset(
-          'assets/images/imrithys_rhymes.png',
-          height: 36,
-          fit: BoxFit.contain,
+        const SizedBox(height: 12),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/kuis.png',
+              width: 140,
+              height: 140,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(width: 14),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Kuis',
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2D2D2D),
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Pertahankan streakmu dengan quiz setiap hari!',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Color(0xFF697B91),
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );
   }
 
+  // ── PROGRESS CARD ─────────────────────────────────────────
   Widget _buildProgressCard() {
     final double progressValue = _completedBabs / _totalBabs;
-
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFFE91E8C), Color(0xFFFF6B9D)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(20),
+        color: const Color(0xFFFF3270),
+        borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFE91E8C).withValues(alpha: 0.35),
+            color: const Color(0xFFFF3270).withValues(alpha: 0.35),
             blurRadius: 14,
             offset: const Offset(0, 5),
           ),
@@ -212,18 +298,29 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
           const Text(
             'Progress Kuis',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
           const SizedBox(height: 4),
-          Row(
+          const Text(
+            'Kerjakan kuis dan tingkatkan progressmu »',
+            style: TextStyle(fontSize: 12, color: Colors.white70),
+          ),
+          const SizedBox(height: 10),
+          Stack(
+            alignment: Alignment.center,
             children: [
-              const Expanded(
-                child: Text(
-                  'Kerjakan kuis dan tingkatkan progressmu »',
-                  style: TextStyle(fontSize: 12, color: Colors.white70),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: LinearProgressIndicator(
+                  value: progressValue,
+                  backgroundColor: Colors.white.withValues(alpha: 0.3),
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    Color(0xFFF5A623),
+                  ),
+                  minHeight: 22,
                 ),
               ),
               Text(
@@ -236,209 +333,139 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: LinearProgressIndicator(
-              value: progressValue,
-              backgroundColor: Colors.white.withValues(alpha: 0.3),
-              valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-              minHeight: 10,
-            ),
-          ),
         ],
       ),
     );
   }
 
+  // ── PILIH BAB ─────────────────────────────────────────────
   Widget _buildBabSelector() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.07),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          // Header "Pilih Bab"
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFFE91E8C), Color(0xFFFF6B9D)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    // CompositedTransformTarget membungkus SELURUH container pink
+    return CompositedTransformTarget(
+      link: _layerLink,
+      child: Container(
+        key: _babContainerKey,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFF3270),
+          borderRadius: BorderRadius.circular(50),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFFFF3270).withValues(alpha: 0.4),
+              blurRadius: 14,
+              offset: const Offset(0, 5),
             ),
-            child: const Text(
+          ],
+        ),
+        child: Column(
+          children: [
+            const Text(
               'Pilih Bab',
-              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
-          ),
-
-          // Dropdown trigger
-          GestureDetector(
-            onTap: () => setState(() => _dropdownOpen = !_dropdownOpen),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: _dropdownOpen
-                    ? BorderRadius.zero
-                    : const BorderRadius.vertical(bottom: Radius.circular(20)),
-                border: Border.all(color: Colors.grey.shade100),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      _selectedBab?['label'] ?? 'Pilih bab...',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: _selectedBab != null
-                            ? const Color(0xFF2D2D2D)
-                            : const Color(0xFF9E9E9E),
-                      ),
-                    ),
-                  ),
-                  Icon(
-                    _dropdownOpen
-                        ? Icons.keyboard_arrow_up_rounded
-                        : Icons.keyboard_arrow_down_rounded,
-                    color: const Color(0xFFE91E8C),
-                    size: 24,
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          // Dropdown list
-          if (_dropdownOpen)
-            Container(
-              constraints: const BoxConstraints(maxHeight: 220),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(20),
+            const SizedBox(height: 10),
+            // White pill trigger
+            GestureDetector(
+              onTap: _dropdownOpen ? _hideDropdown : _showDropdown,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 14,
                 ),
-                border: Border.all(color: Colors.grey.shade100),
-              ),
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemCount: _babList.length,
-                separatorBuilder: (_, __) =>
-                    Divider(height: 1, color: Colors.grey.shade100),
-                itemBuilder: (context, index) {
-                  final bab = _babList[index];
-                  final isSelected = _selectedBab?['key'] == bab['key'];
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _selectedBab = bab;
-                        _dropdownOpen = false;
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 12,
-                      ),
-                      color: isSelected
-                          ? const Color(0xFFE91E8C).withValues(alpha: 0.06)
-                          : Colors.transparent,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              bab['label']!,
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: isSelected
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: isSelected
-                                    ? const Color(0xFFE91E8C)
-                                    : const Color(0xFF2D2D2D),
-                              ),
-                            ),
-                          ),
-                          if (isSelected)
-                            const Icon(
-                              Icons.check_rounded,
-                              color: Color(0xFFE91E8C),
-                              size: 18,
-                            ),
-                        ],
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectedBab?['label'] ?? 'Pilih bab...',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: _selectedBab != null
+                              ? const Color(0xFFFF3270)
+                              : const Color(0xFF9E9E9E),
+                        ),
                       ),
                     ),
-                  );
-                },
+                    Icon(
+                      _dropdownOpen
+                          ? Icons.keyboard_arrow_up_rounded
+                          : Icons.keyboard_arrow_down_rounded,
+                      color: const Color(0xFFFF3270),
+                      size: 24,
+                    ),
+                  ],
+                ),
               ),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
+  // ── MULAI KUIS ────────────────────────────────────────────
   Widget _buildMulaiKuisButton() {
-    return SizedBox(
-      width: double.infinity,
-      height: 54,
-      child: ElevatedButton.icon(
-        onPressed: _selectedBab == null
-            ? null
-            : () {
-                // Nanti navigate ke quiz session
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Memulai kuis: ${_selectedBab!['label']}'),
-                    backgroundColor: const Color(0xFFE91E8C),
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+    final bool enabled = _selectedBab != null;
+    return GestureDetector(
+      onTap: enabled
+          ? () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Memulai kuis: ${_selectedBab!['label']}'),
+                  backgroundColor: const Color(0xFFFF3270),
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                );
-              },
-        icon: const Text('⏳', style: TextStyle(fontSize: 20)),
-        label: const Text(
-          'Mulai Kuis',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+                ),
+              );
+            }
+          : null,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: enabled ? const Color(0xFFFF3270) : Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(50),
+          boxShadow: enabled
+              ? [
+                  BoxShadow(
+                    color: const Color(0xFFFF3270).withValues(alpha: 0.4),
+                    blurRadius: 14,
+                    offset: const Offset(0, 5),
+                  ),
+                ]
+              : [],
         ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: _selectedBab == null
-              ? Colors.grey.shade300
-              : const Color(0xFFE91E8C),
-          disabledBackgroundColor: Colors.grey.shade300,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-          elevation: _selectedBab == null ? 0 : 4,
-          shadowColor: const Color(0xFFE91E8C).withValues(alpha: 0.4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('⏳', style: TextStyle(fontSize: 20)),
+            const SizedBox(width: 10),
+            Text(
+              'Mulai Kuis',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: enabled ? Colors.white : Colors.grey.shade500,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
+  // ── HISTORY ───────────────────────────────────────────────
   Widget _buildHistorySection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -481,7 +508,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
             final parts = label.split(' – ');
             final nameId = parts[0];
             final nameAr = parts.length > 1 ? parts[1] : '';
-
             Color scoreColor;
             if (score >= 90) {
               scoreColor = const Color(0xFF4CAF50);
@@ -490,7 +516,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
             } else {
               scoreColor = const Color(0xFFEF4444);
             }
-
             return Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Container(
@@ -511,7 +536,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 ),
                 child: Row(
                   children: [
-                    // Info bab
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -544,8 +568,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                         ],
                       ),
                     ),
-
-                    // Score badge
                     Container(
                       width: 52,
                       height: 52,
@@ -577,6 +599,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     );
   }
 
+  // ── BOTTOM NAV ────────────────────────────────────────────
   Widget _buildBottomNav() {
     return Container(
       decoration: BoxDecoration(
@@ -599,9 +622,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               _buildNavItem(
                 Icons.home_rounded,
                 0,
-                onTap: () {
-                  Navigator.pop(context);
-                },
+                onTap: () => Navigator.pop(context),
               ),
               _buildNavItem(Icons.quiz_rounded, 1, isActive: true),
               _buildNavItem(Icons.person_rounded, 2),
@@ -626,14 +647,14 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isActive
-              ? const Color(0xFFE91E8C).withValues(alpha: 0.10)
+              ? const Color(0xFFFF3270).withValues(alpha: 0.10)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Icon(
           icon,
           size: 28,
-          color: isActive ? const Color(0xFFE91E8C) : Colors.grey.shade400,
+          color: isActive ? const Color(0xFFFF3270) : Colors.grey.shade400,
         ),
       ),
     );
