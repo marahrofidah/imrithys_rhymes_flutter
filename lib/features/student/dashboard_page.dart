@@ -606,6 +606,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                       color: const Color(0xFFF66893),
                       imageAlignment: Alignment.topLeft,
                       textAlign: TextAlign.right,
+                      onTap: () => Navigator.pushNamed(context, '/kerjakan-kuis'),
                     ),
                   ),
                   const SizedBox(width: 14),
@@ -662,12 +663,13 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     required Color color,
     Alignment imageAlignment = Alignment.topLeft,
     TextAlign textAlign = TextAlign.center,
+    VoidCallback? onTap,
   }) {
     final bool isRight = imageAlignment == Alignment.topRight;
     final bool isTextRight = textAlign == TextAlign.right;
 
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap ?? () {},
       child: AspectRatio(
         aspectRatio: 1.0,
         child: Stack(
