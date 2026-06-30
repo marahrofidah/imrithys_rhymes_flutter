@@ -13,12 +13,21 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     {'key': 'pembukaan', 'label': 'Pembukaan – المقدمة'},
     {'key': 'bab_kalam', 'label': 'Bab Kalam – باب الكلام'},
     {'key': 'bab_irob', 'label': "Bab I'rob – باب الإعراب"},
-    {'key': 'bab_alamat_irob', 'label': "Bab Alamat I'rob – باب علامات الإعراب"},
-    {'key': 'bab_alamat_nashob', 'label': "Bab Alamat Nashob – باب علامات النّصب"},
+    {
+      'key': 'bab_alamat_irob',
+      'label': "Bab Alamat I'rob – باب علامات الإعراب",
+    },
+    {
+      'key': 'bab_alamat_nashob',
+      'label': "Bab Alamat Nashob – باب علامات النّصب",
+    },
     {'key': 'bab_alamat_jer', 'label': 'Bab Alamat Jer – باب علامات الخفض'},
     {'key': 'bab_alamat_jazam', 'label': 'Bab Alamat Jazam – باب علامات الجزم'},
     {'key': 'fasal', 'label': "Fasal – فضّل"},
-    {'key': 'bab_makrifat', 'label': "Bab Makrifat dan Nakirah – باب المعرفة والنّكرة"},
+    {
+      'key': 'bab_makrifat',
+      'label': "Bab Makrifat dan Nakirah – باب المعرفة والنّكرة",
+    },
   ];
 
   // Dummy history
@@ -56,14 +65,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
         elevation: 0,
         automaticallyImplyLeading: false,
         titleSpacing: 20,
-        title: const Text(
-          'Quiz Harian',
-          style: TextStyle(
-            fontSize: 16,
-            color: Color(0xFF2D2D2D),
-            fontWeight: FontWeight.w600,
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -72,37 +73,28 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
           children: [
             const SizedBox(height: 8),
 
-            // ── Header ──────────────────────────────────────
             _buildHeader(),
             const SizedBox(height: 20),
 
-            // ── Progress Kuis ────────────────────────────────
             _buildProgressCard(),
             const SizedBox(height: 20),
 
-            // ── Pilih Bab ────────────────────────────────────
             _buildBabSelector(),
             const SizedBox(height: 16),
 
-            // ── Tombol Mulai Kuis ────────────────────────────
             _buildMulaiKuisButton(),
             const SizedBox(height: 28),
 
-            // ── History Kuis ─────────────────────────────────
             _buildHistorySection(),
             const SizedBox(height: 24),
           ],
         ),
       ),
 
-      // ── Bottom Nav ───────────────────────────────────────
       bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  // ──────────────────────────────────────────────────────────
-  // HEADER
-  // ──────────────────────────────────────────────────────────
   Widget _buildHeader() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,9 +185,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     );
   }
 
-  // ──────────────────────────────────────────────────────────
-  // PROGRESS CARD
-  // ──────────────────────────────────────────────────────────
   Widget _buildProgressCard() {
     final double progressValue = _completedBabs / _totalBabs;
 
@@ -234,10 +223,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               const Expanded(
                 child: Text(
                   'Kerjakan kuis dan tingkatkan progressmu »',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white70,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.white70),
                 ),
               ),
               Text(
@@ -256,8 +242,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
             child: LinearProgressIndicator(
               value: progressValue,
               backgroundColor: Colors.white.withValues(alpha: 0.3),
-              valueColor:
-                  const AlwaysStoppedAnimation<Color>(Colors.white),
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
               minHeight: 10,
             ),
           ),
@@ -266,9 +251,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     );
   }
 
-  // ──────────────────────────────────────────────────────────
-  // PILIH BAB
-  // ──────────────────────────────────────────────────────────
   Widget _buildBabSelector() {
     return Container(
       decoration: BoxDecoration(
@@ -311,17 +293,13 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
           GestureDetector(
             onTap: () => setState(() => _dropdownOpen = !_dropdownOpen),
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: _dropdownOpen
                     ? BorderRadius.zero
-                    : const BorderRadius.vertical(
-                        bottom: Radius.circular(20)),
-                border: Border.all(
-                  color: Colors.grey.shade100,
-                ),
+                    : const BorderRadius.vertical(bottom: Radius.circular(20)),
+                border: Border.all(color: Colors.grey.shade100),
               ),
               child: Row(
                 children: [
@@ -363,14 +341,11 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               child: ListView.separated(
                 shrinkWrap: true,
                 itemCount: _babList.length,
-                separatorBuilder: (_, __) => Divider(
-                  height: 1,
-                  color: Colors.grey.shade100,
-                ),
+                separatorBuilder: (_, __) =>
+                    Divider(height: 1, color: Colors.grey.shade100),
                 itemBuilder: (context, index) {
                   final bab = _babList[index];
-                  final isSelected =
-                      _selectedBab?['key'] == bab['key'];
+                  final isSelected = _selectedBab?['key'] == bab['key'];
                   return GestureDetector(
                     onTap: () {
                       setState(() {
@@ -380,7 +355,9 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 12),
+                        horizontal: 20,
+                        vertical: 12,
+                      ),
                       color: isSelected
                           ? const Color(0xFFE91E8C).withValues(alpha: 0.06)
                           : Colors.transparent,
@@ -401,8 +378,11 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                             ),
                           ),
                           if (isSelected)
-                            const Icon(Icons.check_rounded,
-                                color: Color(0xFFE91E8C), size: 18),
+                            const Icon(
+                              Icons.check_rounded,
+                              color: Color(0xFFE91E8C),
+                              size: 18,
+                            ),
                         ],
                       ),
                     ),
@@ -415,9 +395,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     );
   }
 
-  // ──────────────────────────────────────────────────────────
-  // TOMBOL MULAI KUIS
-  // ──────────────────────────────────────────────────────────
   Widget _buildMulaiKuisButton() {
     return SizedBox(
       width: double.infinity,
@@ -429,8 +406,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 // Nanti navigate ke quiz session
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content:
-                        Text('Memulai kuis: ${_selectedBab!['label']}'),
+                    content: Text('Memulai kuis: ${_selectedBab!['label']}'),
                     backgroundColor: const Color(0xFFE91E8C),
                     behavior: SnackBarBehavior.floating,
                     shape: RoundedRectangleBorder(
@@ -457,16 +433,12 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
             borderRadius: BorderRadius.circular(50),
           ),
           elevation: _selectedBab == null ? 0 : 4,
-          shadowColor:
-              const Color(0xFFE91E8C).withValues(alpha: 0.4),
+          shadowColor: const Color(0xFFE91E8C).withValues(alpha: 0.4),
         ),
       ),
     );
   }
 
-  // ──────────────────────────────────────────────────────────
-  // HISTORY KUIS
-  // ──────────────────────────────────────────────────────────
   Widget _buildHistorySection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -496,10 +468,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 SizedBox(height: 8),
                 Text(
                   'Belum ada riwayat kuis',
-                  style: TextStyle(
-                    color: Color(0xFF9E9E9E),
-                    fontSize: 14,
-                  ),
+                  style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 14),
                 ),
               ],
             ),
@@ -526,7 +495,9 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               padding: const EdgeInsets.only(bottom: 10),
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 18, vertical: 14),
+                  horizontal: 18,
+                  vertical: 14,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(16),
@@ -606,9 +577,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     );
   }
 
-  // ──────────────────────────────────────────────────────────
-  // BOTTOM NAV (sama seperti dashboard)
-  // ──────────────────────────────────────────────────────────
   Widget _buildBottomNav() {
     return Container(
       decoration: BoxDecoration(
@@ -628,9 +596,13 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(Icons.home_rounded, 0, onTap: () {
-                Navigator.pop(context);
-              }),
+              _buildNavItem(
+                Icons.home_rounded,
+                0,
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
               _buildNavItem(Icons.quiz_rounded, 1, isActive: true),
               _buildNavItem(Icons.person_rounded, 2),
               _buildNavItem(Icons.logout_rounded, 3),
@@ -641,14 +613,17 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     );
   }
 
-  Widget _buildNavItem(IconData icon, int index,
-      {bool isActive = false, VoidCallback? onTap}) {
+  Widget _buildNavItem(
+    IconData icon,
+    int index, {
+    bool isActive = false,
+    VoidCallback? onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isActive
               ? const Color(0xFFE91E8C).withValues(alpha: 0.10)
@@ -658,9 +633,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
         child: Icon(
           icon,
           size: 28,
-          color: isActive
-              ? const Color(0xFFE91E8C)
-              : Colors.grey.shade400,
+          color: isActive ? const Color(0xFFE91E8C) : Colors.grey.shade400,
         ),
       ),
     );
