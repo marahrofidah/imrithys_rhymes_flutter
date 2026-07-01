@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../services/supabase_service.dart';
+import '../../services/auth_service.dart';
+import 'quiz_session_page.dart';
 
 class KerjakanKuisPage extends StatefulWidget {
   const KerjakanKuisPage({super.key});
@@ -8,54 +11,129 @@ class KerjakanKuisPage extends StatefulWidget {
 }
 
 class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
-  final List<Map<String, String>> _babList = [
-    {'key': 'pembukaan', 'label': 'Pembukaan – المقدمة'},
-    {'key': 'bab_kalam', 'label': 'Bab Kalam – باب الكلام'},
-    {'key': 'bab_irob', 'label': "Bab I'rob – باب الإعراب"},
+  String? _studentId;
+
+  // ── 33 Bab Imrithyi ───────────────────────────────────────
+  final List<Map<String, dynamic>> _babList = [
+    {'key': 'pembukaan', 'label': 'Pembukaan – المقدمة', 'number': 1},
+    {'key': 'bab_kalam', 'label': 'Bab Kalam – باب الكلام', 'number': 2},
+    {'key': 'bab_irob', 'label': "Bab I'rob – باب الإعراب", 'number': 3},
     {
       'key': 'bab_alamat_irob',
       'label': "Bab Alamat I'rob – باب علامات الإعراب",
+      'number': 4,
     },
     {
-      'key': 'bab_alamat_nashob',
-      'label': "Bab Alamat Nashob – باب علامات النّصب",
+      'key': 'bab_rofa',
+      'label': 'Bab Alamat Rofa – باب علامات الرفع',
+      'number': 5,
     },
-    {'key': 'bab_alamat_jer', 'label': 'Bab Alamat Jer – باب علامات الخفض'},
-    {'key': 'bab_alamat_jazam', 'label': 'Bab Alamat Jazam – باب علامات الجزم'},
-    {'key': 'fasal', 'label': "Fasal – فضّل"},
     {
-      'key': 'bab_makrifat',
-      'label': "Bab Makrifat dan Nakirah – باب المعرفة والنّكرة",
+      'key': 'bab_nashob',
+      'label': 'Bab Alamat Nashob – باب علامات النصب',
+      'number': 6,
+    },
+    {
+      'key': 'bab_jer',
+      'label': 'Bab Alamat Jer – باب علامات الجر',
+      'number': 7,
+    },
+    {
+      'key': 'bab_jazam',
+      'label': 'Bab Alamat Jazam – باب علامات الجزم',
+      'number': 8,
+    },
+    {
+      'key': 'fasal_murofa',
+      'label': 'Fasal Marfu\'at – فصل المرفوعات',
+      'number': 9,
+    },
+    {'key': 'bab_fail', 'label': "Bab Fa'il – باب الفاعل", 'number': 10},
+    {
+      'key': 'bab_naib_fail',
+      'label': "Bab Naib Fa'il – باب نائب الفاعل",
+      'number': 11,
+    },
+    {'key': 'bab_mubtada', 'label': 'Bab Mubtada – باب المبتدأ', 'number': 12},
+    {'key': 'bab_khobar', 'label': 'Bab Khobar – باب الخبر', 'number': 13},
+    {
+      'key': 'bab_nawasikh',
+      'label': 'Bab Nawasikh – باب النواسخ',
+      'number': 14,
+    },
+    {'key': 'bab_inna', 'label': 'Bab Inna – باب إن وأخواتها', 'number': 15},
+    {'key': 'bab_kaana', 'label': 'Bab Kaana – باب كان وأخواتها', 'number': 16},
+    {'key': 'bab_tabi', 'label': "Bab Tabi' – باب التوابع", 'number': 17},
+    {'key': 'bab_naad', 'label': 'Bab Na\'at – باب النعت', 'number': 18},
+    {'key': 'bab_atof', 'label': "Bab 'Atof – باب العطف", 'number': 19},
+    {'key': 'bab_taukid', 'label': 'Bab Taukid – باب التوكيد', 'number': 20},
+    {'key': 'bab_badal', 'label': 'Bab Badal – باب البدل', 'number': 21},
+    {
+      'key': 'fasal_manshub',
+      'label': 'Fasal Manshubat – فصل المنصوبات',
+      'number': 22,
+    },
+    {
+      'key': 'bab_mafulmutlaq',
+      'label': 'Bab Maf\'ul Mutlaq – باب المفعول المطلق',
+      'number': 23,
+    },
+    {
+      'key': 'bab_mafulajl',
+      'label': "Bab Maf'ul Lah – باب المفعول له",
+      'number': 24,
+    },
+    {
+      'key': 'bab_mafulmah',
+      'label': "Bab Maf'ul Maah – باب المفعول معه",
+      'number': 25,
+    },
+    {
+      'key': 'bab_mustasna',
+      'label': 'Bab Mustasna – باب الاستثناء',
+      'number': 26,
+    },
+    {'key': 'bab_hal', 'label': 'Bab Hal – باب الحال', 'number': 27},
+    {'key': 'bab_tamyiz', 'label': 'Bab Tamyiz – باب التمييز', 'number': 28},
+    {'key': 'bab_munada', 'label': 'Bab Munada – باب المنادى', 'number': 29},
+    {
+      'key': 'fasal_majrur',
+      'label': 'Fasal Majrurat – فصل المجرورات',
+      'number': 30,
+    },
+    {'key': 'bab_idofah', 'label': 'Bab Idafah – باب الإضافة', 'number': 31},
+    {
+      'key': 'bab_maqsur',
+      'label': 'Bab Isim Maqsur – باب الاسم المقصور',
+      'number': 32,
+    },
+    {
+      'key': 'bab_mamdud',
+      'label': 'Bab Isim Mamdud – باب الاسم الممدود',
+      'number': 33,
     },
   ];
 
-  final List<Map<String, dynamic>> _historyList = [
-    {
-      'babLabel': "Bab I'rob – باب الإعراب",
-      'date': 'Senin, 20 April 2026',
-      'score': 80,
-    },
-    {
-      'babLabel': 'Pembukaan – المقدمة',
-      'date': 'Senin, 20 April 2026',
-      'score': 90,
-    },
-    {
-      'babLabel': 'Bab Kalam – باب الكلام',
-      'date': 'Minggu, 19 April 2026',
-      'score': 70,
-    },
-  ];
-
-  Map<String, String>? _selectedBab;
+  // ── State ─────────────────────────────────────────────────
+  Map<String, dynamic>? _selectedBab;
   bool _dropdownOpen = false;
-  final int _completedBabs = 5;
-  final int _totalBabs = 33;
+  bool _loadingData = true;
 
-  // Overlay dropdown – pakai GlobalKey untuk ukur tinggi container
+  int _completedBabs = 0;
+  final int _totalBabs = 33;
+  Set<String> _passedBabKeys = {};
+  List<Map<String, dynamic>> _historyList = [];
+
+  // Overlay dropdown
   final LayerLink _layerLink = LayerLink();
   final GlobalKey _babContainerKey = GlobalKey();
   OverlayEntry? _overlayEntry;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
 
   @override
   void dispose() {
@@ -63,6 +141,36 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     super.dispose();
   }
 
+  Future<void> _loadData() async {
+    _studentId = AuthService().currentUser?.id;
+    if (_studentId == null) {
+      setState(() => _loadingData = false);
+      return;
+    }
+    setState(() => _loadingData = true);
+    final results = await Future.wait([
+      SupabaseService().getPassedBabs(_studentId!),
+      SupabaseService().getQuizHistory(_studentId!),
+    ]);
+
+    final passed = results[0] as Set<String>;
+    final history = results[1] as List<Map<String, dynamic>>;
+
+    if (mounted) {
+      setState(() {
+        _passedBabKeys = passed;
+        _completedBabs = passed.length;
+        _historyList = history;
+        _loadingData = false;
+        // Reset pilihan jika bab yang dipilih sudah lolos
+        if (_selectedBab != null && passed.contains(_selectedBab!['key'])) {
+          _selectedBab = null;
+        }
+      });
+    }
+  }
+
+  // ── Overlay dropdown ──────────────────────────────────────
   void _showDropdown() {
     final RenderBox box =
         _babContainerKey.currentContext!.findRenderObject() as RenderBox;
@@ -72,14 +180,12 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     _overlayEntry = OverlayEntry(
       builder: (_) => Stack(
         children: [
-          // Tap di luar → tutup
           Positioned.fill(
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: _hideDropdown,
             ),
           ),
-          // List dropdown — muncul tepat di bawah container
           CompositedTransformFollower(
             link: _layerLink,
             showWhenUnlinked: false,
@@ -91,7 +197,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 child: Material(
                   color: Colors.transparent,
                   child: Container(
-                    constraints: const BoxConstraints(maxHeight: 240),
+                    constraints: const BoxConstraints(maxHeight: 280),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
@@ -109,18 +215,24 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         itemCount: _babList.length,
-                        separatorBuilder: (context, index) =>
+                        separatorBuilder: (_, __) =>
                             Divider(height: 1, color: Colors.grey.shade100),
                         itemBuilder: (context, index) {
                           final bab = _babList[index];
+                          final isPassed = _passedBabKeys.contains(bab['key']);
                           final isSelected = _selectedBab?['key'] == bab['key'];
+
                           return GestureDetector(
-                            onTap: () {
-                              setState(() => _selectedBab = bab);
-                              _hideDropdown();
-                            },
+                            onTap: isPassed
+                                ? null
+                                : () {
+                                    setState(() => _selectedBab = bab);
+                                    _hideDropdown();
+                                  },
                             child: Container(
-                              color: isSelected
+                              color: isPassed
+                                  ? Colors.grey.shade50
+                                  : isSelected
                                   ? const Color(
                                       0xFFFF3270,
                                     ).withValues(alpha: 0.06)
@@ -133,19 +245,27 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      bab['label']!,
+                                      bab['label'] as String,
                                       style: TextStyle(
                                         fontSize: 13,
+                                        color: isPassed
+                                            ? Colors.grey.shade400
+                                            : isSelected
+                                            ? const Color(0xFFFF3270)
+                                            : const Color(0xFF2D2D2D),
                                         fontWeight: isSelected
                                             ? FontWeight.bold
                                             : FontWeight.normal,
-                                        color: isSelected
-                                            ? const Color(0xFFFF3270)
-                                            : const Color(0xFF2D2D2D),
                                       ),
                                     ),
                                   ),
-                                  if (isSelected)
+                                  if (isPassed)
+                                    const Icon(
+                                      Icons.lock_rounded,
+                                      color: Color(0xFF4CAF50),
+                                      size: 16,
+                                    )
+                                  else if (isSelected)
                                     const Icon(
                                       Icons.check_rounded,
                                       color: Color(0xFFFF3270),
@@ -174,6 +294,25 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     _overlayEntry?.remove();
     _overlayEntry = null;
     if (mounted) setState(() => _dropdownOpen = false);
+  }
+
+  void _startQuiz() {
+    if (_selectedBab == null || _studentId == null) return;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => QuizSessionPage(
+          studentId: _studentId!,
+          babKey: _selectedBab!['key'] as String,
+          babLabel: _selectedBab!['label'] as String,
+          babNumber: _selectedBab!['number'] as int,
+        ),
+      ),
+    ).then((result) {
+      if (result == true) {
+        _loadData(); // reload setelah selesai kuis
+      }
+    });
   }
 
   @override
@@ -228,7 +367,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               ),
             ),
             Image.asset(
-              'assets/images/logo.png',
+              'assets/images/imrithys_rhymes.png',
               height: 40,
               fit: BoxFit.contain,
             ),
@@ -240,8 +379,8 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
           children: [
             Image.asset(
               'assets/images/kuis.png',
-              width: 140,
-              height: 140,
+              width: 110,
+              height: 110,
               fit: BoxFit.contain,
             ),
             const SizedBox(width: 14),
@@ -259,9 +398,9 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    'Pertahankan streakmu dengan quiz setiap hari!',
+                    'Pertahankan streakmu\ndengan quiz setiap hari!',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 13,
                       color: Color(0xFF697B91),
                       height: 1.4,
                     ),
@@ -277,7 +416,9 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
 
   // ── PROGRESS CARD ─────────────────────────────────────────
   Widget _buildProgressCard() {
-    final double progressValue = _completedBabs / _totalBabs;
+    final double progressValue = _totalBabs > 0
+        ? _completedBabs / _totalBabs
+        : 0.0;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
@@ -309,30 +450,41 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
             style: TextStyle(fontSize: 12, color: Colors.white70),
           ),
           const SizedBox(height: 10),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: LinearProgressIndicator(
-                  value: progressValue,
-                  backgroundColor: Colors.white.withValues(alpha: 0.3),
-                  valueColor: const AlwaysStoppedAnimation<Color>(
-                    Color(0xFFF5A623),
+          _loadingData
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: LinearProgressIndicator(
+                    backgroundColor: Colors.white.withValues(alpha: 0.3),
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                      Color(0xFFF5A623),
+                    ),
+                    minHeight: 22,
                   ),
-                  minHeight: 22,
+                )
+              : Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: LinearProgressIndicator(
+                        value: progressValue,
+                        backgroundColor: Colors.white.withValues(alpha: 0.3),
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                          Color(0xFFF5A623),
+                        ),
+                        minHeight: 22,
+                      ),
+                    ),
+                    Text(
+                      '$_completedBabs/$_totalBabs',
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                '$_completedBabs/$_totalBabs',
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );
@@ -340,7 +492,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
 
   // ── PILIH BAB ─────────────────────────────────────────────
   Widget _buildBabSelector() {
-    // CompositedTransformTarget membungkus SELURUH container pink
     return CompositedTransformTarget(
       link: _layerLink,
       child: Container(
@@ -368,7 +519,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               ),
             ),
             const SizedBox(height: 10),
-            // White pill trigger
             GestureDetector(
               onTap: _dropdownOpen ? _hideDropdown : _showDropdown,
               child: Container(
@@ -414,29 +564,16 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
 
   // ── MULAI KUIS ────────────────────────────────────────────
   Widget _buildMulaiKuisButton() {
-    final bool enabled = _selectedBab != null;
+    final bool hasBab = _selectedBab != null;
     return GestureDetector(
-      onTap: enabled
-          ? () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Memulai kuis: ${_selectedBab!['label']}'),
-                  backgroundColor: const Color(0xFFFF3270),
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              );
-            }
-          : null,
+      onTap: hasBab ? _startQuiz : null,
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: enabled ? const Color(0xFFFF3270) : Colors.grey.shade300,
+          color: hasBab ? const Color(0xFFFF3270) : Colors.grey.shade300,
           borderRadius: BorderRadius.circular(50),
-          boxShadow: enabled
+          boxShadow: hasBab
               ? [
                   BoxShadow(
                     color: const Color(0xFFFF3270).withValues(alpha: 0.4),
@@ -456,7 +593,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: enabled ? Colors.white : Colors.grey.shade500,
+                color: hasBab ? Colors.white : Colors.grey.shade500,
               ),
             ),
           ],
@@ -467,135 +604,160 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
 
   // ── HISTORY ───────────────────────────────────────────────
   Widget _buildHistorySection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Center(
-          child: Text(
-            'History Kuis',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF9E9E9E),
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(28),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.07),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Center(
+            child: Text(
+              'History Kuis',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF4A5568),
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 12),
-        if (_historyList.isEmpty)
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade50,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: const Column(
-              children: [
-                Text('📝', style: TextStyle(fontSize: 36)),
-                SizedBox(height: 8),
-                Text(
-                  'Belum ada riwayat kuis',
-                  style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 14),
-                ),
-              ],
-            ),
-          )
-        else
-          ...List.generate(_historyList.length, (index) {
-            final item = _historyList[index];
-            final score = item['score'] as int;
-            final label = item['babLabel'] as String;
-            final parts = label.split(' – ');
-            final nameId = parts[0];
-            final nameAr = parts.length > 1 ? parts[1] : '';
-            Color scoreColor;
-            if (score >= 90) {
-              scoreColor = const Color(0xFF4CAF50);
-            } else if (score >= 70) {
-              scoreColor = const Color(0xFF9E9E9E);
-            } else {
-              scoreColor = const Color(0xFFEF4444);
-            }
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 14,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.04),
-                      blurRadius: 6,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            nameId,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF2D2D2D),
-                            ),
-                          ),
-                          if (nameAr.isNotEmpty)
+          const SizedBox(height: 16),
+          if (_loadingData)
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(24),
+                child: CircularProgressIndicator(color: Color(0xFFFF3270)),
+              ),
+            )
+          else if (_historyList.isEmpty)
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Column(
+                children: [
+                  Text('📝', style: TextStyle(fontSize: 36)),
+                  SizedBox(height: 8),
+                  Text(
+                    'Belum ada riwayat kuis',
+                    style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 14),
+                  ),
+                ],
+              ),
+            )
+          else
+            ...List.generate(_historyList.length, (index) {
+              final item = _historyList[index];
+              final score = item['score'] as int;
+              final label = item['bab_label'] as String;
+              final isPassed = item['is_passed'] as bool? ?? score >= 80;
+
+              final Color scoreColor = isPassed
+                  ? const Color(0xFF4CAF50)
+                  : const Color(0xFF9E9E9E);
+
+              // Format tanggal
+              final raw = item['attempted_at'] as String? ?? '';
+              String dateStr = '';
+              if (raw.isNotEmpty) {
+                try {
+                  final dt = DateTime.parse(raw).toLocal();
+                  const months = [
+                    '',
+                    'Januari',
+                    'Februari',
+                    'Maret',
+                    'April',
+                    'Mei',
+                    'Juni',
+                    'Juli',
+                    'Agustus',
+                    'September',
+                    'Oktober',
+                    'November',
+                    'Desember',
+                  ];
+                  const days = [
+                    '',
+                    'Senin',
+                    'Selasa',
+                    'Rabu',
+                    'Kamis',
+                    'Jumat',
+                    'Sabtu',
+                    'Minggu',
+                  ];
+                  dateStr =
+                      '${days[dt.weekday]}, ${dt.day} ${months[dt.month]} ${dt.year}';
+                } catch (_) {
+                  dateStr = raw.substring(0, 10);
+                }
+              }
+
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 18,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEEEEEE),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Text(
-                              nameAr,
+                              label,
                               style: const TextStyle(
-                                fontSize: 13,
-                                color: Color(0xFF697B91),
-                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF2D3748),
                               ),
                             ),
-                          const SizedBox(height: 4),
-                          Text(
-                            item['date'] as String,
-                            style: const TextStyle(
-                              fontSize: 11,
-                              color: Color(0xFF9E9E9E),
+                            const SizedBox(height: 4),
+                            Text(
+                              dateStr,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF718096),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 52,
-                      height: 52,
-                      decoration: BoxDecoration(
-                        color: scoreColor.withValues(alpha: 0.12),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: scoreColor.withValues(alpha: 0.3),
-                          width: 2,
+                          ],
                         ),
                       ),
-                      child: Center(
-                        child: Text(
-                          '$score',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: scoreColor,
-                          ),
+                      Text(
+                        '$score',
+                        style: TextStyle(
+                          fontSize: 34,
+                          fontWeight: FontWeight.bold,
+                          color: scoreColor,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }),
-      ],
+              );
+            }),
+        ],
+      ),
     );
   }
 

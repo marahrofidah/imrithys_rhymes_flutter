@@ -448,4 +448,143 @@ class SupabaseService {
       return false;
     }
   }
+
+  // ========== QUIZ METHODS ==========
+
+  /// Ambil 10 soal untuk bab tertentu
+  Future<List<Map<String, dynamic>>> getQuizQuestions(String babKey) async {
+    try {
+      final response = await _client
+          .from('quiz_questions')
+          .select()
+          .eq('bab_key', babKey)
+          .order('question_no');
+      return (response as List).cast<Map<String, dynamic>>();
+    } catch (e) {
+      debugPrint('Get quiz questions error: $e');
+      return [];
+    }
+  }
+
+  /// Simpan hasil kuis setelah selesai mengerjakan
+  Future<String?> saveQuizResult({
+    required String studentId,
+    required String babKey,
+    required String babLabel,
+    required int babNumber,
+    required int score,
+    required int correctCount,
+  }) async {
+    try {
+      await _client.from('quiz_results').insert({
+        'student_id': studentId,
+        'bab_key': babKey,
+        'bab_label': babLabel,
+        'bab_number': babNumber,
+        'score': score,
+        'correct_count': correctCount,
+      });
+      return null;
+    } catch (e) {
+      debugPrint('Save quiz result error: $e');
+      return e.toString();
+    }
+  }
+
+  /// Ambil history kuis student (semua attempt, terbaru dulu)
+  Future<List<Map<String, dynamic>>> getQuizHistory(String studentId) async {
+    try {
+      final response = await _client
+          .from('quiz_results')
+          .select()
+          .eq('student_id', studentId)
+          .order('attempted_at', ascending: false);
+      return (response as List).cast<Map<String, dynamic>>();
+    } catch (e) {
+      debugPrint('Get quiz history error: $e');
+      return [];
+    }
+  }
+
+  /// Ambil set bab_key yang sudah LOLOS (score >= 80)
+  Future<Set<String>> getPassedBabs(String studentId) async {
+    try {
+      final response = await _client
+          .from('quiz_results')
+          .select('bab_key')
+          .eq('student_id', studentId)
+          .eq('is_passed', true);
+      return (response as List)
+          .map((e) => e['bab_key'] as String)
+          .toSet();
+    } catch (e) {
+      debugPrint('Get passed babs error: $e');
+      return {};
+    }
+  }
+
+  /// Hitung jumlah bab unik yang sudah lolos (untuk progress bar)
+  Future<int> getPassedBabCount(String studentId) async {
+    try {
+      final passed = await getPassedBabs(studentId);
+      return passed.length;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  /// Ambil data progress kuis lolos dan streak murid (untuk Dashboard Guru)
+  Future<Map<String, Map<String, dynamic>>> getStudentsQuizAndStreak(List<String> studentIds) async {
+    try {
+      if (studentIds.isEmpty) return {};
+
+      // Inisialisasi map hasil default
+      final Map<String, Map<String, dynamic>> progressMap = {};
+      for (final id in studentIds) {
+        progressMap[id] = {
+          'quiz_passed': 0,
+          'streak': 0,
+        };
+      }
+
+      // Ambil kuis yang lolos (is_passed = true)
+      final quizResponse = await _client
+          .from('quiz_results')
+          .select('student_id, bab_key')
+          .eq('is_passed', true)
+          .inFilter('student_id', studentIds);
+
+      // Hitung kuis lolos per student (distinct bab_key)
+      final Map<String, Set<String>> studentPassedBabs = {};
+      for (final row in quizResponse as List) {
+        final sid = row['student_id'] as String;
+        final bab = row['bab_key'] as String;
+        studentPassedBabs.putIfAbsent(sid, () => {}).add(bab);
+      }
+      studentPassedBabs.forEach((sid, babs) {
+        if (progressMap.containsKey(sid)) {
+          progressMap[sid]!['quiz_passed'] = babs.length;
+        }
+      });
+
+      // Ambil streak
+      final streakResponse = await _client
+          .from('student_streaks')
+          .select('student_id, streak_count')
+          .inFilter('student_id', studentIds);
+
+      for (final row in streakResponse as List) {
+        final sid = row['student_id'] as String;
+        final streak = row['streak_count'] as int? ?? 0;
+        if (progressMap.containsKey(sid)) {
+          progressMap[sid]!['streak'] = streak;
+        }
+      }
+
+      return progressMap;
+    } catch (e) {
+      debugPrint('Get students progress error: $e');
+      return {};
+    }
+  }
 }

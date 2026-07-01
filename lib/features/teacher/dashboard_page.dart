@@ -18,6 +18,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
 
   ClassModel? _classModel;
   List<Map<String, dynamic>> _students = [];
+  Map<String, Map<String, dynamic>> _studentProgressMap = {};
   bool _isLoading = true;
   int _selectedIndex = 0;
 
@@ -37,13 +38,17 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
       final supabase = SupabaseService();
       final classData = await supabase.getClassByTeacherId(teacherId);
       List<Map<String, dynamic>> students = [];
+      Map<String, Map<String, dynamic>> progressMap = {};
       if (classData != null) {
         students = await supabase.getStudentsInClass(classData.id);
+        final studentIds = students.map((s) => s['id'] as String).toList();
+        progressMap = await supabase.getStudentsQuizAndStreak(studentIds);
       }
       if (mounted) {
         setState(() {
           _classModel = classData;
           _students = students;
+          _studentProgressMap = progressMap;
           _isLoading = false;
         });
       }
@@ -411,22 +416,22 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
     return Column(
       children: List.generate(_students.length, (index) {
         final student = _students[index];
+        final id = student['id'] as String? ?? '';
         final name =
             student['full_name'] as String? ??
             student['username'] as String? ??
             'Murid';
 
-        // Data dummy untuk quiz count & streak
-        // Nanti diganti dengan data real dari tabel progress
-        final dummyQuizDone = (index * 3 + 1) % 10;
-        final dummyStreak = (index * 4 + 3) % 15;
+        final progress = _studentProgressMap[id];
+        final quizPassed = progress?['quiz_passed'] as int? ?? 0;
+        final streak = progress?['streak'] as int? ?? 0;
 
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: _buildStudentCard(
             name: name,
-            quizDone: dummyQuizDone,
-            streak: dummyStreak,
+            quizDone: quizPassed,
+            streak: streak,
           ),
         );
       }),
