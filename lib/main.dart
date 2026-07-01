@@ -10,6 +10,7 @@ import 'features/teacher/dashboard_page.dart';
 import 'features/student/dashboard_page.dart';
 import 'features/student/dengarkan_syair_page.dart';
 import 'features/student/kerjakan_kuis_page.dart';
+import 'features/student/pelajari_kitab_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         '/student-dashboard': (context) => const StudentDashboardPage(),
         '/dengarkan-syair': (context) => const DengarkanSyairPage(),
         '/kerjakan-kuis': (context) => const KerjakanKuisPage(),
+        '/pelajari-kitab': (context) => const PelajariKitabPage(),
       },
     );
   }

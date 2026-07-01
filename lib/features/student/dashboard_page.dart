@@ -618,6 +618,8 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                       color: const Color(0xFFFCC100),
                       imageAlignment: Alignment.topRight,
                       textAlign: TextAlign.left,
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/pelajari-kitab'),
                     ),
                   ),
                 ],
