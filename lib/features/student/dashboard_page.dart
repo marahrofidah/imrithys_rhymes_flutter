@@ -601,7 +601,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 children: [
                   Expanded(
                     child: _buildSquareCard(
-                      imagePath: 'assets/images/kuis.png',
+                      imagePath: 'assets/images/kuis_db.png',
                       label: 'Kerjakan\nKuis',
                       color: const Color(0xFFF66893),
                       imageAlignment: Alignment.topLeft,
