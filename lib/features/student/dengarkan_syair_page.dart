@@ -189,14 +189,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          'Dengarkan Syair',
-          style: TextStyle(
-            fontSize: 16,
-            color: Color(0xFF2D2D2D),
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+
         centerTitle: false,
       ),
       body: Column(
@@ -270,7 +263,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           const Spacer(),
           // Logo app
           Image.asset(
-            'assets/images/imrithys_rhymes.png',
+            'assets/images/logo.png',
             height: 36,
             fit: BoxFit.contain,
           ),

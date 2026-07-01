@@ -191,7 +191,7 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFFFCC100),
+                      color: Color(0xFF66362F),
                     ),
                   ),
                   SizedBox(height: 4),
@@ -199,7 +199,7 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
                     'Pilih bab yang ingin kamu pelajari!!',
                     style: TextStyle(
                       fontSize: 15,
-                      color: Color(0xFFFCC100),
+                      color: Color(0xFF66362F),
                       height: 1.4,
                     ),
                   ),
