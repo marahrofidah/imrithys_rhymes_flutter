@@ -184,7 +184,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 child: Material(
                   color: Colors.transparent,
                   child: Container(
-                    constraints: const BoxConstraints(maxHeight: 280),
+                    constraints: const BoxConstraints(maxHeight: 300),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
