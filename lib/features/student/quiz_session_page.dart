@@ -113,7 +113,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CircularProgressIndicator(color: Color(0xFFFF3270)),
+            const CircularProgressIndicator(color: Color(0xFFF66893)),
             const SizedBox(height: 16),
             Text(
               'Memuat soal ${widget.babLabel}...',
@@ -222,7 +222,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                             value: progress,
                             backgroundColor: Colors.grey.shade200,
                             valueColor: const AlwaysStoppedAnimation<Color>(
-                              Color(0xFFFF3270),
+                              Color(0xFFF66893),
                             ),
                             minHeight: 8,
                           ),
@@ -236,7 +236,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFFFF3270),
+                      color: Color(0xFFF66893),
                     ),
                   ),
                 ],
@@ -248,11 +248,11 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF3270),
+                  color: const Color(0xFFF66893),
                   borderRadius: BorderRadius.circular(28),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFFF3270).withValues(alpha: 0.35),
+                      color: const Color(0xFFF66893).withValues(alpha: 0.35),
                       blurRadius: 14,
                       offset: const Offset(0, 6),
                     ),
@@ -337,7 +337,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
               decoration: BoxDecoration(
                 color: _answered && (opt == correct || opt == _selectedAnswer)
                     ? Colors.transparent
-                    : const Color(0xFFFF3270).withValues(alpha: 0.10),
+                    : const Color(0xFFF66893).withValues(alpha: 0.10),
                 shape: BoxShape.circle,
               ),
               child: icon != null
@@ -353,7 +353,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                         opt.toUpperCase(),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFFF3270),
+                          color: Color(0xFFF66893),
                           fontSize: 14,
                         ),
                       ),
@@ -399,12 +399,12 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                 decoration: BoxDecoration(
                   color: passed
                       ? const Color(0xFF4CAF50).withValues(alpha: 0.08)
-                      : const Color(0xFFFF3270).withValues(alpha: 0.06),
+                      : const Color(0xFFF66893).withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(32),
                   border: Border.all(
                     color: passed
                         ? const Color(0xFF4CAF50).withValues(alpha: 0.3)
-                        : const Color(0xFFFF3270).withValues(alpha: 0.3),
+                        : const Color(0xFFF66893).withValues(alpha: 0.3),
                     width: 1.5,
                   ),
                 ),
@@ -422,7 +422,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                         fontWeight: FontWeight.bold,
                         color: passed
                             ? const Color(0xFF2E7D32)
-                            : const Color(0xFFFF3270),
+                            : const Color(0xFFF66893),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -443,7 +443,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                         fontWeight: FontWeight.bold,
                         color: passed
                             ? const Color(0xFF4CAF50)
-                            : const Color(0xFFFF3270),
+                            : const Color(0xFFF66893),
                       ),
                     ),
                     Text(
@@ -462,7 +462,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                       decoration: BoxDecoration(
                         color: passed
                             ? const Color(0xFF4CAF50)
-                            : const Color(0xFFFF3270),
+                            : const Color(0xFFF66893),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: Text(
@@ -488,13 +488,13 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                       ? null
                       : () => Navigator.pop(context, true),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFF3270),
+                    backgroundColor: const Color(0xFFF66893),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
                     elevation: 4,
-                    shadowColor: const Color(0xFFFF3270).withValues(alpha: 0.4),
+                    shadowColor: const Color(0xFFF66893).withValues(alpha: 0.4),
                   ),
                   child: _saving
                       ? const SizedBox(
@@ -537,7 +537,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
             onPressed: () => Navigator.pop(context),
             child: const Text(
               'Lanjutkan',
-              style: TextStyle(color: Color(0xFFFF3270)),
+              style: TextStyle(color: Color(0xFFF66893)),
             ),
           ),
           TextButton(
