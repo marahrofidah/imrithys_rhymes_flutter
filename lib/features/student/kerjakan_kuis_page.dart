@@ -202,7 +202,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         itemCount: _babList.length,
-                        separatorBuilder: (_, __) =>
+                        separatorBuilder: (_, _) =>
                             Divider(height: 1, color: Colors.grey.shade100),
                         itemBuilder: (context, index) {
                           final bab = _babList[index];
@@ -218,7 +218,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                                         content: Text(
                                           'Bab ini sudah lolos dan tidak bisa dikerjakan lagi',
                                         ),
-                                        backgroundColor: Color(0xFFFF3270),
+                                        backgroundColor: Color(0xFFF66893),
                                         behavior: SnackBarBehavior.floating,
                                       ),
                                     );
@@ -230,7 +230,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                             child: Container(
                               color: isSelected
                                   ? const Color(
-                                      0xFFFF3270,
+                                      0xFFF66893,
                                     ).withValues(alpha: 0.06)
                                   : Colors.white,
                               padding: const EdgeInsets.symmetric(
@@ -245,7 +245,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                                       style: TextStyle(
                                         fontSize: 13,
                                         color: isSelected
-                                            ? const Color(0xFFFF3270)
+                                            ? const Color(0xFFF66893)
                                             : const Color(0xFF2D2D2D),
                                         fontWeight: isSelected
                                             ? FontWeight.bold
@@ -256,7 +256,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                                   if (isSelected)
                                     const Icon(
                                       Icons.check_rounded,
-                                      color: Color(0xFFFF3270),
+                                      color: Color(0xFFF66893),
                                       size: 18,
                                     ),
                                 ],
@@ -501,7 +501,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
             const Text(
               'Pilih Bab',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -574,12 +574,10 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('⏳', style: TextStyle(fontSize: 20)),
-            const SizedBox(width: 10),
             Text(
-              'Mulai Kuis',
+              '⏳Mulai Kuis',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: hasBab ? Colors.white : Colors.grey.shade500,
               ),
@@ -590,161 +588,163 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     );
   }
 
-  // ── HISTORY ───────────────────────────────────────────────
   Widget _buildHistorySection() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.07),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
-          ),
-        ],
+    return Card(
+      color: Colors.white,
+      elevation: 4,
+      shadowColor: Colors.black.withValues(alpha: 22),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(40),
+        side: BorderSide(
+          color: const Color.fromARGB(199, 211, 211, 211),
+          width: 1.5,
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Center(
-            child: Text(
-              'History Kuis',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF4A5568),
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Center(
+              child: Text(
+                'History Kuis',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF697B91),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 16),
-          if (_loadingData)
-            const Center(
-              child: Padding(
-                padding: EdgeInsets.all(24),
-                child: CircularProgressIndicator(color: Color(0xFFF66893)),
-              ),
-            )
-          else if (_historyList.isEmpty)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Column(
-                children: [
-                  Text('📝', style: TextStyle(fontSize: 36)),
-                  SizedBox(height: 8),
-                  Text(
-                    'Belum ada riwayat kuis',
-                    style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 14),
-                  ),
-                ],
-              ),
-            )
-          else
-            ...List.generate(_historyList.length, (index) {
-              final item = _historyList[index];
-              final score = item['score'] as int;
-              final label = item['bab_label'] as String;
-              final isPassed = item['is_passed'] as bool? ?? score >= 80;
-
-              final Color scoreColor = isPassed
-                  ? const Color(0xFF4CAF50)
-                  : const Color(0xFF9E9E9E);
-
-              // Format tanggal
-              final raw = item['attempted_at'] as String? ?? '';
-              String dateStr = '';
-              if (raw.isNotEmpty) {
-                try {
-                  final dt = DateTime.parse(raw).toLocal();
-                  const months = [
-                    '',
-                    'Januari',
-                    'Februari',
-                    'Maret',
-                    'April',
-                    'Mei',
-                    'Juni',
-                    'Juli',
-                    'Agustus',
-                    'September',
-                    'Oktober',
-                    'November',
-                    'Desember',
-                  ];
-                  const days = [
-                    '',
-                    'Senin',
-                    'Selasa',
-                    'Rabu',
-                    'Kamis',
-                    'Jumat',
-                    'Sabtu',
-                    'Minggu',
-                  ];
-                  dateStr =
-                      '${days[dt.weekday]}, ${dt.day} ${months[dt.month]} ${dt.year}';
-                } catch (_) {
-                  dateStr = raw.substring(0, 10);
-                }
-              }
-
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 18,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEEEEEE),
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              label,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF2D3748),
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              dateStr,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFF718096),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        '$score',
-                        style: TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.bold,
-                          color: scoreColor,
-                        ),
-                      ),
-                    ],
-                  ),
+            const SizedBox(height: 16),
+            if (_loadingData)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(24),
+                  child: CircularProgressIndicator(color: Color(0xFFF66893)),
                 ),
-              );
-            }),
-        ],
+              )
+            else if (_historyList.isEmpty)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Column(
+                  children: [
+                    Text('📝', style: TextStyle(fontSize: 36)),
+                    SizedBox(height: 8),
+                    Text(
+                      'Belum ada riwayat kuis',
+                      style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 14),
+                    ),
+                  ],
+                ),
+              )
+            else
+              ...List.generate(_historyList.length, (index) {
+                final item = _historyList[index];
+                final score = item['score'] as int;
+                final label = item['bab_label'] as String;
+                final isPassed = item['is_passed'] as bool? ?? score >= 80;
+
+                final Color scoreColor = isPassed
+                    ? const Color(0xFF4CAF50)
+                    : const Color(0xFF9E9E9E);
+
+                // Format tanggal
+                final raw = item['attempted_at'] as String? ?? '';
+                String dateStr = '';
+                if (raw.isNotEmpty) {
+                  try {
+                    final dt = DateTime.parse(raw).toLocal();
+                    const months = [
+                      '',
+                      'Januari',
+                      'Februari',
+                      'Maret',
+                      'April',
+                      'Mei',
+                      'Juni',
+                      'Juli',
+                      'Agustus',
+                      'September',
+                      'Oktober',
+                      'November',
+                      'Desember',
+                    ];
+                    const days = [
+                      '',
+                      'Senin',
+                      'Selasa',
+                      'Rabu',
+                      'Kamis',
+                      'Jumat',
+                      'Sabtu',
+                      'Minggu',
+                    ];
+                    final hourStr = dt.hour.toString().padLeft(2, '0');
+                    final minuteStr = dt.minute.toString().padLeft(2, '0');
+                    dateStr =
+                        '${days[dt.weekday]}, ${dt.day} ${months[dt.month]} ${dt.year} | $hourStr:$minuteStr';
+                  } catch (_) {
+                    dateStr = raw.substring(0, 10);
+                  }
+                }
+
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 18,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE0E0E0),
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                label,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF697B91),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                dateStr,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF697B91),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          '$score',
+                          style: TextStyle(
+                            fontSize: 34,
+                            fontWeight: FontWeight.bold,
+                            color: scoreColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+          ],
+        ),
       ),
     );
   }
@@ -797,14 +797,14 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isActive
-              ? const Color(0xFFFF3270).withValues(alpha: 0.10)
+              ? const Color(0xFFF66893).withValues(alpha: 0.10)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Icon(
           icon,
           size: 28,
-          color: isActive ? const Color(0xFFFF3270) : Colors.grey.shade400,
+          color: isActive ? const Color(0xFFF66893) : Colors.grey.shade400,
         ),
       ),
     );

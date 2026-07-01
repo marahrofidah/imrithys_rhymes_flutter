@@ -606,7 +606,8 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                       color: const Color(0xFFF66893),
                       imageAlignment: Alignment.topLeft,
                       textAlign: TextAlign.right,
-                      onTap: () => Navigator.pushNamed(context, '/kerjakan-kuis'),
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/kerjakan-kuis'),
                     ),
                   ),
                   const SizedBox(width: 14),
