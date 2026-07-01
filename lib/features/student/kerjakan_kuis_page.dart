@@ -16,102 +16,38 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
   // ── 33 Bab Imrithyi ───────────────────────────────────────
   final List<Map<String, dynamic>> _babList = [
     {'key': 'pembukaan', 'label': 'Pembukaan – المقدمة', 'number': 1},
-    {'key': 'bab_kalam', 'label': 'Bab Kalam – باب الكلام', 'number': 2},
-    {'key': 'bab_irob', 'label': "Bab I'rob – باب الإعراب", 'number': 3},
-    {
-      'key': 'bab_alamat_irob',
-      'label': "Bab Alamat I'rob – باب علامات الإعراب",
-      'number': 4,
-    },
-    {
-      'key': 'bab_rofa',
-      'label': 'Bab Alamat Rofa – باب علامات الرفع',
-      'number': 5,
-    },
-    {
-      'key': 'bab_nashob',
-      'label': 'Bab Alamat Nashob – باب علامات النصب',
-      'number': 6,
-    },
-    {
-      'key': 'bab_jer',
-      'label': 'Bab Alamat Jer – باب علامات الجر',
-      'number': 7,
-    },
-    {
-      'key': 'bab_jazam',
-      'label': 'Bab Alamat Jazam – باب علامات الجزم',
-      'number': 8,
-    },
-    {
-      'key': 'fasal_murofa',
-      'label': 'Fasal Marfu\'at – فصل المرفوعات',
-      'number': 9,
-    },
-    {'key': 'bab_fail', 'label': "Bab Fa'il – باب الفاعل", 'number': 10},
-    {
-      'key': 'bab_naib_fail',
-      'label': "Bab Naib Fa'il – باب نائب الفاعل",
-      'number': 11,
-    },
-    {'key': 'bab_mubtada', 'label': 'Bab Mubtada – باب المبتدأ', 'number': 12},
-    {'key': 'bab_khobar', 'label': 'Bab Khobar – باب الخبر', 'number': 13},
-    {
-      'key': 'bab_nawasikh',
-      'label': 'Bab Nawasikh – باب النواسخ',
-      'number': 14,
-    },
-    {'key': 'bab_inna', 'label': 'Bab Inna – باب إن وأخواتها', 'number': 15},
-    {'key': 'bab_kaana', 'label': 'Bab Kaana – باب كان وأخواتها', 'number': 16},
-    {'key': 'bab_tabi', 'label': "Bab Tabi' – باب التوابع", 'number': 17},
-    {'key': 'bab_naad', 'label': 'Bab Na\'at – باب النعت', 'number': 18},
-    {'key': 'bab_atof', 'label': "Bab 'Atof – باب العطف", 'number': 19},
-    {'key': 'bab_taukid', 'label': 'Bab Taukid – باب التوكيد', 'number': 20},
-    {'key': 'bab_badal', 'label': 'Bab Badal – باب البدل', 'number': 21},
-    {
-      'key': 'fasal_manshub',
-      'label': 'Fasal Manshubat – فصل المنصوبات',
-      'number': 22,
-    },
-    {
-      'key': 'bab_mafulmutlaq',
-      'label': 'Bab Maf\'ul Mutlaq – باب المفعول المطلق',
-      'number': 23,
-    },
-    {
-      'key': 'bab_mafulajl',
-      'label': "Bab Maf'ul Lah – باب المفعول له",
-      'number': 24,
-    },
-    {
-      'key': 'bab_mafulmah',
-      'label': "Bab Maf'ul Maah – باب المفعول معه",
-      'number': 25,
-    },
-    {
-      'key': 'bab_mustasna',
-      'label': 'Bab Mustasna – باب الاستثناء',
-      'number': 26,
-    },
-    {'key': 'bab_hal', 'label': 'Bab Hal – باب الحال', 'number': 27},
-    {'key': 'bab_tamyiz', 'label': 'Bab Tamyiz – باب التمييز', 'number': 28},
-    {'key': 'bab_munada', 'label': 'Bab Munada – باب المنادى', 'number': 29},
-    {
-      'key': 'fasal_majrur',
-      'label': 'Fasal Majrurat – فصل المجرورات',
-      'number': 30,
-    },
-    {'key': 'bab_idofah', 'label': 'Bab Idafah – باب الإضافة', 'number': 31},
-    {
-      'key': 'bab_maqsur',
-      'label': 'Bab Isim Maqsur – باب الاسم المقصور',
-      'number': 32,
-    },
-    {
-      'key': 'bab_mamdud',
-      'label': 'Bab Isim Mamdud – باب الاسم الممدود',
-      'number': 33,
-    },
+    {'key': 'bab_kalam', 'label': 'Bab Kalam – bab الكلام', 'number': 2},
+    {'key': 'bab_irob', 'label': "Bab I'rob – bab الإعراب", 'number': 3},
+    {'key': 'bab_rofa', 'label': 'Bab Alamat Rofa – bab علامات الرفع', 'number': 4},
+    {'key': 'bab_nashob', 'label': 'Bab Alamat Nashob – bab علامات النصب', 'number': 5},
+    {'key': 'bab_jer', 'label': 'Bab Alamat Jer – bab علامات الجر', 'number': 6},
+    {'key': 'bab_jazam', 'label': 'Bab Alamat Jazam – bab علامات الجزم', 'number': 7},
+    {'key': 'fasal', 'label': 'Fasal (Ringkasan I\'rab) – فصل', 'number': 8},
+    {'key': 'bab_makrifat', 'label': 'Bab Makrifat dan Nakirah – bab المعرفة والنّكرة', 'number': 9},
+    {'key': 'bab_fiil', 'label': 'Bab Fiil-fiil – bab الأفعال', 'number': 10},
+    {'key': 'bab_irob_fiil', 'label': 'Bab I\'rab Fiil – bab إعراب الأفعال', 'number': 11},
+    {'key': 'bab_fail', 'label': "Bab Fa'il – bab الفاعل", 'number': 12},
+    {'key': 'bab_naib_fail', 'label': "Bab Naib Fa'il – bab نائب الفاعل", 'number': 13},
+    {'key': 'bab_mubtada', 'label': 'Bab Mubtada – bab المبتدأ', 'number': 14},
+    {'key': 'bab_khobar', 'label': 'Bab Khobar – bab الخبر', 'number': 15},
+    {'key': 'bab_kaana', 'label': 'Bab Kaana – bab كان وأخواتها', 'number': 16},
+    {'key': 'bab_inna', 'label': 'Bab Inna – bab إن وأخواتها', 'number': 17},
+    {'key': 'bab_zhanna', 'label': 'Bab Zhanna – bab ظن وأخواتها', 'number': 18},
+    {'key': 'bab_naat', 'label': 'Bab Na\'at – bab النعت', 'number': 19},
+    {'key': 'bab_athaf', 'label': 'Bab Athaf – bab العطف', 'number': 20},
+    {'key': 'bab_taukid', 'label': 'Bab Taukid – bab التوكيد', 'number': 21},
+    {'key': 'bab_badal', 'label': 'Bab Badal – bab البدل', 'number': 22},
+    {'key': 'bab_maful_bih', 'label': 'Bab Maf\'ul Bih – bab المفعول به', 'number': 23},
+    {'key': 'bab_maful_mutlaq', 'label': 'Bab Maf\'ul Mutlaq – bab المفعول المطلق', 'number': 24},
+    {'key': 'bab_zharaf', 'label': 'Bab Zharaf – bab الظرف', 'number': 25},
+    {'key': 'bab_hal', 'label': 'Bab Hal – bab الحال', 'number': 26},
+    {'key': 'bab_tamyiz', 'label': 'Bab Tamyiz – bab التمييز', 'number': 27},
+    {'key': 'bab_istitsna', 'label': 'Bab Istitsna – bab الاستثناء', 'number': 28},
+    {'key': 'bab_laa', 'label': 'Bab Laa – bab لا الناfiah', 'number': 29},
+    {'key': 'bab_munada', 'label': 'Bab Munada – bab المنادى', 'number': 30},
+    {'key': 'bab_maful_liajlih', 'label': 'Bab Maf\'ul Li Ajlih – bab المفعول لأجله', 'number': 31},
+    {'key': 'bab_maful_maah', 'label': 'Bab Maf\'ul Ma\'ah – bab المفعول معه', 'number': 32},
+    {'key': 'bab_idhafah', 'label': 'Bab Idhafah – bab الإضافة', 'number': 33},
   ];
 
   // ── State ─────────────────────────────────────────────────
@@ -162,7 +98,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
         _completedBabs = passed.length;
         _historyList = history;
         _loadingData = false;
-        // Reset pilihan jika bab yang dipilih sudah lolos
         if (_selectedBab != null && passed.contains(_selectedBab!['key'])) {
           _selectedBab = null;
         }
@@ -224,18 +159,26 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
 
                           return GestureDetector(
                             onTap: isPassed
-                                ? null
+                                ? () {
+                                    _hideDropdown();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Bab ini sudah lolos dan tidak bisa dikerjakan lagi',
+                                        ),
+                                        backgroundColor: Color(0xFFFF3270),
+                                        behavior: SnackBarBehavior.floating,
+                                      ),
+                                    );
+                                  }
                                 : () {
                                     setState(() => _selectedBab = bab);
                                     _hideDropdown();
                                   },
                             child: Container(
-                              color: isPassed
-                                  ? Colors.grey.shade50
-                                  : isSelected
-                                  ? const Color(
-                                      0xFFFF3270,
-                                    ).withValues(alpha: 0.06)
+                              color: isSelected
+                                  ? const Color(0xFFFF3270)
+                                      .withValues(alpha: 0.06)
                                   : Colors.white,
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
@@ -248,9 +191,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                                       bab['label'] as String,
                                       style: TextStyle(
                                         fontSize: 13,
-                                        color: isPassed
-                                            ? Colors.grey.shade400
-                                            : isSelected
+                                        color: isSelected
                                             ? const Color(0xFFFF3270)
                                             : const Color(0xFF2D2D2D),
                                         fontWeight: isSelected
@@ -259,13 +200,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                                       ),
                                     ),
                                   ),
-                                  if (isPassed)
-                                    const Icon(
-                                      Icons.lock_rounded,
-                                      color: Color(0xFF4CAF50),
-                                      size: 16,
-                                    )
-                                  else if (isSelected)
+                                  if (isSelected)
                                     const Icon(
                                       Icons.check_rounded,
                                       color: Color(0xFFFF3270),
@@ -310,7 +245,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
       ),
     ).then((result) {
       if (result == true) {
-        _loadData(); // reload setelah selesai kuis
+        _loadData();
       }
     });
   }
@@ -359,52 +294,36 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  size: 18,
-                  color: Color(0xFF2D2D2D),
-                ),
+                child: const Icon(Icons.arrow_back_ios_new_rounded,
+                    size: 18, color: Color(0xFF2D2D2D)),
               ),
             ),
-            Image.asset(
-              'assets/images/imrithys_rhymes.png',
-              height: 40,
-              fit: BoxFit.contain,
-            ),
+            Image.asset('assets/images/imrithys_rhymes.png',
+                height: 40, fit: BoxFit.contain),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/images/kuis.png',
-              width: 110,
-              height: 110,
-              fit: BoxFit.contain,
-            ),
+            Image.asset('assets/images/kuis.png',
+                width: 110, height: 110, fit: BoxFit.contain),
             const SizedBox(width: 14),
             const Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Kuis',
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2D2D2D),
-                    ),
-                  ),
+                  Text('Kuis',
+                      style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF2D2D2D))),
                   SizedBox(height: 4),
-                  Text(
-                    'Pertahankan streakmu\ndengan quiz setiap hari!',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Color(0xFF697B91),
-                      height: 1.4,
-                    ),
-                  ),
+                  Text('Pertahankan streakmu\ndengan quiz setiap hari!',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF697B91),
+                          height: 1.4)),
                 ],
               ),
             ),
@@ -436,19 +355,14 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Progress Kuis',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
+          const Text('Progress Kuis',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white)),
           const SizedBox(height: 4),
-          const Text(
-            'Kerjakan kuis dan tingkatkan progressmu »',
-            style: TextStyle(fontSize: 12, color: Colors.white70),
-          ),
+          const Text('Kerjakan kuis dan tingkatkan progressmu »',
+              style: TextStyle(fontSize: 12, color: Colors.white70)),
           const SizedBox(height: 10),
           _loadingData
               ? ClipRRect(
@@ -456,8 +370,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                   child: LinearProgressIndicator(
                     backgroundColor: Colors.white.withValues(alpha: 0.3),
                     valueColor: const AlwaysStoppedAnimation<Color>(
-                      Color(0xFFF5A623),
-                    ),
+                        Color(0xFFF5A623)),
                     minHeight: 22,
                   ),
                 )
@@ -468,21 +381,18 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                       borderRadius: BorderRadius.circular(20),
                       child: LinearProgressIndicator(
                         value: progressValue,
-                        backgroundColor: Colors.white.withValues(alpha: 0.3),
+                        backgroundColor:
+                            Colors.white.withValues(alpha: 0.3),
                         valueColor: const AlwaysStoppedAnimation<Color>(
-                          Color(0xFFF5A623),
-                        ),
+                            Color(0xFFF5A623)),
                         minHeight: 22,
                       ),
                     ),
-                    Text(
-                      '$_completedBabs/$_totalBabs',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+                    Text('$_completedBabs/$_totalBabs',
+                        style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
                   ],
                 ),
         ],
@@ -510,22 +420,17 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
         ),
         child: Column(
           children: [
-            const Text(
-              'Pilih Bab',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+            const Text('Pilih Bab',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
             const SizedBox(height: 10),
             GestureDetector(
               onTap: _dropdownOpen ? _hideDropdown : _showDropdown,
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 14,
-                ),
+                    horizontal: 20, vertical: 14),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50),
@@ -622,14 +527,11 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Center(
-            child: Text(
-              'History Kuis',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF4A5568),
-              ),
-            ),
+            child: Text('History Kuis',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF4A5568))),
           ),
           const SizedBox(height: 16),
           if (_loadingData)
@@ -651,10 +553,9 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 children: [
                   Text('📝', style: TextStyle(fontSize: 36)),
                   SizedBox(height: 8),
-                  Text(
-                    'Belum ada riwayat kuis',
-                    style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 14),
-                  ),
+                  Text('Belum ada riwayat kuis',
+                      style: TextStyle(
+                          color: Color(0xFF9E9E9E), fontSize: 14)),
                 ],
               ),
             )
@@ -676,29 +577,13 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 try {
                   final dt = DateTime.parse(raw).toLocal();
                   const months = [
-                    '',
-                    'Januari',
-                    'Februari',
-                    'Maret',
-                    'April',
-                    'Mei',
-                    'Juni',
-                    'Juli',
-                    'Agustus',
-                    'September',
-                    'Oktober',
-                    'November',
-                    'Desember',
+                    '', 'Januari', 'Februari', 'Maret', 'April',
+                    'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                    'Oktober', 'November', 'Desember'
                   ];
                   const days = [
-                    '',
-                    'Senin',
-                    'Selasa',
-                    'Rabu',
-                    'Kamis',
-                    'Jumat',
-                    'Sabtu',
-                    'Minggu',
+                    '', 'Senin', 'Selasa', 'Rabu', 'Kamis',
+                    'Jumat', 'Sabtu', 'Minggu'
                   ];
                   dateStr =
                       '${days[dt.weekday]}, ${dt.day} ${months[dt.month]} ${dt.year}';
@@ -711,9 +596,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 padding: const EdgeInsets.only(bottom: 12),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 18,
-                  ),
+                      horizontal: 24, vertical: 18),
                   decoration: BoxDecoration(
                     color: const Color(0xFFEEEEEE),
                     borderRadius: BorderRadius.circular(24),
@@ -724,33 +607,24 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              label,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF2D3748),
-                              ),
-                            ),
+                            Text(label,
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF2D3748))),
                             const SizedBox(height: 4),
-                            Text(
-                              dateStr,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFF718096),
-                              ),
-                            ),
+                            Text(dateStr,
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF718096))),
                           ],
                         ),
                       ),
-                      Text(
-                        '$score',
-                        style: TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.bold,
-                          color: scoreColor,
-                        ),
-                      ),
+                      Text('$score',
+                          style: TextStyle(
+                              fontSize: 34,
+                              fontWeight: FontWeight.bold,
+                              color: scoreColor)),
                     ],
                   ),
                 ),
@@ -769,10 +643,9 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
         borderRadius: const BorderRadius.all(Radius.circular(40)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 12,
-            offset: const Offset(0, -5),
-          ),
+              color: Colors.black.withValues(alpha: 0.08),
+              blurRadius: 12,
+              offset: const Offset(0, -5)),
         ],
       ),
       child: SafeArea(
@@ -781,11 +654,8 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(
-                Icons.home_rounded,
-                0,
-                onTap: () => Navigator.pop(context),
-              ),
+              _buildNavItem(Icons.home_rounded, 0,
+                  onTap: () => Navigator.pop(context)),
               _buildNavItem(Icons.quiz_rounded, 1, isActive: true),
               _buildNavItem(Icons.person_rounded, 2),
               _buildNavItem(Icons.logout_rounded, 3),
@@ -796,12 +666,8 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     );
   }
 
-  Widget _buildNavItem(
-    IconData icon,
-    int index, {
-    bool isActive = false,
-    VoidCallback? onTap,
-  }) {
+  Widget _buildNavItem(IconData icon, int index,
+      {bool isActive = false, VoidCallback? onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -813,11 +679,10 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               : Colors.transparent,
           borderRadius: BorderRadius.circular(14),
         ),
-        child: Icon(
-          icon,
-          size: 28,
-          color: isActive ? const Color(0xFFFF3270) : Colors.grey.shade400,
-        ),
+        child: Icon(icon,
+            size: 28,
+            color:
+                isActive ? const Color(0xFFFF3270) : Colors.grey.shade400),
       ),
     );
   }
