@@ -316,14 +316,14 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   Widget _buildProgressBoard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 18),
       decoration: BoxDecoration(
         color: const Color(0xFF3A327C),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF3A327C).withValues(alpha: 0.3),
-            blurRadius: 12,
+            blurRadius: 30,
             offset: const Offset(0, 4),
           ),
         ],
@@ -334,7 +334,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           const Text(
             'Progress Mendengarkan Hari Ini',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 20.2,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -355,7 +355,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
             const Text(
               'Belum ada yang didengarkan hari ini.',
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 16,
                 color: Colors.white54,
                 fontStyle: FontStyle.italic,
               ),
@@ -372,7 +372,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                       child: Text(
                         label,
                         style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 16,
                           color: Colors.white,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -416,11 +416,11 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
         : 0.0;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 18),
       decoration: BoxDecoration(
         color: const Color(0xFF6E6EB0),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF6E6EB0).withValues(alpha: 0.35),
