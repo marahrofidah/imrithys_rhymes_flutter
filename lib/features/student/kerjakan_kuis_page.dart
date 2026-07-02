@@ -344,7 +344,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
+                  color: const Color.fromARGB(255, 233, 233, 233),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(

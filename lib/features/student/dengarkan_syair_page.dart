@@ -205,22 +205,9 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Color(0xFF2D2D2D),
-            size: 20,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-
-        centerTitle: false,
-      ),
       body: Column(
         children: [
+          const SafeArea(bottom: false, child: SizedBox(height: 8)),
           // ---- Header earphone + judul ----
           _buildHeader(),
 
@@ -252,47 +239,74 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   Widget _buildHeader() {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-      child: Row(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Gambar earphone
-          Image.asset(
-            'assets/images/earphone.png',
-            width: 90,
-            height: 90,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(width: 16),
-          // Judul & subtitle
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          // Top Row: Back Button + Logo
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Dengarkan\nSyair',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF2D2D2D),
-                  height: 1.2,
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 233, 233, 233),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    size: 18,
+                    color: Color(0xFF2D2D2D),
+                  ),
                 ),
               ),
-              SizedBox(height: 4),
-              Text(
-                'Pilih bab yang ingin\nkamu dengarkan',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Color(0xFF697B91),
-                  height: 1.4,
-                ),
+              Image.asset(
+                'assets/images/logo.png',
+                height: 40,
+                fit: BoxFit.contain,
               ),
             ],
           ),
-          const Spacer(),
-          // Logo app
-          Image.asset(
-            'assets/images/logo.png',
-            height: 36,
-            fit: BoxFit.contain,
+          // Content Row: Earphone + Title
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/earphone.png',
+                width: 140,
+                height: 140,
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(width: 16),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Dengarkan Syair',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF3A327C),
+                        height: 1.2,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Pilih bab yang ingin kamu dengarkan',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFF3A327C),
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -302,13 +316,13 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   Widget _buildProgressBoard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D3A5C),
+        color: const Color(0xFF3A327C),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF2D3A5C).withValues(alpha: 0.3),
+            color: const Color(0xFF3A327C).withValues(alpha: 0.3),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
