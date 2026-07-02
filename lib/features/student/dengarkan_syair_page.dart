@@ -393,7 +393,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                       child: Text(
                         '$count/5x',
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: count >= 5
                               ? const Color(0xFF81C784)
@@ -436,8 +436,8 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
             children: [
               // Icon bab
               Container(
-                width: 36,
-                height: 36,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(10),
@@ -445,7 +445,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                 child: const Icon(
                   Icons.music_note_rounded,
                   color: Colors.white,
-                  size: 20,
+                  size: 28,
                 ),
               ),
               const SizedBox(width: 10),
@@ -457,7 +457,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                     Text(
                       _currentBab!.labelId,
                       style: const TextStyle(
-                        fontSize: 13,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -466,7 +466,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                     Text(
                       _currentBab!.labelAr,
                       style: const TextStyle(
-                        fontSize: 11,
+                        fontSize: 15,
                         color: Colors.white70,
                       ),
                     ),
@@ -476,8 +476,8 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
               // Play/pause button
               _isLoadingAudio
                   ? const SizedBox(
-                      width: 36,
-                      height: 36,
+                      width: 40,
+                      height: 40,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
@@ -492,8 +492,8 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                         }
                       },
                       child: Container(
-                        width: 36,
-                        height: 36,
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -503,7 +503,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                               ? Icons.pause_rounded
                               : Icons.play_arrow_rounded,
                           color: const Color(0xFF6E6EB0),
-                          size: 22,
+                          size: 30,
                         ),
                       ),
                     ),
@@ -517,7 +517,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
               value: progress.clamp(0.0, 1.0),
               backgroundColor: Colors.white.withValues(alpha: 0.25),
               valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-              minHeight: 4,
+              minHeight: 8,
             ),
           ),
           const SizedBox(height: 4),
@@ -526,11 +526,11 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
             children: [
               Text(
                 _formatDuration(_position),
-                style: const TextStyle(fontSize: 10, color: Colors.white70),
+                style: const TextStyle(fontSize: 14, color: Colors.white70),
               ),
               Text(
                 _formatDuration(_duration),
-                style: const TextStyle(fontSize: 10, color: Colors.white70),
+                style: const TextStyle(fontSize: 14, color: Colors.white70),
               ),
             ],
           ),
