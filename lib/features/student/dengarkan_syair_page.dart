@@ -119,14 +119,13 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
     }
 
     // Update streak jika ada bab yang sudah ≥ 5x
-    await _supabase.updateStreakIfNeeded(_userId!);
+    final bool streakIncreased = await _supabase.updateStreakIfNeeded(_userId!);
 
     // Refresh progress display
     await _loadProgress();
 
-    // Tampilkan notifikasi jika bab ini sudah 5x
-    final newCount = (_todayCounts[bab.key] ?? 0);
-    if (mounted && newCount >= 5) {
+    // Tampilkan notifikasi jika streak benar-benar bertambah hari ini
+    if (mounted && streakIncreased) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Row(
@@ -134,7 +133,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
               const Text('🔥 ', style: TextStyle(fontSize: 18)),
               Expanded(
                 child: Text(
-                  'Keren! ${bab.labelId} sudah $newCount kali! Streak bertambah!',
+                  'Keren! ${bab.labelId} sudah 5 kali! Target hari ini tercapai, streak bertambah!',
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
