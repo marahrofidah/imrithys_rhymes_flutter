@@ -16,90 +16,90 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
   // ── 33 Bab Imrithyi ───────────────────────────────────────
   final List<Map<String, dynamic>> _babList = [
     {'key': 'pembukaan', 'label': 'Pembukaan – المقدمة', 'number': 1},
-    {'key': 'bab_kalam', 'label': 'Bab Kalam – bab الكلام', 'number': 2},
-    {'key': 'bab_irob', 'label': "Bab I'rob – bab الإعراب", 'number': 3},
+    {'key': 'bab_kalam', 'label': 'Bab Kalam – باب الكلام', 'number': 2},
+    {'key': 'bab_irob', 'label': "Bab I'rob – باب الإعراب", 'number': 3},
     {
       'key': 'bab_rofa',
-      'label': 'Bab Alamat Rofa – bab علامات الرفع',
+      'label': 'Bab Alamat Rofa – باب علامات الرفع',
       'number': 4,
     },
     {
       'key': 'bab_nashob',
-      'label': 'Bab Alamat Nashob – bab علامات النصب',
+      'label': 'Bab Alamat Nashob – باب علامات النصب',
       'number': 5,
     },
     {
       'key': 'bab_jer',
-      'label': 'Bab Alamat Jer – bab علامات الجر',
+      'label': 'Bab Alamat Jer – باب علامات الجر',
       'number': 6,
     },
     {
       'key': 'bab_jazam',
-      'label': 'Bab Alamat Jazam – bab علامات الجزم',
+      'label': 'Bab Alamat Jazam – باب علامات الجزم',
       'number': 7,
     },
     {'key': 'fasal', 'label': 'Fasal (Ringkasan I\'rab) – فصل', 'number': 8},
     {
       'key': 'bab_makrifat',
-      'label': 'Bab Makrifat dan Nakirah – bab المعرفة والنّكرة',
+      'label': 'Bab Makrifat dan Nakirah – باب المعرفة والنّكرة',
       'number': 9,
     },
-    {'key': 'bab_fiil', 'label': 'Bab Fiil-fiil – bab الأفعال', 'number': 10},
+    {'key': 'bab_fiil', 'label': 'Bab Fiil-fiil – باب الأفعال', 'number': 10},
     {
       'key': 'bab_irob_fiil',
-      'label': 'Bab I\'rab Fiil – bab إعراب الأفعال',
+      'label': 'Bab I\'rab Fiil – باب إعراب الأفعال',
       'number': 11,
     },
-    {'key': 'bab_fail', 'label': "Bab Fa'il – bab الفاعل", 'number': 12},
+    {'key': 'bab_fail', 'label': "Bab Fa'il – باب الفاعل", 'number': 12},
     {
       'key': 'bab_naib_fail',
-      'label': "Bab Naib Fa'il – bab نائب الفاعل",
+      'label': "Bab Naib Fa'il – باب نائب الفاعل",
       'number': 13,
     },
-    {'key': 'bab_mubtada', 'label': 'Bab Mubtada – bab المبتدأ', 'number': 14},
-    {'key': 'bab_khobar', 'label': 'Bab Khobar – bab الخبر', 'number': 15},
-    {'key': 'bab_kaana', 'label': 'Bab Kaana – bab كان وأخواتها', 'number': 16},
-    {'key': 'bab_inna', 'label': 'Bab Inna – bab إن وأخواتها', 'number': 17},
+    {'key': 'bab_mubtada', 'label': 'Bab Mubtada – باب المبتدأ', 'number': 14},
+    {'key': 'bab_khobar', 'label': 'Bab Khobar –  باب الخبر', 'number': 15},
+    {'key': 'bab_kaana', 'label': 'Bab Kaana – باب كان وأخواتها', 'number': 16},
+    {'key': 'bab_inna', 'label': 'Bab Inna – باب إن وأخواتها', 'number': 17},
     {
       'key': 'bab_zhanna',
-      'label': 'Bab Zhanna – bab ظن وأخواتها',
+      'label': 'Bab Zhanna – باب ظن وأخواتها',
       'number': 18,
     },
-    {'key': 'bab_naat', 'label': 'Bab Na\'at – bab النعت', 'number': 19},
-    {'key': 'bab_athaf', 'label': 'Bab Athaf – bab العطف', 'number': 20},
-    {'key': 'bab_taukid', 'label': 'Bab Taukid – bab التوكيد', 'number': 21},
-    {'key': 'bab_badal', 'label': 'Bab Badal – bab البدل', 'number': 22},
+    {'key': 'bab_naat', 'label': 'Bab Na\'at – باب النعت', 'number': 19},
+    {'key': 'bab_athaf', 'label': 'Bab Athaf – باب العطف', 'number': 20},
+    {'key': 'bab_taukid', 'label': 'Bab Taukid – باب التوكيد', 'number': 21},
+    {'key': 'bab_badal', 'label': 'Bab Badal – باب البدل', 'number': 22},
     {
       'key': 'bab_maful_bih',
-      'label': 'Bab Maf\'ul Bih – bab المفعول به',
+      'label': 'Bab Maf\'ul Bih – باب المفعول به',
       'number': 23,
     },
     {
       'key': 'bab_maful_mutlaq',
-      'label': 'Bab Maf\'ul Mutlaq – bab المفعول المطلق',
+      'label': 'Bab Maf\'ul Mutlaq – باب المفعول المطلق',
       'number': 24,
     },
-    {'key': 'bab_zharaf', 'label': 'Bab Zharaf – bab الظرف', 'number': 25},
-    {'key': 'bab_hal', 'label': 'Bab Hal – bab الحال', 'number': 26},
-    {'key': 'bab_tamyiz', 'label': 'Bab Tamyiz – bab التمييز', 'number': 27},
+    {'key': 'bab_zharaf', 'label': 'Bab Zharaf – باب الظرف', 'number': 25},
+    {'key': 'bab_hal', 'label': 'Bab Hal – باب الحال', 'number': 26},
+    {'key': 'bab_tamyiz', 'label': 'Bab Tamyiz – باب التمييز', 'number': 27},
     {
       'key': 'bab_istitsna',
-      'label': 'Bab Istitsna – bab الاستثناء',
+      'label': 'Bab Istitsna – باب الاستثناء',
       'number': 28,
     },
-    {'key': 'bab_laa', 'label': 'Bab Laa – bab لا الناfiah', 'number': 29},
-    {'key': 'bab_munada', 'label': 'Bab Munada – bab المنادى', 'number': 30},
+    {'key': 'bab_laa', 'label': 'Bab Laa – باب لا الناfiah', 'number': 29},
+    {'key': 'bab_munada', 'label': 'Bab Munada – باب المنادى', 'number': 30},
     {
       'key': 'bab_maful_liajlih',
-      'label': 'Bab Maf\'ul Li Ajlih – bab المفعول لأجله',
+      'label': 'Bab Maf\'ul Li Ajlih – باب المفعول لأجله',
       'number': 31,
     },
     {
       'key': 'bab_maful_maah',
-      'label': 'Bab Maf\'ul Ma\'ah – bab المفعول معه',
+      'label': 'Bab Maf\'ul Ma\'ah – باب المفعول معه',
       'number': 32,
     },
-    {'key': 'bab_idhafah', 'label': 'Bab Idhafah – bab الإضافة', 'number': 33},
+    {'key': 'bab_idhafah', 'label': 'Bab Idhafah – باب الإضافة', 'number': 33},
   ];
 
   // ── State ─────────────────────────────────────────────────
@@ -184,7 +184,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 child: Material(
                   color: Colors.transparent,
                   child: Container(
-                    constraints: const BoxConstraints(maxHeight: 300),
+                    constraints: const BoxConstraints(maxHeight: 250),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
@@ -243,7 +243,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                                     child: Text(
                                       bab['label'] as String,
                                       style: TextStyle(
-                                        fontSize: 13,
+                                        fontSize: 18,
                                         color: isSelected
                                             ? const Color(0xFFF66893)
                                             : const Color(0xFF2D2D2D),
