@@ -29,6 +29,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   bool _isLoadingAudio = false;
   Duration _duration = Duration.zero;
   Duration _position = Duration.zero;
+  bool _isRecordedThisSession = false;
 
   @override
   void initState() {
@@ -44,7 +45,19 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
     });
 
     _audioPlayer.onPositionChanged.listen((p) {
-      if (mounted) setState(() => _position = p);
+      if (mounted) {
+        setState(() => _position = p);
+
+        // Cek jika sudah didengar 95% dari durasi dan belum dicatat
+        if (_duration.inMilliseconds > 0 && !_isRecordedThisSession) {
+          final double progressPercent =
+              p.inMilliseconds / _duration.inMilliseconds;
+          if (progressPercent >= 0.95) {
+            _isRecordedThisSession = true;
+            _onAudioCompleted(_currentBab!);
+          }
+        }
+      }
     });
 
     _audioPlayer.onPlayerStateChanged.listen((state) {
@@ -55,7 +68,8 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
 
     // Ketika audio selesai diputar sampai habis
     _audioPlayer.onPlayerComplete.listen((_) async {
-      if (_currentBab != null && _userId != null) {
+      if (_currentBab != null && _userId != null && !_isRecordedThisSession) {
+        _isRecordedThisSession = true;
         await _onAudioCompleted(_currentBab!);
       }
     });
@@ -85,11 +99,24 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
     if (_userId == null) return;
 
     // Catat ke database
-    await _supabase.recordListening(
+    final error = await _supabase.recordListening(
       studentId: _userId!,
       babKey: bab.key,
       babLabel: bab.fullLabel,
     );
+
+    if (error != null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Gagal menyimpan progress: $error'),
+            backgroundColor: Colors.red.shade400,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+      return;
+    }
 
     // Update streak jika ada bab yang sudah ≥ 5x
     await _supabase.updateStreakIfNeeded(_userId!);
@@ -143,6 +170,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       _currentBab = bab;
       _position = Duration.zero;
       _duration = Duration.zero;
+      _isRecordedThisSession = false;
     });
 
     try {

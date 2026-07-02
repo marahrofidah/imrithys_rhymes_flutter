@@ -20,13 +20,15 @@ class BabModel {
 class BabList {
   static List<BabModel> getBabs() {
     final String supabaseUrl = dotenv.env['SUPABASE_URL'] ?? 'https://YOUR_SUPABASE_URL.supabase.co';
-    final String bucketBase = '$supabaseUrl/storage/v1/object/public/audio-bab';
+    // Menyesuaikan nama bucket berdasarkan screenshot user: imrithys-rhymes-audio
+    final String bucketBase = '$supabaseUrl/storage/v1/object/public/imrithys-rhymes-audio';
 
     return [
       BabModel(
         key: 'pembukaan',
         labelId: 'Pembukaan',
         labelAr: 'المقدمة',
+        // Menggunakan ekstensi .mp3 sesuai saran ke user
         audioUrl: '$bucketBase/pembukaan.mp3',
       ),
       BabModel(

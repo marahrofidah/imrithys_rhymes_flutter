@@ -290,7 +290,7 @@ class SupabaseService {
   // ========== LISTENING & STREAK METHODS (TIKROR) ==========
 
   /// Catat satu kali mendengarkan audio selesai
-  Future<void> recordListening({
+  Future<String?> recordListening({
     required String studentId,
     required String babKey,
     required String babLabel,
@@ -303,8 +303,10 @@ class SupabaseService {
         'listened_at': DateTime.now().toUtc().toIso8601String(),
       });
       debugPrint('Listening recorded: $babKey');
+      return null;
     } catch (e) {
       debugPrint('Record listening error: $e');
+      return e.toString();
     }
   }
 
