@@ -350,7 +350,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 child: const Icon(
                   Icons.arrow_back_ios_new_rounded,
                   size: 18,
-                  color: Color(0xFF2D2D2D),
+                  color: Color.fromARGB(255, 0, 0, 0),
                 ),
               ),
             ),

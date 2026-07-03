@@ -19,9 +19,11 @@ class BabModel {
 /// Daftar bab statik — audioUrl diisi secara dinamis menggunakan url Supabase dari .env
 class BabList {
   static List<BabModel> getBabs() {
-    final String supabaseUrl = dotenv.env['SUPABASE_URL'] ?? 'https://YOUR_SUPABASE_URL.supabase.co';
+    final String supabaseUrl =
+        dotenv.env['SUPABASE_URL'] ?? 'https://YOUR_SUPABASE_URL.supabase.co';
     // Menyesuaikan nama bucket berdasarkan screenshot user: imrithys-rhymes-audio
-    final String bucketBase = '$supabaseUrl/storage/v1/object/public/imrithys-rhymes-audio';
+    final String bucketBase =
+        '$supabaseUrl/storage/v1/object/public/imrithys-rhymes-audio';
 
     return [
       BabModel(
@@ -78,6 +80,150 @@ class BabList {
         labelId: 'Bab Makrifat dan Nakirah',
         labelAr: "باب المعرفة والنّكرة",
         audioUrl: '$bucketBase/bab_makrifat_nakirah.mp3',
+      ),
+      BabModel(
+        key: 'ba_fiil_fiil',
+        labelId: 'Bab Fiil Fiil',
+        labelAr: "باب الفعل الفعل",
+        audioUrl: '$bucketBase/ba_fiil_fiil.mp3',
+      ),
+      BabModel(
+        key: 'bab_irab_fiil',
+        labelId: 'Bab Irab Fiil',
+        labelAr: "باب الإعراب الفعل",
+        audioUrl: '$bucketBase/bab_irab_fiil.mp3',
+      ),
+      BabModel(
+        key: 'bab_isim_yang_dibaca_rafa',
+        labelId: 'Bab Isim yang dibaca Rafa',
+        labelAr: "باب مرفوعات الأسماء",
+        audioUrl: '$bucketBase/bab_isim_yang_dibaca_rafa.mp3',
+      ),
+      BabModel(
+        key: 'bab_naibul_fail',
+        labelId: 'Bab Naibul Fail',
+        labelAr: "باب نائب الفاعل",
+        audioUrl: '$bucketBase/bab_naibul_fail.mp3',
+      ),
+      BabModel(
+        key: 'bab_mubtada_khobar',
+        labelId: 'Bab Mubtada Khobar',
+        labelAr: "باب المبتدأ والخبار",
+        audioUrl: '$bucketBase/bab_mubtada_khobar.mp3',
+      ),
+      BabModel(
+        key: 'bab_kanna_dan_saudaranya',
+        labelId: 'Bab Kanna dan Saudaranya',
+        labelAr: "باب كان وأخواتها",
+        audioUrl: '$bucketBase/bab_kanna_dan_saudaranya.mp3',
+      ),
+      BabModel(
+        key: 'bab_inna_dan_saudaranya',
+        labelId: 'Bab Inna dan Saudaranya',
+        labelAr: "باب إن وأخواتها",
+        audioUrl: '$bucketBase/bab_inna_dan_saudaranya.mp3',
+      ),
+      BabModel(
+        key: 'bab_dzanna_dan_saudaranya',
+        labelId: 'Bab Dzanna dan Saudaranya',
+        labelAr: "باب ظن وأخواتها",
+        audioUrl: '$bucketBase/bab_dzanna_dan_saudaranya.mp3',
+      ),
+      BabModel(
+        key: 'bab_naat',
+        labelId: 'Bab Na\'at',
+        labelAr: "باب النعت",
+        audioUrl: '$bucketBase/bab_naat.mp3',
+      ),
+      BabModel(
+        key: 'bab_ataf',
+        labelId: 'Bab Ataf',
+        labelAr: "باب العطف",
+        audioUrl: '$bucketBase/bab_ataf.mp3',
+      ),
+      BabModel(
+        key: 'bab_taukid',
+        labelId: 'Bab Taukid',
+        labelAr: "باب التوكيد",
+        audioUrl: '$bucketBase/bab_taukid.mp3',
+      ),
+      BabModel(
+        key: 'bab_badal',
+        labelId: 'Bab Badal',
+        labelAr: "باب البدل",
+        audioUrl: '$bucketBase/bab_badal.mp3',
+      ),
+      BabModel(
+        key: 'bab_isim_yang_dibaca_nashob',
+        labelId: 'Bab Isim yang dibaca Nashob',
+        labelAr: "باب منصوبات الأسماء",
+        audioUrl: '$bucketBase/bab_isim_yang_dibaca_nashob.mp3',
+      ),
+      BabModel(
+        key: 'bab_masdar',
+        labelId: 'Bab Masdar',
+        labelAr: "باب المصدر",
+        audioUrl: '$bucketBase/bab_masdar.mp3',
+      ),
+      BabModel(
+        key: 'bab_dhorof',
+        labelId: 'Bab Dhorof',
+        labelAr: "باب الظرف",
+        audioUrl: '$bucketBase/bab_dhorof.mp3',
+      ),
+      BabModel(
+        key: 'bab_hal',
+        labelId: 'Bab Hal',
+        labelAr: "باب الحال",
+        audioUrl: '$bucketBase/bab_hal.mp3',
+      ),
+      BabModel(
+        key: 'bab_tamyiz',
+        labelId: 'Bab Tamyiz',
+        labelAr: "باب التمييز",
+        audioUrl: '$bucketBase/bab_tamyiz.mp3',
+      ),
+      BabModel(
+        key: 'bab_istisna',
+        labelId: 'Bab Istisna',
+        labelAr: "باب الاستثناء",
+        audioUrl: '$bucketBase/bab_istisna.mp3',
+      ),
+      BabModel(
+        key: 'bab_la_yang_beramal_seperti_amal_inna',
+        labelId: 'Bab La yang Beramal Seperti Amal Inna',
+        labelAr: "باب لا العاملة عمل إن",
+        audioUrl: '$bucketBase/bab_la_yang_beramal_seperti_amal_inna.mp3',
+      ),
+      BabModel(
+        key: 'bab_munada',
+        labelId: 'Bab Munada',
+        labelAr: "باب النداء",
+        audioUrl: '$bucketBase/bab_munada.mp3',
+      ),
+      BabModel(
+        key: 'bab_maful_li_ajlih',
+        labelId: 'Bab Maful li Ajlih',
+        labelAr: "باب المفعول لأجله",
+        audioUrl: '$bucketBase/bab_maful_li_ajlih.mp3',
+      ),
+      BabModel(
+        key: 'bab_maful_maah',
+        labelId: 'Bab Maful Ma\'ah',
+        labelAr: "باب المفعول معه",
+        audioUrl: '$bucketBase/bab_maful_maah.mp3',
+      ),
+      BabModel(
+        key: 'bab_isim_yang_dibaca_jer',
+        labelId: 'Bab Isim yang dibaca Jer',
+        labelAr: "باب مخفوضات الأسماء",
+        audioUrl: '$bucketBase/bab_isim_yang_dibaca_jer.mp3',
+      ),
+      BabModel(
+        key: 'bab_idofah',
+        labelId: 'Bab Idofah',
+        labelAr: "باب الإضافة",
+        audioUrl: '$bucketBase/bab_idofah.mp3',
       ),
     ];
   }

@@ -550,13 +550,13 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
         onTap: () => _playBab(bab),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           decoration: BoxDecoration(
             color: isActive
                 ? const Color(0xFF6E6EB0)
                 : isDone
-                ? const Color(0xFFE8F5E9)
-                : const Color(0xFFF0F0F0),
+                ? const Color.fromARGB(255, 232, 245, 233)
+                : const Color.fromARGB(215, 230, 230, 230),
             borderRadius: BorderRadius.circular(50),
             boxShadow: isActive
                 ? [
@@ -582,7 +582,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                 child: Text(
                   bab.fullLabel,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: isActive
                         ? Colors.white
@@ -637,19 +637,19 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                     const Icon(
                       Icons.pause_circle_filled_rounded,
                       color: Colors.white,
-                      size: 22,
+                      size: 30,
                     )
                   else if (isActive)
                     const Icon(
                       Icons.play_circle_filled_rounded,
                       color: Colors.white,
-                      size: 22,
+                      size: 30,
                     )
                   else
                     const Icon(
                       Icons.play_circle_outline_rounded,
                       color: Color(0xFF697B91),
-                      size: 22,
+                      size: 28,
                     ),
                 ],
               ),
