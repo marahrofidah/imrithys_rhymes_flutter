@@ -377,11 +377,11 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Kuis',
+                    'Kerjakan Kuis',
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF038DC5),
+                      color: Color(0xFFFF3270),
                     ),
                   ),
                   SizedBox(height: 4),
@@ -389,7 +389,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                     'Pertahankan streakmu dengan quiz setiap hari!',
                     style: TextStyle(
                       fontSize: 15,
-                      color: Color(0xFF038DC5),
+                      color: Color(0xFFFF3270),
                       height: 1.4,
                     ),
                   ),

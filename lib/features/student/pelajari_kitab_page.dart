@@ -130,7 +130,7 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
           children: [
             const SafeArea(bottom: false, child: SizedBox(height: 8)),
             _buildHeader(),
-            const SizedBox(height: 24),
+            const SizedBox(height: 4),
             _buildBabList(),
             const SizedBox(height: 24),
           ],
