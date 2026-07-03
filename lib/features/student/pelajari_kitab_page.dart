@@ -171,7 +171,6 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
             ),
           ],
         ),
-        const SizedBox(height: 12),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
