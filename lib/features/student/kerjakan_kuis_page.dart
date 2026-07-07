@@ -186,8 +186,8 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                   child: Container(
                     constraints: const BoxConstraints(maxHeight: 250),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      color: const Color(0xFFF66893),
+                      borderRadius: BorderRadius.circular(40),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withValues(alpha: 0.12),
@@ -202,8 +202,10 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         itemCount: _babList.length,
-                        separatorBuilder: (_, _) =>
-                            Divider(height: 1, color: Colors.grey.shade100),
+                        separatorBuilder: (_, _) => Divider(
+                          height: 1,
+                          color: Colors.white.withValues(alpha: 0.2),
+                        ),
                         itemBuilder: (context, index) {
                           final bab = _babList[index];
                           final isPassed = _passedBabKeys.contains(bab['key']);
@@ -229,24 +231,21 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                                   },
                             child: Container(
                               color: isSelected
-                                  ? const Color(
-                                      0xFFF66893,
-                                    ).withValues(alpha: 0.06)
-                                  : Colors.white,
+                                  ? Colors.white.withValues(alpha: 0.15)
+                                  : Colors.transparent,
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 13,
+                                horizontal: 40,
+                                vertical: 17,
                               ),
                               child: Row(
                                 children: [
                                   Expanded(
                                     child: Text(
                                       bab['label'] as String,
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 18,
-                                        color: isSelected
-                                            ? const Color(0xFFF66893)
-                                            : const Color(0xFF2D2D2D),
+                                        color: Colors.white,
                                         fontWeight: isSelected
                                             ? FontWeight.bold
                                             : FontWeight.normal,
@@ -256,7 +255,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                                   if (isSelected)
                                     const Icon(
                                       Icons.check_rounded,
-                                      color: Color(0xFFF66893),
+                                      color: Colors.white,
                                       size: 18,
                                     ),
                                 ],
