@@ -48,6 +48,19 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       if (mounted) {
         setState(() => _position = p);
 
+        // Jika sudah mencapai akhir durasi (selisih kurang dari 300ms dari akhir) dan progress sudah dicatat, pause & seek ke awal (untuk instan replay)
+        if (_isPlaying &&
+            _isRecordedThisSession &&
+            _duration.inMilliseconds > 0 &&
+            p.inMilliseconds >= _duration.inMilliseconds - 300) {
+          setState(() {
+            _isPlaying = false;
+            _position = Duration.zero;
+          });
+          _audioPlayer.pause();
+          _audioPlayer.seek(Duration.zero);
+        }
+
         // Cek jika sudah didengar 95% dari durasi dan belum dicatat
         if (_duration.inMilliseconds > 0 && !_isRecordedThisSession) {
           final double progressPercent =
@@ -68,6 +81,14 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
 
     // Ketika audio selesai diputar sampai habis
     _audioPlayer.onPlayerComplete.listen((_) async {
+      if (mounted) {
+        setState(() {
+          _isPlaying = false;
+          _position = Duration.zero;
+        });
+      }
+      _audioPlayer.pause();
+      _audioPlayer.seek(Duration.zero);
       if (_currentBab != null && _userId != null && !_isRecordedThisSession) {
         _isRecordedThisSession = true;
         await _onAudioCompleted(_currentBab!);
@@ -158,6 +179,10 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       if (_isPlaying) {
         await _audioPlayer.pause();
       } else {
+        // Jika diputar ulang dari awal (detik ke-0), reset penanda pencatatan untuk session baru
+        if (_position == Duration.zero || _position.inSeconds == 0) {
+          _isRecordedThisSession = false;
+        }
         await _audioPlayer.resume();
       }
       return;

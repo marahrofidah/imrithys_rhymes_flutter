@@ -124,10 +124,10 @@ class BabList {
         audioUrl: '$bucketBase/16_bab_inna_dan_saudaranya.mp3',
       ),
       BabModel(
-        key: '17_bab_dzanna_dan_saudaranya',
-        labelId: 'Bab Dzanna dan Saudaranya',
+        key: '17_bab_dzonna_dan_saudaranya',
+        labelId: 'Bab Dzonna dan Saudaranya',
         labelAr: "باب ظن وأخواتها",
-        audioUrl: '$bucketBase/17_bab_dzanna_dan_saudaranya.mp3',
+        audioUrl: '$bucketBase/17_bab_dzonna_dan_saudaranya.mp3',
       ),
       BabModel(
         key: '18_bab_naat',
