@@ -151,7 +151,6 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
         SnackBar(
           content: Row(
             children: [
-              const Text('🔥 ', style: TextStyle(fontSize: 18)),
               Expanded(
                 child: Text(
                   'Keren! ${bab.labelId} sudah 5 kali! Target hari ini tercapai, streak bertambah!',
