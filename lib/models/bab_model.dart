@@ -101,7 +101,7 @@ class BabList {
       ),
       BabModel(
         key: '13_bab_naibul_fail',
-        labelId: 'Bab Naibul Fail',
+        labelId: 'Bab Naibul Fa\'il',
         labelAr: "باب نائب الفاعل",
         audioUrl: '$bucketBase/13_bab_naibul_fail.mp3',
       ),

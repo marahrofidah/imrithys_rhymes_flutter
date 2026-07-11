@@ -304,11 +304,6 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
         textColor = const Color(0xFFB71C1C);
         icon = Icons.cancel_rounded;
       }
-    } else if (_answered && opt == correct) {
-      bgColor = const Color(0xFF4CAF50).withValues(alpha: 0.08);
-      borderColor = const Color(0xFF4CAF50);
-      textColor = const Color(0xFF2E7D32);
-      icon = Icons.check_circle_rounded;
     }
 
     return GestureDetector(
@@ -335,7 +330,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                color: _answered && (opt == correct || opt == _selectedAnswer)
+                color: _answered && (opt == _selectedAnswer)
                     ? Colors.transparent
                     : const Color(0xFFF66893).withValues(alpha: 0.10),
                 shape: BoxShape.circle,
@@ -366,7 +361,7 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
                 style: TextStyle(
                   fontSize: 14,
                   color: textColor,
-                  fontWeight: _answered && opt == correct
+                  fontWeight: _answered && _selectedAnswer == opt
                       ? FontWeight.bold
                       : FontWeight.normal,
                   height: 1.4,
