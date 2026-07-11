@@ -30,7 +30,6 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   Duration _duration = Duration.zero;
   Duration _position = Duration.zero;
   bool _isRecordedThisSession = false;
-  bool _showLyrics = false;
 
   @override
   void initState() {
@@ -559,73 +558,6 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
               ),
             ],
           ),
-
-          // Divider tipis lirik
-          const SizedBox(height: 12),
-          Divider(height: 1, color: Colors.white.withValues(alpha: 0.15)),
-          const SizedBox(height: 8),
-
-          // Tombol Toggle Lirik
-          GestureDetector(
-            onTap: () {
-              setState(() => _showLyrics = !_showLyrics);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  _showLyrics
-                      ? Icons.keyboard_arrow_up_rounded
-                      : Icons.keyboard_arrow_down_rounded,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  _showLyrics ? 'Sembunyikan Lirik' : 'Tampilkan Lirik',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Lirik Box (Expandable)
-          if (_showLyrics) ...[
-            const SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              constraints: const BoxConstraints(maxHeight: 180),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: _currentBab!.lyrics.map((line) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Text(
-                        line,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          height: 1.6,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
-            ),
-          ],
         ],
       ),
     );
