@@ -158,13 +158,25 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 233, 233, 233),
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color.fromARGB(
+                        255,
+                        0,
+                        0,
+                        0,
+                      ).withValues(alpha: 0.1),
+                      offset: const Offset(0, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
                   Icons.arrow_back_ios_new_rounded,
                   size: 18,
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color.fromARGB(255, 57, 143, 241),
                 ),
               ),
             ),
