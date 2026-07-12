@@ -377,6 +377,49 @@ class SupabaseService {
     }
   }
 
+  /// Cek apakah streak murid terputus (jika hari kemarin terlewati tanpa mendengarkan 5x)
+  /// Jika terputus, set streak_count ke 0 dan kembalikan true (streak baru saja reset)
+  Future<bool> checkAndResetStreak(String studentId) async {
+    try {
+      final existing = await _client
+          .from('student_streaks')
+          .select()
+          .eq('student_id', studentId)
+          .maybeSingle();
+
+      if (existing == null) return false;
+
+      final streakCount = (existing['streak_count'] as int?) ?? 0;
+      if (streakCount == 0) return false;
+
+      final lastActiveDateStr = existing['last_active_date'] as String?;
+      if (lastActiveDateStr == null) return false;
+
+      final today = DateTime.now();
+      final todayStart = DateTime(today.year, today.month, today.day);
+      final yesterdayStart = todayStart.subtract(const Duration(days: 1));
+
+      final lastActive = DateTime.parse(lastActiveDateStr);
+      final lastActiveStart = DateTime(lastActive.year, lastActive.month, lastActive.day);
+
+      if (lastActiveStart.isBefore(yesterdayStart)) {
+        // Streak terputus!
+        await _client
+            .from('student_streaks')
+            .update({
+              'streak_count': 0,
+              'updated_at': DateTime.now().toUtc().toIso8601String(),
+            })
+            .eq('student_id', studentId);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      debugPrint('Check and reset streak error: $e');
+      return false;
+    }
+  }
+
   /// Ambil jumlah streak total murid
   Future<int> getStudentStreakCount(String studentId) async {
     try {

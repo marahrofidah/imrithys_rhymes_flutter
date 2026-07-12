@@ -32,8 +32,14 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
 
   Future<void> _loadStreak() async {
     if (userId.isEmpty) return;
+    final streakReset = await SupabaseService().checkAndResetStreak(userId);
     final count = await SupabaseService().getStudentStreakCount(userId);
-    if (mounted) setState(() => _streakCount = count);
+    if (mounted) {
+      setState(() => _streakCount = count);
+      if (streakReset) {
+        _showStreakLoseDialog();
+      }
+    }
   }
 
   Future<void> _checkEnrollment() async {
@@ -49,6 +55,82 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
         _showJoinClassDialog();
       });
     }
+  }
+
+  void _showStreakLoseDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (dialogContext) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Icon api padam/sedih
+                Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFEAEA),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Center(
+                    child: Text('💔', style: TextStyle(fontSize: 34)),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Streak Lose!',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFEF4444),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Yah, streak kamu terputus karena kemarin kamu tidak menyelesaikan target belajar. Yuk dengarkan syair lagi hari ini untuk memulai streak baru!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey.shade600,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFFA231),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      elevation: 0,
+                    ),
+                    onPressed: () => Navigator.pop(dialogContext),
+                    child: const Text(
+                      'Mulai Lagi',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void _showJoinClassDialog() {
