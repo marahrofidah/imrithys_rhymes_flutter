@@ -39,15 +39,6 @@ class InfoPage extends StatelessWidget {
             ),
           ),
         ),
-        title: const Text(
-          'Informasi Aplikasi',
-          style: TextStyle(
-            color: Color(0xFF2D2D2D),
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -78,16 +69,7 @@ class InfoPage extends StatelessWidget {
                       );
                     },
                   ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    "Imrithy's Rhymes",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF65A6F1),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
+
                   Text(
                     'Versi 1.0.0',
                     style: TextStyle(
