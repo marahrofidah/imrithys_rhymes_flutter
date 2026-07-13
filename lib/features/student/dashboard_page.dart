@@ -829,7 +829,9 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
             if (mounted) setState(() => _selectedIndex = 0);
           });
         } else if (index == 2) {
-          _showProfileDialog();
+          Navigator.pushNamed(context, '/profile').then((_) {
+            if (mounted) setState(() => _selectedIndex = 0);
+          });
         } else if (index == 3) {
           _handleLogout();
         }
@@ -849,138 +851,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
           color: isSelected ? const Color(0xFF5BAEF0) : Colors.grey.shade400,
         ),
       ),
-    );
-  }
-
-  void _showProfileDialog() {
-    final user = AuthService().currentUser;
-    final String name = user?.fullName ?? user?.username ?? 'Murid';
-    final String username = user?.username ?? '-';
-    final String email = user?.email ?? '-';
-    final String gender = user?.gender ?? '';
-    final String role = user?.role == 'teacher' ? 'Guru' : 'Murid';
-
-    showDialog(
-      context: context,
-      builder: (dialogContext) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey.shade100,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                    image: DecorationImage(
-                      image: AssetImage(
-                        gender == 'laki-laki'
-                            ? 'assets/images/laki-laki.png'
-                            : gender == 'perempuan'
-                            ? 'assets/images/perempuan.png'
-                            : 'assets/images/person.png',
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2D2D2D),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF65A6F1).withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    role,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF65A6F1),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Divider(color: Colors.grey.shade200, height: 1),
-                const SizedBox(height: 16),
-                _buildProfileRow('Username', username),
-                const SizedBox(height: 12),
-                _buildProfileRow('Email', email),
-                const SizedBox(height: 12),
-                _buildProfileRow('Jenis Kelamin', gender.isEmpty ? '-' : (gender == 'laki-laki' ? 'Laki-laki' : 'Perempuan')),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF65A6F1),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      elevation: 0,
-                    ),
-                    onPressed: () => Navigator.pop(dialogContext),
-                    child: const Text(
-                      'Tutup',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildProfileRow(String label, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey.shade500,
-          ),
-        ),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF2D2D2D),
-          ),
-        ),
-      ],
     );
   }
 
