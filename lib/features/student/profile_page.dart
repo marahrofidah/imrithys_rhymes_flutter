@@ -80,7 +80,10 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 children: [
                   _buildProfileHeader(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 16,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -112,14 +115,17 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF65A6F1), Color(0xFFA3C7F0)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
+        color: Color(0xFF65A6F1),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(255, 188, 188, 188),
+            blurRadius: 20,
+            offset: Offset(0, 5),
+          ),
+        ],
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(50),
-          bottomRight: Radius.circular(50),
+          bottomLeft: Radius.circular(80),
+          bottomRight: Radius.circular(80),
         ),
       ),
       padding: const EdgeInsets.only(top: 60, bottom: 30),
@@ -157,7 +163,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
           Text(
             userName,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 26,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -172,11 +178,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             ),
             child: const Text(
               'Murid',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.white),
             ),
           ),
         ],
@@ -477,11 +479,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                   Navigator.pushNamed(context, '/pelajari-kitab');
                 },
               ),
-              _buildNavItem(
-                Icons.person_rounded,
-                2,
-                isActive: true,
-              ),
+              _buildNavItem(Icons.person_rounded, 2, isActive: true),
               _buildNavItem(
                 Icons.logout_rounded,
                 3,
