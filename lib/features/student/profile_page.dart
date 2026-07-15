@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
 import '../../services/supabase_service.dart';
+import '../../models/class_model.dart';
 
 class StudentProfilePage extends StatefulWidget {
   const StudentProfilePage({super.key});
@@ -15,10 +16,12 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   late final String userUsername;
   late final String userEmail;
   late final String userGender;
+  late final DateTime? userCreatedAt;
 
   int _streakCount = 0;
   int _completedBabs = 0;
   String _className = 'Belum bergabung ke kelas';
+  String _classEnrollmentDate = '';
   bool _loading = true;
 
   @override
@@ -30,6 +33,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
     userUsername = user?.username ?? '-';
     userEmail = user?.email ?? '-';
     userGender = user?.gender ?? '';
+    userCreatedAt = user?.createdAt;
     _loadProfileData();
   }
 
@@ -40,16 +44,27 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
       final results = await Future.wait([
         SupabaseService().getStudentStreakCount(userId),
         SupabaseService().getPassedBabCount(userId),
-        SupabaseService().getStudentClasses(userId),
+        SupabaseService().getStudentClassesWithEnrollment(userId),
       ]);
 
       final streak = results[0] as int;
       final completed = results[1] as int;
-      final classes = results[2] as List;
+      final enrollments = results[2] as List<Map<String, dynamic>>;
 
       String className = 'Belum bergabung ke kelas';
-      if (classes.isNotEmpty) {
-        className = classes.first.name ?? 'Kelas Aktif';
+      String enrollmentDate = '';
+      if (enrollments.isNotEmpty) {
+        final firstEnrollment = enrollments.first;
+        final classInfo = firstEnrollment['class'] as ClassModel;
+        className = classInfo.name;
+
+        final joinedAtStr = firstEnrollment['joined_at'] as String?;
+        if (joinedAtStr != null) {
+          final joinedAt = DateTime.tryParse(joinedAtStr);
+          if (joinedAt != null) {
+            enrollmentDate = _formatDate(joinedAt);
+          }
+        }
       }
 
       if (mounted) {
@@ -57,6 +72,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
           _streakCount = streak;
           _completedBabs = completed;
           _className = className;
+          _classEnrollmentDate = enrollmentDate;
           _loading = false;
         });
       }
@@ -190,9 +206,9 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
     return Text(
       title,
       style: const TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: Color(0xFF2D2D2D),
+        color: Color.fromARGB(221, 131, 131, 131),
       ),
     );
   }
@@ -205,22 +221,29 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             decoration: BoxDecoration(
-              color: const Color(0xFFFFA231).withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: const Color(0xFFFFA231).withValues(alpha: 0.2),
-                width: 1.5,
-              ),
+              color: const Color(0xFFFFA231),
+              borderRadius: BorderRadius.circular(40),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: Column(
               children: [
-                const Text('🔥', style: TextStyle(fontSize: 32)),
+                const Image(
+                  image: AssetImage('assets/images/api.png'),
+                  width: 50,
+                  height: 50,
+                ),
                 const SizedBox(height: 8),
                 const Text(
                   'Focus Track',
                   style: TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF9E9E9E),
+                    fontSize: 15,
+                    color: Color.fromARGB(255, 255, 255, 255),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -228,9 +251,9 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 Text(
                   '$_streakCount Hari',
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFFFA231),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ],
@@ -243,22 +266,29 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             decoration: BoxDecoration(
-              color: const Color(0xFFF66893).withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: const Color(0xFFF66893).withValues(alpha: 0.2),
-                width: 1.5,
-              ),
+              color: const Color(0xFFF66893),
+              borderRadius: BorderRadius.circular(40),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: Column(
               children: [
-                const Text('📝', style: TextStyle(fontSize: 32)),
+                const Image(
+                  image: AssetImage('assets/images/kuis.png'),
+                  width: 50,
+                  height: 50,
+                ),
                 const SizedBox(height: 8),
                 const Text(
                   'Progress Kuis',
                   style: TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF9E9E9E),
+                    fontSize: 15,
+                    color: Color.fromARGB(255, 255, 255, 255),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -266,9 +296,9 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 Text(
                   '$_completedBabs/33 Lulus',
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFF66893),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
               ],
@@ -282,14 +312,13 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   Widget _buildAccountDetailsCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100, width: 1.5),
+        borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -307,9 +336,30 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 ? '-'
                 : (userGender == 'laki-laki' ? 'Laki-laki' : 'Perempuan'),
           ),
+          const SizedBox(height: 12),
+          _buildDetailRow('Tanggal Bergabung', _formatDate(userCreatedAt)),
         ],
       ),
     );
+  }
+
+  String _formatDate(DateTime? date) {
+    if (date == null) return '-';
+    const months = [
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember',
+    ];
+    return "${date.day} ${months[date.month - 1]} ${date.year}";
   }
 
   Widget _buildDetailRow(String label, String value) {
@@ -319,17 +369,17 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
         Text(
           label,
           style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey.shade500,
+            fontSize: 15,
+            color: Color.fromARGB(221, 131, 131, 131),
             fontWeight: FontWeight.w500,
           ),
         ),
         Text(
           value,
           style: const TextStyle(
-            fontSize: 14,
+            fontSize: 15,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF2D2D2D),
+            color: Color.fromARGB(255, 45, 45, 45),
           ),
         ),
       ],
@@ -342,11 +392,10 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100, width: 1.5),
+        borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -367,23 +416,24 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Kelas Terdaftar',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF9E9E9E),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 4),
                 Text(
                   _className,
                   style: const TextStyle(
-                    fontSize: 15,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2D2D2D),
                   ),
                 ),
+                if (_classEnrollmentDate.isNotEmpty) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    'Tanggal Bergabung: $_classEnrollmentDate',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Color.fromARGB(221, 131, 131, 131),
+                    ),
+                  ),
+                ],
               ],
             ),
           ),

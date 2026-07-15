@@ -234,6 +234,26 @@ class SupabaseService {
     }
   }
 
+  /// Ambil semua class untuk student lengkap dengan tanggal bergabung
+  Future<List<Map<String, dynamic>>> getStudentClassesWithEnrollment(String studentId) async {
+    try {
+      final response = await _client
+          .from('student_enrollments')
+          .select(
+            'joined_at, classes(id, code, name, teacher_id, description, created_at)',
+          )
+          .eq('student_id', studentId);
+
+      return (response as List).map((e) => {
+        'joined_at': e['joined_at'] as String?,
+        'class': ClassModel.fromJson(e['classes']),
+      }).toList();
+    } catch (e) {
+      debugPrint('Get student classes with enrollment error: $e');
+      return [];
+    }
+  }
+
   /// Ambil semua class untuk teacher
   Future<List<ClassModel>> getTeacherClasses(String teacherId) async {
     try {
