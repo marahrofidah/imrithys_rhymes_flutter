@@ -404,14 +404,23 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFF65A6F1).withValues(alpha: 0.1),
-              shape: BoxShape.circle,
+            padding: const EdgeInsets.all(8),
+            // decoration: BoxDecoration(
+            //   color: const Color.fromARGB(
+            //     255,
+            //     164,
+            //     164,
+            //     164,
+            //   ).withValues(alpha: 0.1),
+            //   shape: BoxShape.circle,
+            // ),
+            child: Image(
+              image: AssetImage('assets/images/kelas.png'),
+              width: 60,
+              height: 60,
             ),
-            child: const Text('🏫', style: TextStyle(fontSize: 22)),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
