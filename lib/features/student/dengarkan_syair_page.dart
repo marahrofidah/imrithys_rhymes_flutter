@@ -229,6 +229,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBody: true,
       body: Column(
         children: [
           const SafeArea(bottom: false, child: SizedBox(height: 8)),
@@ -250,13 +251,14 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
 
                   // Daftar bab
                   ..._babs.map((bab) => _buildBabTile(bab)),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 130),
                 ],
               ),
             ),
           ),
         ],
       ),
+      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
@@ -355,11 +357,16 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 18),
       decoration: BoxDecoration(
         color: const Color(0xFF3A327C),
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF3A327C).withValues(alpha: 0.3),
-            blurRadius: 30,
+            color: const Color.fromARGB(
+              255,
+              157,
+              157,
+              157,
+            ).withValues(alpha: 0.1),
+            blurRadius: 20,
             offset: const Offset(0, 4),
           ),
         ],
@@ -692,6 +699,113 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildBottomNav() {
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(40)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 16,
+                spreadRadius: 1,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNavItem(
+                  Icons.home_rounded,
+                  0,
+                  onTap: () => Navigator.pop(context),
+                ),
+                _buildNavItem(
+                  Icons.menu_book_rounded,
+                  1,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/pelajari-kitab');
+                  },
+                ),
+                _buildNavItem(
+                  Icons.person_rounded,
+                  2,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                ),
+                _buildNavItem(
+                  Icons.logout_rounded,
+                  3,
+                  onTap: () => _handleLogout(),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(
+    IconData icon,
+    int index, {
+    bool isActive = false,
+    VoidCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isActive
+              ? const Color(0xFF6E6EB0).withValues(alpha: 0.10)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Icon(
+          icon,
+          size: 28,
+          color: isActive ? const Color(0xFF6E6EB0) : Colors.grey.shade400,
+        ),
+      ),
+    );
+  }
+
+  void _handleLogout() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('Logout'),
+        content: const Text('Apakah Anda yakin ingin keluar?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () {
+              AuthService().logout();
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+            child: const Text('Logout', style: TextStyle(color: Colors.red)),
+          ),
+        ],
       ),
     );
   }

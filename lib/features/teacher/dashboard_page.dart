@@ -61,11 +61,13 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBody: true,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
         titleSpacing: 16,
+        toolbarHeight: 70,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -178,7 +180,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                           ? _buildEmptyStudents()
                           : _buildStudentList(),
 
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 ),
@@ -539,29 +541,34 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
   // Bottom Nav
   // ─────────────────────────────────────────
   Widget _buildBottomNav() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(40)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 12,
-            offset: const Offset(0, -5),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_rounded, 0),
-              _buildNavItem(Icons.bar_chart_rounded, 1),
-              _buildNavItem(Icons.person_rounded, 2),
-              _buildNavItem(Icons.logout_rounded, 3),
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(40)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 16,
+                spreadRadius: 1,
+                offset: const Offset(0, 4),
+              ),
             ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNavItem(Icons.home_rounded, 0),
+                _buildNavItem(Icons.bar_chart_rounded, 1),
+                _buildNavItem(Icons.person_rounded, 2),
+                _buildNavItem(Icons.logout_rounded, 3),
+              ],
+            ),
           ),
         ),
       ),

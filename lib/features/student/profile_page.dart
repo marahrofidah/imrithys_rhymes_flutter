@@ -87,6 +87,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBody: true,
       body: _loading
           ? const Center(
               child: CircularProgressIndicator(color: Color(0xFF65A6F1)),
@@ -116,7 +117,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                         _buildClassCard(),
                         const SizedBox(height: 36),
                         _buildLogoutButton(),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 130),
                       ],
                     ),
                   ),
@@ -507,44 +508,49 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   }
 
   Widget _buildBottomNav() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(40)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 12,
-            offset: const Offset(0, -5),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(
-                Icons.home_rounded,
-                0,
-                onTap: () => Navigator.pop(context),
-              ),
-              _buildNavItem(
-                Icons.menu_book_rounded,
-                1,
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, '/pelajari-kitab');
-                },
-              ),
-              _buildNavItem(Icons.person_rounded, 2, isActive: true),
-              _buildNavItem(
-                Icons.logout_rounded,
-                3,
-                onTap: () => _handleLogout(),
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(40)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 16,
+                spreadRadius: 1,
+                offset: const Offset(0, 4),
               ),
             ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNavItem(
+                  Icons.home_rounded,
+                  0,
+                  onTap: () => Navigator.pop(context),
+                ),
+                _buildNavItem(
+                  Icons.menu_book_rounded,
+                  1,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/pelajari-kitab');
+                  },
+                ),
+                _buildNavItem(Icons.person_rounded, 2, isActive: true),
+                _buildNavItem(
+                  Icons.logout_rounded,
+                  3,
+                  onTap: () => _handleLogout(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
