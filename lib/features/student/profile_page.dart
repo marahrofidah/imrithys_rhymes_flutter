@@ -509,56 +509,65 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   }
 
   Widget _buildBottomNav() {
-    return SafeArea(
-      top: false,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(40)),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 12.0, sigmaY: 12.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.75),
-                borderRadius: const BorderRadius.all(Radius.circular(40)),
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.4),
-                  width: 1.5,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
-                    blurRadius: 16,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 4),
+    return Theme(
+      data: Theme.of(context).copyWith(
+        canvasColor: Colors.transparent,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        elevation: 0,
+        child: SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(40)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 12.0, sigmaY: 12.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.75),
+                    borderRadius: const BorderRadius.all(Radius.circular(40)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.4),
+                      width: 1.5,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.08),
+                        blurRadius: 16,
+                        spreadRadius: 1,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _buildNavItem(
-                      Icons.home_rounded,
-                      0,
-                      onTap: () => Navigator.pop(context),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildNavItem(
+                          Icons.home_rounded,
+                          0,
+                          onTap: () => Navigator.pop(context),
+                        ),
+                        _buildNavItem(
+                          Icons.menu_book_rounded,
+                          1,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/pelajari-kitab');
+                          },
+                        ),
+                        _buildNavItem(Icons.person_rounded, 2, isActive: true),
+                        _buildNavItem(
+                          Icons.logout_rounded,
+                          3,
+                          onTap: () => _handleLogout(),
+                        ),
+                      ],
                     ),
-                    _buildNavItem(
-                      Icons.menu_book_rounded,
-                      1,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.pushNamed(context, '/pelajari-kitab');
-                      },
-                    ),
-                    _buildNavItem(Icons.person_rounded, 2, isActive: true),
-                    _buildNavItem(
-                      Icons.logout_rounded,
-                      3,
-                      onTap: () => _handleLogout(),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),

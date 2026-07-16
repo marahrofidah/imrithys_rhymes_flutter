@@ -4,15 +4,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../services/auth_service.dart';
 
-class InfoPage extends StatelessWidget {
+class InfoPage extends StatefulWidget {
   const InfoPage({super.key});
 
+  @override
+  State<InfoPage> createState() => _InfoPageState();
+}
+
+class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
       body: SafeArea(
+        bottom: false,
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
           child: Column(
@@ -24,8 +30,8 @@ class InfoPage extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Container(
-                    width: 36,
-                    height: 36,
+                    width: 40,
+                    height: 40,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
@@ -39,7 +45,7 @@ class InfoPage extends StatelessWidget {
                     ),
                     child: const Icon(
                       Icons.arrow_back_ios_new_rounded,
-                      size: 16,
+                      size: 18,
                       color: Color(0xFF398FF1),
                     ),
                   ),
@@ -365,7 +371,7 @@ class InfoPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 140,
               ), // Spasi agar tidak tertutup bottom nav
             ],
           ),
@@ -452,9 +458,12 @@ class InfoPage extends StatelessWidget {
   // ── BOTTOM NAV ────────────────────────────────────────────
 
   Widget _buildBottomNav() {
-    return Builder(
-      builder: (context) {
-        return SafeArea(
+    return Theme(
+      data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
+      child: Material(
+        color: Colors.transparent,
+        elevation: 0,
+        child: SafeArea(
           top: false,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
@@ -485,19 +494,19 @@ class InfoPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         _buildNavItem(
-                          context,
                           Icons.home_rounded,
                           0,
                           onTap: () => Navigator.pop(context),
                         ),
                         _buildNavItem(
-                          context,
                           Icons.menu_book_rounded,
                           1,
-                          isActive: true,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/pelajari-kitab');
+                          },
                         ),
                         _buildNavItem(
-                          context,
                           Icons.person_rounded,
                           2,
                           onTap: () {
@@ -506,10 +515,9 @@ class InfoPage extends StatelessWidget {
                           },
                         ),
                         _buildNavItem(
-                          context,
                           Icons.logout_rounded,
                           3,
-                          onTap: () => _handleLogout(context),
+                          onTap: () => _handleLogout(),
                         ),
                       ],
                     ),
@@ -518,13 +526,12 @@ class InfoPage extends StatelessWidget {
               ),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
   Widget _buildNavItem(
-    BuildContext context,
     IconData icon,
     int index, {
     bool isActive = false,
@@ -537,20 +544,20 @@ class InfoPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isActive
-              ? const Color(0xFFFCC100).withValues(alpha: 0.10)
+              ? const Color(0xFFF66893).withValues(alpha: 0.10)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Icon(
           icon,
           size: 28,
-          color: isActive ? const Color(0xFFFCC100) : Colors.grey.shade400,
+          color: isActive ? const Color(0xFFF66893) : Colors.grey.shade400,
         ),
       ),
     );
   }
 
-  void _handleLogout(BuildContext context) {
+  void _handleLogout() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
