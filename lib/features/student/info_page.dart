@@ -62,42 +62,51 @@ class InfoPage extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(top: 25),
-                  child: CurvedCard(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 45, 24, 32),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Tentang Aplikasi',
-                            style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF65A6F1),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Aplikasi pembelajaran kitab Imrithi yang membantu pengguna menghafal, mendengarkan, dan menguji pemahaman secara interaktif dilengkapi metode tikrar.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade600,
-                              height: 1.5,
-                            ),
-                          ),
-                        ],
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 25, left: 25),
+                  padding: const EdgeInsets.fromLTRB(24, 30, 24, 24),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border.all(color: Colors.grey.shade100, width: 1.5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.08),
+                        blurRadius: 16,
+                        offset: const Offset(0, 6),
                       ),
-                    ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Tentang Aplikasi',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF65A6F1),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Aplikasi pembelajaran kitab Imrithi yang membantu pengguna menghafal, mendengarkan, dan menguji pemahaman secara interaktif dilengkapi metode tikrar.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey.shade600,
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Positioned(
-                  left: 12,
+                  left: -5,
                   top: -10,
                   child: Image.asset(
                     'assets/images/tentang.png',
-                    width: 80,
-                    height: 80,
+                    width: 100,
+                    height: 100,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -114,7 +123,7 @@ class InfoPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(40),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
+                    color: Colors.black.withValues(alpha: 0.2),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -125,12 +134,12 @@ class InfoPage extends StatelessWidget {
                   const Text(
                     'Fitur Aplikasi',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 12),
                   Row(
                     children: [
                       Expanded(
@@ -184,7 +193,7 @@ class InfoPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(40),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
+                    color: Colors.black.withValues(alpha: 0.2),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -195,7 +204,7 @@ class InfoPage extends StatelessWidget {
                   const Text(
                     'Panduan Penggunaan',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -238,7 +247,7 @@ class InfoPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(40),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
+                    color: Colors.black.withValues(alpha: 0.2),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -249,7 +258,7 @@ class InfoPage extends StatelessWidget {
                   const Text(
                     'Tentang Penyusun',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -259,7 +268,7 @@ class InfoPage extends StatelessWidget {
                     "Mar'ah Rofidah Abidah Kh.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -269,7 +278,7 @@ class InfoPage extends StatelessWidget {
                     "Mahasiswa Teknik Informatika\nUniversitas Darussalam Gontor",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 16,
                       color: Colors.white70,
                       height: 1.4,
                     ),
@@ -280,7 +289,7 @@ class InfoPage extends StatelessWidget {
                     child: Text(
                       'Dosen Pembimbing :',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -292,7 +301,7 @@ class InfoPage extends StatelessWidget {
                     child: Text(
                       '1. Al-Ustadz Dihin Muriyatmoko S.ST., M.T.\n2. Al-Ustadz Faisal Reza Pradhana S.Com., M.Kom.',
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 16,
                         color: Colors.white70,
                         height: 1.5,
                       ),
@@ -312,7 +321,7 @@ class InfoPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(40),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
+                    color: Colors.black.withValues(alpha: 0.2),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -322,7 +331,7 @@ class InfoPage extends StatelessWidget {
                 children: [
                   _buildContactRow(
                     Icons.email_outlined,
-                    'marahrofidah@gmail.com',
+                    'marahrofidah7@gmail.com',
                   ),
                   const SizedBox(height: 12),
                   _buildContactRow(Icons.code_rounded, 'marahrofidah'),
@@ -334,7 +343,7 @@ class InfoPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 100), // Spasi agar tidak tertutup bottom nav
+            const SizedBox(height: 130), // Spasi agar tidak tertutup bottom nav
           ],
         ),
       ),
@@ -365,13 +374,13 @@ class InfoPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(imagePath, height: 55, width: 55, fit: BoxFit.contain),
+          Image.asset(imagePath, height: 70, width: 70, fit: BoxFit.contain),
           const SizedBox(height: 8),
           Text(
             label,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               color: textColor,
               height: 1.2,
@@ -516,72 +525,4 @@ class InfoPage extends StatelessWidget {
       ),
     );
   }
-}
-
-// ── CUSTOM SHAPE & SHADOW FOR WAVEY CARDS ───────────────────
-
-class CurvedCard extends StatelessWidget {
-  final Widget child;
-  const CurvedCard({super.key, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: WavyCardShadowPainter(),
-      child: ClipPath(
-        clipper: WavyCardClipper(),
-        child: Container(
-          width: double.infinity,
-          color: Colors.white,
-          padding: const EdgeInsets.only(bottom: 12),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-class WavyCardShadowPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final path = WavyCardClipper().getClip(size);
-    canvas.drawShadow(path, Colors.black.withValues(alpha: 0.12), 5.0, false);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class WavyCardClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    final double r = 30.0;
-    final double slantHeight = 35.0;
-
-    path.moveTo(r, 0);
-    path.lineTo(size.width - r, 0);
-    path.quadraticBezierTo(size.width, 0, size.width, r);
-
-    final double rightBottomY = size.height - slantHeight;
-    path.lineTo(size.width, rightBottomY - r);
-    path.quadraticBezierTo(
-      size.width,
-      rightBottomY,
-      size.width - r,
-      rightBottomY,
-    );
-
-    path.lineTo(r, size.height);
-    path.quadraticBezierTo(0, size.height, 0, size.height - r);
-
-    path.lineTo(0, r);
-    path.quadraticBezierTo(0, 0, r, 0);
-
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
