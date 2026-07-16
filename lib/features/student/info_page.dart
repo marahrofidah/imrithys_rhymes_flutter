@@ -1,4 +1,7 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../services/auth_service.dart';
 
 class InfoPage extends StatelessWidget {
@@ -9,342 +12,363 @@ class InfoPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0),
-          child: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color.fromARGB(
-                      255,
-                      0,
-                      0,
-                      0,
-                    ).withValues(alpha: 0.1),
-                    offset: const Offset(0, 2),
-                    blurRadius: 4,
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 16,
-                color: Color.fromARGB(255, 57, 143, 241),
-              ),
-            ),
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Logo Tengah
-            Center(
-              child: Image.asset(
-                'assets/images/logo.png',
-                height: 80,
-                fit: BoxFit.contain,
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // 1. Tentang Aplikasi Card (dengan overlapping icon tentang.png)
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(top: 25, left: 25),
-                  padding: const EdgeInsets.fromLTRB(24, 30, 24, 24),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(40),
-                    border: Border.all(color: Colors.grey.shade100, width: 1.5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.08),
-                        blurRadius: 16,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Tentang Aplikasi',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF65A6F1),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Tombol Back di kiri atas
+              Align(
+                alignment: Alignment.centerLeft,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.1),
+                          offset: const Offset(0, 2),
+                          blurRadius: 4,
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Aplikasi pembelajaran kitab Imrithi yang membantu pengguna menghafal, mendengarkan, dan menguji pemahaman secara interaktif dilengkapi metode tikrar.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey.shade600,
-                          height: 1.5,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 16,
+                      color: Color(0xFF398FF1),
+                    ),
                   ),
                 ),
-                Positioned(
-                  left: -5,
-                  top: -10,
-                  child: Image.asset(
-                    'assets/images/tentang.png',
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.contain,
-                  ),
+              ),
+              const SizedBox(height: 12),
+
+              // Logo Tengah di bawah tombol back
+              Center(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  height: 80,
+                  fit: BoxFit.contain,
                 ),
-              ],
-            ),
-            const SizedBox(height: 24),
+              ),
+              const SizedBox(height: 16),
 
-            // 2. Fitur Aplikasi Card (Kuning)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFCC100),
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.2),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
+              // 1. Tentang Aplikasi Card (dengan overlapping icon tentang.png)
+              Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  const Text(
-                    'Fitur Aplikasi',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(top: 25, left: 25),
+                    padding: const EdgeInsets.fromLTRB(24, 30, 24, 24),
+                    decoration: BoxDecoration(
                       color: Colors.white,
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(
+                        color: Colors.grey.shade100,
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.08),
+                          blurRadius: 16,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Tentang Aplikasi',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF65A6F1),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Aplikasi pembelajaran kitab Imrithi yang membantu pengguna menghafal, mendengarkan, dan menguji pemahaman secara interaktif dilengkapi metode tikrar.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey.shade600,
+                            height: 1.5,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildFiturItem(
-                          imagePath: 'assets/images/earphone.png',
-                          label: 'Dengarkan\nSyair',
-                          textColor: const Color(0xFF3A327C),
-                        ),
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: _buildFiturItem(
-                          imagePath: 'assets/images/kelas.png',
-                          label: 'Monitoring\nGuru',
-                          textColor: const Color(0xFF3A327C),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildFiturItem(
-                          imagePath: 'assets/images/kitab.png',
-                          label: 'Pelajari Kitab',
-                          textColor: const Color(0xFF2E7D32),
-                        ),
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: _buildFiturItem(
-                          imagePath: 'assets/images/kuis.png',
-                          label: 'Kerjakan Kuis',
-                          textColor: const Color(0xFFE65100),
-                        ),
-                      ),
-                    ],
+                  Positioned(
+                    left: -5,
+                    top: -10,
+                    child: Image.asset(
+                      'assets/images/tentang.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-            // 3. Panduan Penggunaan Card (Ungu)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-              decoration: BoxDecoration(
-                color: const Color(0xFF6E6EB0),
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.2),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Panduan Penggunaan',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+              // 2. Fitur Aplikasi Card (Kuning)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 24,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFCC100),
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  Image.asset(
-                    'assets/images/1.png',
-                    width: double.infinity,
-                    fit: BoxFit.contain,
-                  ),
-                  const SizedBox(height: 16),
-                  Image.asset(
-                    'assets/images/2.png',
-                    width: double.infinity,
-                    fit: BoxFit.contain,
-                  ),
-                  const SizedBox(height: 16),
-                  Image.asset(
-                    'assets/images/3.png',
-                    width: double.infinity,
-                    fit: BoxFit.contain,
-                  ),
-                  const SizedBox(height: 16),
-                  Image.asset(
-                    'assets/images/4.png',
-                    width: double.infinity,
-                    fit: BoxFit.contain,
-                  ),
-                ],
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Fitur Aplikasi',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildFiturItem(
+                            imagePath: 'assets/images/earphone.png',
+                            label: 'Dengarkan\nSyair',
+                            textColor: const Color(0xFF3A327C),
+                          ),
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: _buildFiturItem(
+                            imagePath: 'assets/images/kelas.png',
+                            label: 'Monitoring\nGuru',
+                            textColor: const Color(0xFF3A327C),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildFiturItem(
+                            imagePath: 'assets/images/kitab.png',
+                            label: 'Pelajari Kitab',
+                            textColor: const Color(0xFF2E7D32),
+                          ),
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: _buildFiturItem(
+                            imagePath: 'assets/images/kuis.png',
+                            label: 'Kerjakan Kuis',
+                            textColor: const Color(0xFFE65100),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-            // 4. Tentang Penyusun Card (Pink)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF66893),
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.2),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+              // 3. Panduan Penggunaan Card (Ungu)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 24,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF6E6EB0),
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Panduan Penggunaan',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Image.asset(
+                      'assets/images/1.png',
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                    ),
+                    const SizedBox(height: 16),
+                    Image.asset(
+                      'assets/images/2.png',
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                    ),
+                    const SizedBox(height: 16),
+                    Image.asset(
+                      'assets/images/3.png',
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                    ),
+                    const SizedBox(height: 16),
+                    Image.asset(
+                      'assets/images/4.png',
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Tentang Penyusun',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+              const SizedBox(height: 24),
+
+              // 4. Tentang Penyusun Card (Pink)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 24,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF66893),
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    "Mar'ah Rofidah Abidah Kh.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Tentang Penyusun',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    "Mahasiswa Teknik Informatika\nUniversitas Darussalam Gontor",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
-                      height: 1.4,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Dosen Pembimbing :',
+                    const SizedBox(height: 16),
+                    const Text(
+                      "Mar'ah Rofidah Abidah Kh.",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      '1. Al-Ustadz Dihin Muriyatmoko S.ST., M.T.\n2. Al-Ustadz Faisal Reza Pradhana S.Com., M.Kom.',
+                    const SizedBox(height: 4),
+                    const Text(
+                      "Mahasiswa Teknik Informatika\nUniversitas Darussalam Gontor",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.white70,
-                        height: 1.5,
+                        color: Colors.white,
+                        height: 1.4,
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 20),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Dosen Pembimbing :',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        '1. Al-Ustadz Dihin Muriyatmoko S.ST., M.T.\n2. Al-Ustadz Faisal Reza Pradhana S.Kom., M.Kom.',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-            // 5. Social Links Card (Biru Muda)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-              decoration: BoxDecoration(
-                color: const Color(0xFF9CCAFF),
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.2),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+              // 5. Social Links Card (Biru Muda)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 20,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF9CCAFF),
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    _buildContactRow(
+                      Icons.email_outlined,
+                      'marahrofidah7@gmail.com',
+                      () => _launchUrl('mailto:marahrofidah7@gmail.com'),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildContactRow(
+                      FontAwesomeIcons.github,
+                      'marahrofidah',
+                      () => _launchUrl('https://github.com/marahrofidah'),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildContactRow(
+                      FontAwesomeIcons.linkedin,
+                      "Mar'ah Rofidah Abidah Kh.",
+                      () => _launchUrl('https://www.linkedin.com/in/-fdaabdh/'),
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
-                children: [
-                  _buildContactRow(
-                    Icons.email_outlined,
-                    'marahrofidah7@gmail.com',
-                  ),
-                  const SizedBox(height: 12),
-                  _buildContactRow(Icons.code_rounded, 'marahrofidah'),
-                  const SizedBox(height: 12),
-                  _buildContactRow(
-                    Icons.link_rounded,
-                    "Mar'ah Rofidah Abidah Kh.",
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 130), // Spasi agar tidak tertutup bottom nav
-          ],
+              const SizedBox(
+                height: 30,
+              ), // Spasi agar tidak tertutup bottom nav
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: _buildBottomNav(),
@@ -391,23 +415,37 @@ class InfoPage extends StatelessWidget {
     );
   }
 
-  Widget _buildContactRow(IconData icon, String text) {
-    return Row(
-      children: [
-        Icon(icon, color: Colors.white, size: 22),
-        const SizedBox(width: 14),
-        Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-              decoration: TextDecoration.underline,
+  Future<void> _launchUrl(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    try {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      debugPrint('Could not launch $urlString: $e');
+    }
+  }
+
+  Widget _buildContactRow(dynamic icon, String text, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Row(
+        children: [
+          icon is IconData
+              ? Icon(icon, color: Colors.white, size: 22)
+              : FaIcon(icon as FaIconData, color: Colors.white, size: 22),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -420,52 +458,62 @@ class InfoPage extends StatelessWidget {
           top: false,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(40)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 16,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 4),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(40)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 12.0, sigmaY: 12.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.75),
+                    borderRadius: const BorderRadius.all(Radius.circular(40)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.4),
+                      width: 1.5,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.08),
+                        blurRadius: 16,
+                        spreadRadius: 1,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _buildNavItem(
-                      context,
-                      Icons.home_rounded,
-                      0,
-                      onTap: () => Navigator.pop(context),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildNavItem(
+                          context,
+                          Icons.home_rounded,
+                          0,
+                          onTap: () => Navigator.pop(context),
+                        ),
+                        _buildNavItem(
+                          context,
+                          Icons.menu_book_rounded,
+                          1,
+                          isActive: true,
+                        ),
+                        _buildNavItem(
+                          context,
+                          Icons.person_rounded,
+                          2,
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/profile');
+                          },
+                        ),
+                        _buildNavItem(
+                          context,
+                          Icons.logout_rounded,
+                          3,
+                          onTap: () => _handleLogout(context),
+                        ),
+                      ],
                     ),
-                    _buildNavItem(
-                      context,
-                      Icons.menu_book_rounded,
-                      1,
-                      isActive: true,
-                    ),
-                    _buildNavItem(
-                      context,
-                      Icons.person_rounded,
-                      2,
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                    ),
-                    _buildNavItem(
-                      context,
-                      Icons.logout_rounded,
-                      3,
-                      onTap: () => _handleLogout(context),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),

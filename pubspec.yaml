@@ -49,6 +49,8 @@ dependencies:
   # Audio player untuk streaming audio dari Supabase Storage
   audioplayers: ^6.1.0
   syncfusion_flutter_pdfviewer: ^33.2.13
+  url_launcher: ^6.3.2
+  font_awesome_flutter: ^11.0.0
 
 dev_dependencies:
   flutter_test:

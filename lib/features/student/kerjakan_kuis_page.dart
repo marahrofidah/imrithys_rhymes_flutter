@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../services/supabase_service.dart';
 import '../../services/auth_service.dart';
@@ -766,51 +767,61 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
       top: false,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(40)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
-                blurRadius: 16,
-                spreadRadius: 1,
-                offset: const Offset(0, 4),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(40)),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 12.0, sigmaY: 12.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.75),
+                borderRadius: const BorderRadius.all(Radius.circular(40)),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.4),
+                  width: 1.5,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.08),
+                    blurRadius: 16,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildNavItem(
-                  Icons.home_rounded,
-                  0,
-                  onTap: () => Navigator.pop(context),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildNavItem(
+                      Icons.home_rounded,
+                      0,
+                      onTap: () => Navigator.pop(context),
+                    ),
+                    _buildNavItem(
+                      Icons.menu_book_rounded,
+                      1,
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/pelajari-kitab');
+                      },
+                    ),
+                    _buildNavItem(
+                      Icons.person_rounded,
+                      2,
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/profile');
+                      },
+                    ),
+                    _buildNavItem(
+                      Icons.logout_rounded,
+                      3,
+                      onTap: () => _handleLogout(),
+                    ),
+                  ],
                 ),
-                _buildNavItem(
-                  Icons.menu_book_rounded,
-                  1,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, '/pelajari-kitab');
-                  },
-                ),
-                _buildNavItem(
-                  Icons.person_rounded,
-                  2,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, '/profile');
-                  },
-                ),
-                _buildNavItem(
-                  Icons.logout_rounded,
-                  3,
-                  onTap: () => _handleLogout(),
-                ),
-              ],
+              ),
             ),
           ),
         ),
