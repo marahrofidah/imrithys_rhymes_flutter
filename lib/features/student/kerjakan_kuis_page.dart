@@ -41,7 +41,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     },
     {'key': 'fasal', 'label': 'Fasal (Ringkasan I\'rab) – فصل', 'number': 8},
     {
-      'key': 'bab_makrifat_nakirah',
+      'key': 'bab_makrifat_dan_nakirah',
       'label': 'Bab Makrifat dan Nakirah – باب المعرفة والنّكرة',
       'number': 9,
     },

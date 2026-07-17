@@ -1,0 +1,331 @@
+bab_key,bab_label,bab_number,question_no,question_text,option_a,option_b,option_c,option_d,correct_answer
+pembukaan,Pembukaan – المقدمة,1,1,Kitab Nadzam Imritti merupakan nazham dari kitab apa?,Alfiyah Ibnu Malik,Al-Jurumiyah,Qawa'idul I'rab,Mutammimah,b
+pembukaan,Pembukaan – المقدمة,1,2,"Menurut muqaddimah, ilmu apa yang paling utama dipelajari terlebih dahulu sebelum memahami kalam Arab?",Ilmu Sharaf,Ilmu Balaghah,Ilmu Nahwu,Ilmu Mantiq,c
+pembukaan,Pembukaan – المقدمة,1,3,Apa tujuan utama mempelajari bahasa Arab menurut pembukaan kitab ini?,Agar bisa berbicara dengan orang Arab,Agar bisa menulis kitab sendiri,Agar bisa memahami Al-Qur'an dan As-Sunnah,Agar lulus ujian pesantren,c
+pembukaan,Pembukaan – المقدمة,1,4,Siapa pengarang kitab Al-Jurumiyah yang disebutkan dalam muqaddimah?,Ibnu Malik,Ibnu Aqil,Al-Imrithi,Ibnu Ajurum,d
+pembukaan,Pembukaan – المقدمة,1,5,"Lafaz ""النَّحْوُ أَوْلَى أَوَّلاً أَنْ يُعْلَمَا"" artinya adalah...",Nahwu adalah ilmu yang paling sulit dipelajari,Nahwu hanya dipelajari oleh ulama besar,Nahwu lebih berhak untuk dipelajari lebih dahulu,Nahwu adalah ilmu yang paling mulia,c
+pembukaan,Pembukaan – المقدمة,1,6,Dalam muqaddimah disebutkan bahwa kitab Al-Jurumiyah terkenal di negeri...,Arab dan Eropa,"Arab, Ajam, dan Rum",Arab dan Afrika,Arab dan India,b
+pembukaan,Pembukaan – المقدمة,1,7,"Apa yang dimaksud dengan ""مُقْتَدِي"" dalam konteks nazham Imrithi?",Orang yang menghafal,Orang yang mengikuti (kitab asal/Jurumiyah),Orang yang mengajar,Orang yang meringkas,b
+pembukaan,Pembukaan – المقدمة,1,8,Penulis nazham Imrithi menyebutkan bahwa beliau membuang sebagian materi dari Jurumiyah. Apa alasannya?,Materinya terlalu mudah,Tidak relevan dengan zaman,Materi tersebut kurang diperlukan (bisa dicukupkan tanpanya),Sudah ada di kitab lain,c
+pembukaan,Pembukaan – المقدمة,1,9,"Menurut muqaddimah, nazham ini ditujukan terutama untuk siapa?",Para hafidz Al-Qur'an,Para ulama besar,Orang yang baru mulai belajar nahwu (mubtadi'),Para guru pesantren,c
+pembukaan,Pembukaan – المقدمة,1,10,"Kata ""الوَرَى"" yang muncul dalam bait-bait pembukaan bermakna...",Ulama,Santri,Manusia/makhluk,Penuntut ilmu,c
+bab_kalam,Bab Kalam – bab الكلام,2,1,"Menurut ilmu Nahwu, apa definisi كَلاَم (kalam)?",Setiap lafaz yang bisa diucapkan,Lafaz tunggal yang bermakna,Lafaz yang berfaedah dan musnad (murakkab),Rangkaian huruf yang tersusun,c
+bab_kalam,Bab Kalam – bab الكلام,2,2,Apa perbedaan antara كَلاَم (kalam) dan كَلِمَة (kalimah)?,Kalam lebih pendek dari kalimah,Kalimah adalah kumpulan dari kalam,"Kalam adalah murakkab (tersusun) dan berfaedah, kalimah adalah lafaz tunggal yang berfaedah",Keduanya memiliki arti yang sama,c
+bab_kalam,Bab Kalam – bab الكلام,2,3,Kalimah dalam bahasa Arab terbagi menjadi berapa macam?,Dua,Tiga,Empat,Lima,b
+bab_kalam,Bab Kalam – bab الكلام,2,4,Kumpulan dari beberapa kalimah (lebih dari dua) disebut...,Kalam,Jumlah,Kalim,Qaul,c
+bab_kalam,Bab Kalam – bab الكلام,2,5,Manakah yang termasuk ciri-ciri اِسْم (isim)?,Bisa dimasuki sin dan saufa,Bisa dimasuki ta' ta'nits yang sukun,"Bisa dimasuki tanwin, jer, dan alif lam (ال)",Tidak bisa diberi tanda apapun,c
+bab_kalam,Bab Kalam – bab الكلام,2,6,"""وَالفِعْلُ مَعْرُوفٌ بِقَدْ وَالسِّيْن"", huruf ""السِّيْن"" di sini maksudnya adalah...",Huruf sin sebagai awalan isim,Huruf sin sebagai tanda fiil mudhari' (bermakna akan),Huruf sin tanda fi'il madhi,Huruf sin tanda fi'il amr,b
+bab_kalam,Bab Kalam – bab الكلام,2,7,Manakah contoh di bawah ini yang termasuk حَرْف (huruf)?,ضَرَبَ,زَيْدٌ,مِنْ,يَذْهَبُ,c
+bab_kalam,Bab Kalam – bab الكلام,2,8,Mengapa huruf tidak memiliki tanda khusus seperti isim dan fiil?,Karena huruf tidak penting dalam kalam,Karena huruf terlalu pendek,Karena tidak bisa menerima tanda isim maupun fiil,Karena huruf bersifat tetap dan tidak berubah,c
+bab_kalam,Bab Kalam – bab الكلام,2,9,"""وَالْقَوْلُ لَفْظٌ أَفَادَ مُطْلَقاً"" apa yang dimaksud ""أَفَادَ مُطْلَقاً"" di sini?",Memberi faedah hanya dalam kondisi tertentu,Memberi faedah secara mutlak (walau hanya satu kalimah),Memberi faedah hanya jika tersusun,Memberi faedah kepada pendengar saja,b
+bab_kalam,Bab Kalam – bab الكلام,2,10,"""تَاءُ تَأْنِيثٍ مَعَ التَّسْكِيْن"" adalah salah satu tanda fiil. Ta' yang dimaksud ini adalah...",Ta' di awal fi'il mudhari',Ta' mutaharrikah di akhir isim,Ta' sukun yang menempel di akhir fi'il madhi sebagai tanda perempuan,Ta' fa'il yang berharakat,c
+bab_irab,Bab I'rab – bab الإعراب,3,1,Apa definisi i'rab menurut ahli nahwu?,Harakat yang ada di tengah kata,Penambahan huruf di awal kalimah,"Berubahnya akhir kalimah karena pengaruh amil, baik secara lafaz maupun perkiraan",Pembuangan huruf di akhir kata,c
+bab_irab,Bab I'rab – bab الإعراب,3,2,I'rab terbagi menjadi berapa macam?,Dua,Tiga,Empat,Lima,c
+bab_irab,Bab I'rab – bab الإعراب,3,3,Urutan empat macam i'rab yang benar adalah...,"Nashab, Rafa', Jazm, Jer","Jer, Nashab, Rafa', Jazm","Rafa', Nashab, Jazm, Jer","Rafa', Jer, Nashab, Jazm",c
+bab_irab,Bab I'rab – bab الإعراب,3,4,I'rab manakah yang tidak bisa masuk pada isim?,Rafa',Nashab,Jer,Jazm,d
+bab_irab,Bab I'rab – bab الإعراب,3,5,I'rab manakah yang tidak bisa masuk pada fi'il?,Rafa',Nashab,Jazm,Jer/Khafadh,d
+bab_irab,Bab I'rab – bab الإعراب,3,6,Isim yang tidak menyerupai huruf disebut...,Mabni,Maushul,Mu'rab,Mudhaf,c
+bab_irab,Bab I'rab – bab الإعراب,3,7,Isim yang menyerupai huruf hukumnya adalah...,Mu'rab,Manshub,Mabni,Majrur,c
+bab_irab,Bab I'rab – bab الإعراب,3,8,Fi'il mudhari' yang hukumnya mu'rab adalah yang...,Kemasukan nun taukid,Diakhiri alif tatsniyah,Sepi/terlepas dari nun taukid,Diawali huruf ta',c
+bab_irab,Bab I'rab – bab الإعراب,3,9,"Apa yang dimaksud dengan i'rab ""تَقْدِيْرًا"" (taqdiiran)?",I'rab yang terlihat jelas di akhir kata,"I'rab yang tidak tampak di akhir kata, hanya diperkirakan",I'rab yang terjadi di tengah kata,I'rab yang berupa pembuangan huruf,b
+bab_irab,Bab I'rab – bab الإعراب,3,10,Fi'il mudhari' yang kemasukan nun taukid hukumnya...,Mu'rab,Majzum,Mabni,Manshub,c
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,1,Tanda-tanda i'rab rafa' ada berapa macam?,Tiga,Empat,Lima,Enam,b
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,2,Sebutkan empat tanda i'rab rafa' yang benar!,"Fathah, alif, kasrah, ya'","Fathah, wawu, alif, nun","Dhammah, wawu, alif, nun","Dhammah, kasrah, ya', nun",c
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,3,Tanda rafa' berupa ضَمَّة (dhammah) berlaku pada...,Jama' mudzakkar salim saja,Asma'ul khamsah saja,"Isim mufrad, jama' taksir, jama' mu'annats salim, dan fi'il mudhari'",Isim tatsniyah saja,c
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,4,"""جَاءَ الصَّالِحُوْنَ"" — kata الصَّالِحُوْنَ adalah contoh rafa' dengan tanda...",Dhammah,Alif,Wawu,Nun,c
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,5,Tanda rafa' berupa وَاو hanya berlaku pada...,Isim mufrad dan fi'il mudhari',Jama' mudzakkar salim dan asma'ul khamsah,Isim tatsniyah saja,Jama' taksir saja,b
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,6,Asma'ul khamsah itu ada 5. Manakah yang bukan termasuk asma'ul khamsah?,أَبٌ,أَخٌ,حَمٌ,عَمٌّ,d
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,7,"Agar asma'ul khamsah bisa dii'rab dengan wawu (saat rafa'), syaratnya adalah...",Harus berbentuk jama',Harus berupa fi'il,"Harus mudhaf, mufrad, dan mukabbar (bukan tasghir)",Harus diawali alif lam,c
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,8,Tanda rafa' berupa أَلِf berlaku pada...,Jama' mudzakkar salim,Fi'il mudhari' af'alul khamsah,Isim tatsniyah,Asma'ul khamsah,c
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,9,"""يَفْعَlaَنِ، تَفْعَlaَنِ، يَفْعَلُوْنَ، تَفْعَلُوْنَ، تَفْعَلِيْنَ"" — kelima bentuk fi'il ini dikenal dengan sebutan...",Af'alul mabni,Af'alul majzumah,Af'alul khamsah,Af'alul mu'tallah,c
+bab_alamat_irab,Bab Alamat I'rab – bab علامات الإعراب,4,10,Tanda rafa' berupa نُوْن pada af'alul khamsah berarti nun tersebut...,Boleh dibuang,Hanya muncul saat jazm,Tetap ada (tidak dibuang) selama dalam keadaan rafa',Diganti dengan wawu,c
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,1,Tanda-tanda i'rab nashab ada berapa macam?,Empat,Lima,Enam,Tiga,b
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,2,Sebutkan kelima tanda nashab yang benar!,"Dhammah, wawu, alif, nun, kasrah","Fathah, alif, kasrah, ya', nun yang dibuang","Fathah, wawu, alif, ya', nun tetap","Kasrah, ya', alif, wawu, fathah",b
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,3,"Tanda nashab berupa فَتْحَة berlaku pada lafaz yang saat rafa'nya pakai dhammah, kecuali...",Isim mufrad,Jama' taksir,Fi'il mudhari',Jama' mu'annats salim,d
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,4,Mengapa jama' mu'annats salim tidak dinashabkan dengan fathah?,Karena ia termasuk isim mabni,Karena tidak menerima tanwin,"Karena tanda nashabnya adalah kasrah, bukan fathah",Karena dinashabkan dengan ya',c
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,5,Contoh nashab dengan كَسْرَة adalah pada...,Isim mufrad,Asma'ul khamsah,Jama' mu'annats salim (seperti: رَأَيْتُ هِنْدَاتٍ → هِنْدَاتٍ),Fi'il mudhari',c
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,6,Tanda nashab berupa أَلِف hanya berlaku pada...,Isim tatsniyah,Jama' mudzakkar salim,Asma'ul khamsah,Jama' taksir,c
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,7,"""رَأَيْتُ أَبَاكَ"" kata أَبَاكَ dinashabkan dengan tanda...",Fathah,Ya',Alif,Kasrah,c
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,8,"Tanda nashab berupa يَاء berlaku pada dua tempat, yaitu...",Isim mufrad dan jama' taksir,Isim tatsniyah dan jama' mudzakkar salim,Asma'ul khamsah dan isim mufrad,Jama' taksir dan fi'il mudhari',b
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,9,"Af'alul khamsah ketika nashab, tanda nashabnya adalah...",Fathah di akhir,Ya' di akhir,Kasrah di akhir,Membuang nun rafa',d
+bab_alamat_nashob,Bab Alamat Nashob – bab علامات النصب,5,10,"""لَنْ يَفْعَlaَ"" fi'il ini termasuk af'alul khamsah yang dinashabkan. Tanda nashabnya terlihat dari...",Fathah di akhir,Alif yang muncul,Hilangnya nun yang sebelumnya ada saat rafa',Kasrah di akhir,c
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,1,Tanda i'rab jer/khafadh ada berapa macam?,Dua,Tiga,Empat,Lima,b
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,2,Sebutkan tiga tanda jer yang benar!,"Dhammah, wawu, alif","Fathah, alif, nun","Kasrah, ya', fathah","Kasrah, alif, nun",c
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,3,Tanda jer berupa كَسْرَة berlaku pada isim yang...,Ghairu munsharif,Tidak menerima tanwin,Munsharif (menerima tanwin) dan tanda rafa'nya dengan dhammah,Termasuk asma'ul khamsah,c
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,4,Tanda jer berupa فَتْحَة berlaku pada...,Semua isim munsharif,Isim tatsniyah,Isim ghairu munsharif,Jama' mu'annats salim,c
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,5,Isim ghairu munsharif tidak menerima tanwin karena memiliki...,Alif lam di awalnya,Dlamir muttashil,"Dua illat, atau satu illat yang bernilai dua",Huruf illat di akhir,c
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,6,"""أَلِفُ التَّأْنِيثِ"" dan ""صِيغَةُ مُنْتَهَى الجُمُوعِ"" termasuk illat yang...",Berpasangan (illat dua),Tidak mempengaruhi i'rab,Satu tetapi bernilai dua,Hanya berlaku pada fi'il,c
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,7,Illat yang berpasangan bersama العَلَم (alam) ada tiga. Manakah yang bukan termasuknya?,Wazan fi'il,Tambahan alif nun,Sifat bersama 'adal,Alif ta'nits,d
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,8,Isim ghairu munsharif bisa berubah menjadi munsharif jika...,Diawali huruf jer,Dibaca jazm,Dimudhafkan atau dimasuki alif lam (ال),Menjadi jama' taksir,c
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,9,Tanda jer berupa يَاء berlaku pada lafaz yang saat nashabnya juga pakai ya'. Manakah contoh yang tepat?,أَحْمَدُ,مُسْلِمَاتٍ,أَبِيكَ (asma'ul khamsah),زَيْدٌ,c
+bab_alamat_jer,Bab Alamat Jer – bab علامات الخفض,6,10,"""مَرَرْتُ بِأَحْمَدَ"" — kata أَحْمَدَ dijerkan dengan tanda fathah karena...",Termasuk asma'ul khamsah,Termasuk jama' taksir,Termasuk isim ghairu munsharif (ada illat: alam + wazan fi'il),Termasuk isim tatsniyah,c
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,1,Tanda i'rab jazm ada berapa macam?,Dua,Tiga,Empat,Lima,b
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,2,Tiga tanda jazm yang benar adalah...,"Fathah, kasrah, dhammah","Alif, wawu, ya'Sukun, membuang huruf illat, membuang nun rafa'","Kasrah, ya', membuang nun",,b
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,3,Fi'il mudhari' yang huruf akhirnya shahih (bukan huruf illat) dijazmkan dengan tanda...,Fathah,Membuang huruf akhir,Sukun,Kasrah,c
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,4,Fi'il mudhari' mu'tal akhir (akhirnya berupa huruf illat) dijazmkan dengan cara...,Memberi sukun di akhir,Memberi fathah di akhir,Membuang huruf illat,Memberi kasrah di akhir,c
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,5,"""لَمْ يَغْزُ"" fi'il يَغْزُ asalnya يَغْزُو. Tanda jazmnya adalah...",Sukun,Kasrah,Membuang huruf illat (wawu),Fathah,c
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,6,"Af'alul khamsah ketika jazm, tanda jazmnya adalah...",Sukun di akhir,Fathah di akhir,Kasrah di akhir,Membuang nun rafa',d
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,7,"Isim mu'tal yang i'rabnya muqaddarah (dikira-kirakan) saat rafa', nashab, dan jer adalah...",Isim shahih,Isim manqush (mu'tal ya') dan isim maqshur (mu'tal alif),Isim tatsniyah,Jama' mudzakkar salim,b
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,8,"Huruf illat yang bisa masuk pada isim ada dua, yaitu...",Wawu dan alif,Wawu dan ya',Ya' dan alif,Alif dan nun,c
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,9,"""يَخْشَى"" adalah fi'il mu'tal alif. Nashabnya dengan...",Muqaddarah (dikira-kirakan),Fathah yang tampak jelas,Kasrah,Sukun,b
+bab_alamat_jazam,Bab Alamat Jazam – bab علامات الجزم,7,10,"Isim manqush (mu'tal ya') ketika nashab, i'rabnya...",Muqaddarah,Sukun,Dlahir (tampak jelas),Kasrah,c
+fasal,Fasal (Ringkasan I'rab) – فصل,8,1,"Kalimah mu'rab secara umum di-i'rabi dengan dua cara, yaitu...",Dengan harakat dan tanwin,Dengan harakat dan huruf,Dengan huruf dan sukun,Dengan tanwin dan alif lam,b
+fasal,Fasal (Ringkasan I'rab) – فصل,8,2,Kalimah yang di-i'rabi dengan harakat ada berapa macam?,Tiga,Empat,Lima,Enam,b
+fasal,Fasal (Ringkasan I'rab) – فصل,8,3,Kalimah yang di-i'rabi dengan huruf juga ada empat. Manakah yang bukan termasuknya?,Isim tatsniyah,Jama' mudzakkar salim,Asma'ul khamsah,Jama' taksir,d
+fasal,Fasal (Ringkasan I'rab) – فصل,8,4,Isim tatsniyah ketika rafa' tanda i'rabnya adalah...,Dhammah,Alif,Wawu,Nun,b
+fasal,Fasal (Ringkasan I'rab) – فصل,8,5,Isim tatsniyah ketika nashab dan jer tanda i'rabnya adalah...,Alif,Fathah,Ya',Kasrah,c
+fasal,Fasal (Ringkasan I'rab) – فصل,8,6,Jama' mudzakkar salim ketika rafa' menggunakan tanda...,Alif,Nun,Wawu,Dhammah,c
+fasal,Fasal (Ringkasan I'rab) – فصل,8,7,Asma'ul khamsah ketika nashab menggunakan tanda...,Ya',Wawu,Alif,Fathah,c
+fasal,Fasal (Ringkasan I'rab) – فصل,8,8,Af'alul khamsah ketika rafa' menggunakan tanda...,Dhammah,Wawu,Nun,Alif,c
+fasal,Fasal (Ringkasan I'rab) – فصل,8,9,"Af'alul khamsah ketika nashab dan jazm, tanda i'rabnya sama yaitu...",Fathah,Sukun,Membuang nun,Kasrah,c
+fasal,Fasal (Ringkasan I'rab) – فصل,8,10,"Jama' mu'annats salim ketika nashab, tanda i'rabnya adalah...",Fathah,Ya',Alif,Kasrah,d
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,1,Cara paling mudah mengenali isim nakirah adalah...,Isim yang tidak bisa dijerkan,Isim yang tidak bisa dijamakkan,Isim yang bisa menerima ال yang menjadikannya ma'rifat,Isim yang selalu bertanwin,c
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,2,Isim ma'rifat terbagi menjadi berapa macam?,Empat,Lima,Enam,Tujuh,c
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,3,Urutan isim ma'rifat yang benar dari nomor 1–6 adalah...,"Alam, dlamir, isyarah, mausul, ber-ال, mudhaf","Dlamir, alam, isyarah, mausul, ber-ال, mudhaf","Mausul, dlamir, alam, ber-ال, mudhaf, isyarah","Dlamir, isyarah, alam, mausul, ber-ال, mudhaf",b
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,4,Isim dlamir adalah isim yang...,Selalu berharakat fathah,Selalu berupa kata benda,"Menggantikan isim zhahir, mencakup ghaib, hadhir, dan mutakallim",Selalu terpisah dari fi'ilnya,c
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,5,"Dlamir muttashil terbagi menjadi dua, yaitu...",Zhahir dan muqaddar,Mustatir (tersembunyi) dan bariz (terang),Munfashil dan mabni,Muttashil dan mu'rab,b
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,6,Alam laqab adalah alam yang mengandung...,Nama tempat atau waktu,Nama keturunan,Pujian atau cacian,Kata abu atau ummu,c
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,7,Isim ma'rifat ketiga adalah isim isyarah. Manakah contoh isim isyarah di bawah ini?,الَّذِي,هُوَ,ذَا,أَحْمَدُ,c
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,8,"""الَّذِي"" termasuk jenis isim ma'rifat yang ke...",Tiga,Empat (isim mausul),Lima,Enam,b
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,9,Isim ma'rifat keenam adalah isim yang dimudhafkan kepada salah satu isim ma'rifat. Manakah contoh yang benar?,كِتَابٌ,رَجُلٌ,ابْنِي (mudhaf kepada dlamir),فَتًى,c
+bab_makrifat_nakirah,Bab Makrifat dan Nakirah – bab المعرفة والنّكرة,9,10,Alam kun-yah adalah alam yang diawali dengan kata...,Ibnu atau bintu,أَبُو/أَبِي atau أُمُّ,Syaikh atau sayyid,Abdul atau habib,b
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,1,"Menurut ilmu Nahwu, fi'il terbagi menjadi berapa macam?",Dua,Tiga,Empat,Lima,b
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,2,Tiga macam fi'il yang benar adalah...,"Shahih, mu'tal, mabni","Mufrad, tatsniyah, jama'","Madhi, amar, mudhari'","Lazim, mudhari'",c
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,3,Fi'il madhi huruf akhir selalu dibaca...,Dhammah,Kasrah,Sukun,Fathah (jika tidak bertemu dlamir mutaharrik yang rafa'),d
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,4,Jika fi'il madhi bertemu dengan wawu jama' maka huruf sebelum wawu dibaca...,Fathah,Kasrah,Sukun,Dhammah,d
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,5,Fi'il amar dimabnikan di atas tiga hal. Manakah yang bukan termasuknya?,Sukun,Membuang huruf illat,Membuang nun,Fathah,d
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,6,Empat huruf zaidah yang mengawali fi'il mudhari' terhimpun dalam lafaz...,يَفْعَلُ,سَأَلْتُ,أَنَيْتُ يَافَتَى,نَصَرَ,c
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,7,"Jika fi'il mudhari' berbentuk ruba'iy (empat huruf asal), huruf mudlara'ahnya dibaca...",Fathah,Kasrah,Sukun,Dhammah,d
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,8,"Jika fi'il mudhari' bukan ruba'iy, huruf mudlara'ahnya dibaca...",Dhammah,Kasrah,Fathah,Sukun,c
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,9,"""أَكْرَمَ"" adalah fi'il madhi ruba'iy. Maka fi'il mudhari'nya ""يُكْرِمُ"" huruf mudlara'ahnya (ي) dibaca...",Fathah,Kasrah,Dhammah,Sukun,c
+bab_fiil_fiil,Bab Fiil-fiil – bab الأفعال,10,10,"Fi'il madhi bertemu dengan dlamir rafa' mutaharrik, maka huruf akhirnya dibaca...",Fathah,Dhammah,Sukun,Kasrah,c
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,1,Fi'il mudhari' yang sepi dari amil nashab dan jazm hukumnya...,Mabni,Majzum,Rafa' selamanya,Manshub,c
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,2,Amil yang menashabkan fi'il mudhari' ada berapa?,Lima,Tujuh,Sepuluh,Dua belas,c
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,3,Manakah yang bukan termasuk amil nashab fi'il mudhari'?,أَنْ,لَنْ,كَيْ,لَمْ,d
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,4,"""لَنْ أَذْهَبَ"" fi'il أَذْهَبَ dinashabkan oleh amil...",أَنْ,كَيْ,لَنْ,حَتَّى,c
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,5,Amil yang menjazmkan fi'il mudhari' dalam satu fi'il (bukan syarat jawab) adalah...,أَنْ dan لَنْ,كَيْ dan حَتَّى,لَمْ، لَمَّا، لَا (nahi)، lam thalab,إِنْ dan مَا,c
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,6,Adawat syarat yang menjazmkan dua fi'il ada banyak. Manakah yang bukan termasuknya?,إِنْ,مَنْ,مَتَى,لَنْ,d
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,7,"""وَاوُ الجَوَابِ"" dan ""فَاءُ الجَوَابِ"" menashabkan fi'il mudhari' jika setelah...",Fi'il madhi,Isim ma'rifat,Kalimat manfi atau thalab (amar/nahi),Isim nakirah,c
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,8,"""إِنْ يَقُمْ زَيْدٌ وَعَمْرٌو قُمْنَا"" fi'il يَقُمْ dijazmkan karena...",Didahului لَمْ,Didahului لَنْ,Didahului adawat syarat إِنْ,Didahului لَا nahi,c
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,9,"Jika jawab syarat tidak bisa dijadikan syarat (tidak sah), maka wajib dimasuki...",Wawu jama',Lam jazm,Fa' jawab (فَاء الجَوَاب),Nun taukid,c
+bab_irab_fiil,Bab I'rab Fiil – bab إعراب الفعل,11,10,Fi'il mudhari' yang kemasukan لَمْ hukumnya...,Manshub,Marfu',Mabni,Majzum,d
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,1,Isim-isim yang dirafa'kan dalam ilmu Nahwu ada berapa macam?,Lima,Enam,Tujuh,Delapan,c
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,2,Definisi fa'il adalah...,Isim yang jatuh setelah khabar,Isim yang dijerkan oleh huruf jer,"Isim yang dirafa'kan oleh fi'ilnya, dan fi'il itu terletak sebelumnya",Isim yang menggantikan fa'il yang dibuang,c
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,3,"Jika fa'il berupa jama' atau tatsniyah, fi'ilnya wajib dalam bentuk...",Jama',Tatsniyah,Mufrad,Mengikuti bentuk fa'il,c
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,4,"""جَاءَ Zَيْدَانِ"" fi'il جَاءَ tetap dalam bentuk mufrad meskipun fa'ilnya tatsniyah. Ini berlaku karena...",Fi'il tidak boleh berubah,Tatsniyah adalah jama',Fi'il wajib sepi dari tanda tatsniyah/jama' jika fa'ilnya tatsniyah/jama',Fi'il di sini adalah fi'il mabni,c
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,5,"Fa'il terbagi menjadi duo bagian, yaitu...",Mustatir dan bariz,Isim zhahir dan isim dlamir,Muttashil dan munfashil,Mu'rab dan mabni,b
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,6,Dlamir fa'il yang muttashil ada berapa macam?,Sepuluh,Dua belas,Empat belas,Enam,b
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,7,"""قُمْتُ"" dlamir تُ adalah dlamir fa'il untuk orang...",Ketiga tunggal laki-laki,Kedua tunggal laki-laki,Pertama tunggal (mutakallim wahdah),Pertama jamak,c
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,8,Dlamir munfashil digunakan ketika...,Ingin menekankan objek,Fi'il bersifat mabni,Tidak bisa menggunakan dlamir muttashil,Fa'il berupa isim zhahir,c
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,9,Manakah dlamir munfashil untuk orang ketiga laki-laki tunggal?,أَنَا,نَحْنُ,أَنْتَ,هُوَ,d
+bab_isim_yang_dibaca_rafa,Bab Isim yang dibaca Rafa' – bab مرفوعات الأسماء,12,10,"""لَمْ يَقُمْ إِلَّا أَنَا"" kata أَنَا di sini berupa dlamir...",Muttashil mustatir,Muttashil bariz,Munfashil,Zhahir,c
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,1,Naibul fa'il adalah...,Isim yang menggantikan khabar,Fi'il yang menggantikan fa'il,Maf'ul yang menempati kedudukan fa'il yang dibuang,Isim yang menggantikan mubtada',c
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,2,"Jika maf'ul bih tidak disebutkan, maka yang bisa menggantikan fa'il adalah... (pilih yang paling tepat)",Hanya mashdar,Hanya zharaf,Hanya majrur,"Mashdar, zharaf, atau majrur",d
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,3,"Ketika fi'il madhi diubah ke bentuk majhul (untuk naibul fa'il), huruf pertamanya dibaca...",Fathah,Kasrah,Dhammah,Sukun,c
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,4,"Ketika fi'il madhi dijadikan majhul, huruf sebelum akhir dibaca...",Fathah,Dhammah,Kasrah,Sukun,c
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,5,"Fi'il ""ضَرَبَ"" jika dijadikan majhul menjadi...",يُضْرَبُ,ضُرِبَ,ضَرَبَ,أَضْرَبَ,b
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,6,"Ketika fi'il mudhari' dijadikan majhul, huruf sebelum akhir dibaca...",Kasrah,Dhammah,Sukun,Fathah,d
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,7,"""يُدَّعَى"" adalah contoh fi'il mudhari' majhul. Ini termasuk jenis fi'il...",Shahih akhir,Mu'tal alif (maqshur),Mu'tal wawu,Mabni,b
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,8,"Fi'il madhi mu'tal 'ain (seperti ""بَاعَ"") ketika dijadikan majhul huruf pertamanya dibaca...",Dhammah,Fathah,Kasrah,Sukun,c
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,9,Naibul fa'il bisa berupa isim dlamir maupun isim zhahir. Contoh naibul fa'il berupa isim zhahir adalah...,دُعِيتُ,يُكْرَمُ المُبَشِّرُ,قُمْتُ,ذَهَبَ,b
+bab_naibul_fail,Bab Naibul Fa'il – bab نائب الفاعل,13,10,"""دُعِيتُ"" kata تُ di sini berkedudukan sebagai...",Fa'il,Maf'ul bih,Naibul fa'il (dlamir),Mubtada',c
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,1,Definisi mubtada' adalah...,Isim yang dirafa'kan oleh fi'ilnya,Isim yang jatuh setelah kana,Isim yang dirafa'kan dan sepi dari amil lafzhi,Isim yang menggantikan fa'il,c
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,2,Definisi khabar adalah...,Isim yang selalu manshub,Isim yang menggantikan mubtada',"Isim yang dirafa'kan dan disandarkan kepada mubtada', lafaznya disesuaikan dengan mubtada'",Isim yang selalu mufrad,c
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,3,"""زَيْدٌ عَظِيمُ الشَّأْنِ"" yang menjadi mubtada' adalah...",عَظِيمُ,الشَّأْنِ,زَيْدٌ,Tidak ada,c
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,4,Mubtada' boleh berupa isim dlamir. Syaratnya dlamir tersebut harus berupa...,Dlamir mustatir,Dlamir muttashil,Dlamir munfashil,Dlamir bariz,c
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,5,Dlamir munfashil yang boleh menjadi mubtada' ada berapa macam?,Sepuluh,Sebelas,Dua belas,Delapan,c
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,6,"Khabar terbagi menjadi dua macam, yaitu...",Marfu' dan manshub,Mufrad dan ghairu mufrad,Zhahir dan dlamir,Mu'rab dan mabni,b
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,7,Khabar ghairu mufrad ada berapa macam?,Dua,Tiga,Empat,Lima,c
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,8,Manakah yang bukan termasuk khabar ghairu mufrad?,Zharaf,Jer majrur,Fi'il beserta fa'ilnya,Isim tatsniyah,d
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,9,"""أَنْتَ عِنْدِي"" kata عِنْدِي berkedudukan sebagai khabar jenis...",Mufrad,Fi'il beserta fa'il,Zharaf,Jer majrur,c
+bab_mubtada_khobar,Bab Mubtada Khobar – bab المبتدأ والخبار,14,10,"""اِبْنِي قَرَأَ"" khabarnya adalah قَرَأَ yang merupakan khabar jenis...",Mufrad,Zharaf,Jer majrur,Fi'il beserta fa'ilnya,d
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,1,Apa yang terjadi pada mubtada' dan khabar ketika dimasuki كَانَ?,Keduanya manshub,Keduanya marfu',Keduanya majrur,"Mubtada' tetap marfu' (isim kana), khabar jadi manshub",d
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,2,"""كَانَ زَيْدٌ ذَا بَصَرٍ"" kata ذَا بَصَرٍ berkedudukan sebagai...",Isim kana,Fa'il,Khabar kana (manshub),Mubtada',c
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,3,Manakah yang termasuk saudara-saudara kana yang tidak memerlukan syarat khusus?,زَالَ dan بَرِحَ,فَتِئَ dan اِنْفَكَّ,أَصْبَحَ dan أَمْسَى,دَامَ dan اِنْفَكَّ,c
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,4,"""زَالَ، بَرِحَ، فَتِئَ، اِنْفَكَّ"" keempat fi'il ini memiliki syarat khusus, yaitu...",Harus diikuti mashdar,Harus berada di awal kalimat,Harus didahului nafi,Harus diikuti zharaf,c
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,5,"""مَا دَامَ"" memiliki syarat khusus, yaitu مَا di depannya harus berupa...",Maa nafiyah,Maa istifhamiyah,Maa dzharfiyyah mashdariyyah,Maa maushulah,c
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,6,"""لَيْسَ"" termasuk saudara kana. Artinya adalah...",Menjadi,Berada,Tetap,Tidak/bukan (nafi),d
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,7,"Mashdar, mudhari', dan amar dari kana dan saudaranya hukumnya...",Berbeda dari fi'il madhinya,Tidak bisa dibentuk,Sama seperti fi'il madhinya dalam mengangkat isim dan menashabkan khabar,Hanya berlaku untuk fi'il madhi,c
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,8,"""كُنْ صَدِيقاً"" fi'il كُنْ adalah fi'il...",Madhi dari kana,Mudhari' dari kana,Amar dari kana,Mashdar dari kana,c
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,9,Berapa total fi'il yang termasuk golongan kana dan saudaranya?,Sepuluh,Sebelas,Tiga belas,Lima belas,c
+bab_kanna_dan_saudaranya,Bab Kanna dan Saudaranya –  باب كان وأخواتها,15,10,"""أَضْحَى الطَّالِبُ مُجْتَهِداً"" kata مُجْتَهِداً berkedudukan sebagai...",Isim adha,Fa'il,Mubtada',Khabar adha (manshub),d
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,1,Apa yang terjadi pada mubtada' dan khabar ketika dimasuki inna?,Keduanya tetap marfu',"Mubtada' jadi manshub (isim inna), khabar tetap marfu'",Keduanya jadi manshub,Keduanya jadi majrur,b
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,2,"""إِنَّ زَيْداً ذُو نَظَرٍ"" kata زَيْداً berkedudukan sebagai...",Khabar inna,Isim inna (manshub),Mubtada',Fa'il,b
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,3,Manakah yang bukan termasuk saudara-saudara inna?,أَنَّ,لَيْتَ,لَعَلَّ,كَانَ,d
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,4,"""لَيْتَ"" termasuk lafaz untuk makna...",Tasybih (menyerupakan),Tamanni (mengandai-andai),Istidrak (penyanggahan),Tarajji (mengharap),b
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,5,"""كَأَنَّ"" digunakan untuk makna...",Tamanni,Tasybih (menyerupakan),Istidrak,Tarajji dan tawaqqu',b
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,6,"""لَكِنَّ"" digunakan untuk makna...",Tasybih,Tamanni,Istidrak (penyanggahan),Tarajji,c
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,7,"""لَعَلَّ"" digunakan untuk makna...",Tasybih,Tarajji (mengharap) dan tawaqqu' (mengkhawatirkan),Istidrak,Tamanni,b
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,8,"""إِنَّ"" dan ""أَنَّ"" sama-sama berfungsi untuk...",Tasybih,Menguatkan makna (taukid),Tamanni,Tarajji,b
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,9,Manakah pasangan yang tepat antara amil dan maknanya?,Laita - Tasybih,Kaanna - Tasybih,Lakinna - Tamanni,Laalla - Istidrak,b
+bab_inna_dan_saudaranya,Bab Inna dan Saudaranya – bab إن وأخواتها,16,10,Hukum khabar inna dan saudaranya adalah...,Marfu',Manshub,Majrur,Majzum,b
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,1,Mubtada' dan khabar yang dimasuki dzanna hukumnya menjadi...,Tetap marfu' semua,Keduanya manshub (sebagai dua maf'ul),"Salah satu manshub, satu majrur",Keduanya majzum,b
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,2,Manakah yang bukan termasuk saudara dzanna?,خِلْتُ,حَسِبْتُ,زَعَمْتُ,عَلِمْتُ هُوَ,d
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,3,"""رَأَيْتُهُ"" dalam bab ini bermakna ra'a yang setara dengan dzanna, artinya...",Melihat dengan mata,Menyangka/mengira,Mengetahui pasti,Mendengar,b
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,4,"""جَعَلْتُهُ"" dan ""اتَّخَذْتُهُ"" termasuk golongan dzanna karena maknanya semakna dengan...",Mengira,Menjadikan/menganggap,Melihat,Mengetahui,b
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,5,"""ظَنَنْتُ زَيْداً مُنْجِداً"" — kata زَيْداً dan مُنْجِداً berkedudukan sebagai...",Mubtada' dan khabar,Maf'ul awal dan maf'ul kedua (keduanya manshub),Fa'il dan maf'ul,Isim dan khabar inna,b
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,6,Semua lafaz yang ditashrif dari fi'il-fi'il dzanna dan saudaranya hukumnya...,Berbeda dari fi'il aslinya,"Sama, tetap menashabkan dua maf'ul",Hanya berlaku pada fi'il madhi,Tidak bisa ditashrif,b
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,7,"""عَلِمْتُهُ"" termasuk saudara dzanna karena bermakna...",Melihat,Mengira,Mengetahui dengan yakin,Menyangka samar,c
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,8,Dzanna dan saudaranya berbeda dengan kana karena...,Kana menashabkan dua maf'ul,"Dzanna menashabkan dua maf'ul, sedangkan kana hanya satu khabar",Keduanya sama persis fungsinya,Dzanna hanya untuk fi'il madhi,b
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,9,"""وَاجْعَلْ لَنَا هَذَا المَكَانَ مَسْجِداً"" — kata مَسْجِداً berkedudukan sebagai...",Maf'ul awal,Maf'ul kedua,Fa'il,Khabar kana,b
+bab_dzanna_dan_saudaranya,Bab Dzanna dan Saudaranya – bab ظن وأخواتها,17,10,Saudara-saudara dzanna semuanya termasuk jenis fi'il yang membutuhkan...,Satu maf'ul saja,Dua maf'ul,Tidak membutuhkan maf'ul,Tiga maf'ul,b
+bab_naat,Bab Na'at – bab النعت,18,1,Na'at (sifat) terbagi menjadi berapa bagian?,Satu,Dua,Tiga,Empat,b
+bab_naat,Bab Na'at – bab النعت,18,2,Na'at yang merafa'kan dlamir yang kembali ke man'ut disebut na'at...,Haqiqi,Sababi,Mufrad,Jamid,a
+bab_naat,Bab Na'at – bab النعت,18,3,Na'at haqiqi harus mengikuti man'ut dalam berapa perkara dari sepuluh perkara?,Dua,Tiga,Empat,Lima,c
+bab_naat,Bab Na'at – bab النعت,18,4,Manakah yang bukan termasuk empat perkara yang harus diikuti na'at haqiqi?,"I'rab (rafa', nashab, jer)",Mufrad/mudzakkar dan lawannya,Ma'rifat/nakirah,Jenis fi'il (madhi/mudhari'),d
+bab_naat,Bab Na'at – bab النعت,18,5,Na'at sababi (yang merafa'kan isim zhahir) hukumnya selalu...,Mengikuti bentuk man'ut (tatsniyah/jama'),"Mufrad, meskipun man'utnya bukan mufrad",Harus jama',Harus tatsniyah,b
+bab_naat,Bab Na'at – bab النعت,18,6,Na'at sababi harus cocok dengan isim zhahir setelahnya dalam hal...,I'rab saja,Mudzakkar dan mu'annatsnya,Jumlah bilangan saja,Ma'rifat saja,b
+bab_naat,Bab Na'at – bab النعت,18,7,"""جَاءَ الْغُلَامُ الْفَاضِلُ"" — kata الْفَاضِلُ adalah contoh na'at jenis...",Na'at haqiqi,Na'at sababi,Badal,Athaf,a
+bab_naat,Bab Na'at – bab النعت,18,8,"""جَاءَ مَعْهُ نِسْوَةٌ حَوَامِلُ"" — kata حَوَامِلُ adalah contoh na'at...",Haqiqi,Sababi (mufrad meski man'utnya jama'),Athaf,Taukid,b
+bab_naat,Bab Na'at – bab النعت,18,9,"""قَدْ جَاءَ حُرَّتَانِ مَنْطَلِقٌ زَوْجَاهُمَا"" — kata مَنْطَلِقٌ tetap mufrad karena merupakan na'at jenis...",Haqiqi,Sababi,Badal kul,Taukid,b
+bab_naat,Bab Na'at – bab النعت,18,10,"Pada contoh nomor 9, kata مَنْطَلِقٌ harus cocok mudzakkar/mu'annatsnya dengan...",Kata sebelum man'ut,Isim zhahir setelahnya (yaitu زَوْجَاهُمَا),Man'ut itu sendiri,Tidak perlu cocok dengan apapun,b
+bab_ataf,Bab Ataf – bab العطف,19,1,Ma'thuf (kalimah yang diathafkan) mengikuti ma'thuf 'alaih dalam hal...,Maknanya saja,"I'rabnya (rafa', nashab, jer, jazm)",Bentuk hurufnya,Jumlah katanya,b
+bab_ataf,Bab Ataf – bab العطف,19,2,"Dalam hal diathafkan, isim dan fi'il diperlakukan...",Berbeda aturan,Sama (mengikuti aturan athaf yang sama),Isim tidak bisa diathafkan,Fi'il tidak bisa diathafkan,b
+bab_ataf,Bab Ataf – bab العطف,19,3,Manakah yang bukan termasuk huruf athaf?,وَ,ثُمَّ,حَتَّى,إِنَّ,d
+bab_ataf,Bab Ataf – bab العطف,19,4,"""جَاءَ زَيْدٌ ثُمَّ عَمْرٌو"" — huruf ثُمَّ menunjukkan makna...",Pilihan,Urutan dengan jeda waktu,Penyanggahan,Sebab akibat,b
+bab_ataf,Bab Ataf – bab العطف,19,5,"Huruf athaf ""أَوْ"" biasanya bermakna...",Urutan,Pilihan (atau),Penegasan,Pengecualian,b
+bab_ataf,Bab Ataf – bab العطف,19,6,"""حَتَّى"" sebagai huruf athaf bermakna...",Pilihan,Mencapai batas akhir/puncak,Penyanggahan,Permulaan,b
+bab_ataf,Bab Ataf – bab العطف,19,7,"""فِئَةٌ لَمْ يَأْكُلُوا أَوْ يَحْضُرُوا حَتَّى يَفُوتَ"" — pada contoh ini حَتَّى mengathafkan fi'il يَفُوتَ yang bermakna...",Mereka langsung makan,Sampai (hingga) hilangnya kesempatan,Mereka tidak pernah makan,Tidak ada hubungannya,b
+bab_ataf,Bab Ataf – bab العطف,19,8,"""لَكِنْ"" dan ""أَمَّا"" sebagai huruf athaf biasanya menunjukkan makna...",Pilihan,Penyanggahan/perbedaan,Urutan waktu,Penegasan,b
+bab_ataf,Bab Ataf – bab العطف,19,9,"""بَلْ"" sebagai huruf athaf berfungsi untuk...",Memilih,Mengalihkan/membatalkan pernyataan sebelumnya (idrab),Menguatkan,Mengurutkan,b
+bab_ataf,Bab Ataf – bab العطف,19,10,"""أَكْرِمْ زَيْداً وَعَمْراً بِاللِّقَا وَالْمَطْعَمِ"" — huruf وَ di sini berfungsi sebagai...",Huruf qasam (sumpah),Huruf athaf (menggabungkan),Huruf nida,Huruf istisna',b
+bab_taukid,Bab Taukid – bab التوكيد,20,1,Taukid berfungsi untuk...,Mengganti isim sebelumnya,Menguatkan/menegaskan makna lafaz sebelumnya,Membatalkan makna sebelumnya,Menjelaskan jenis isim,b
+bab_taukid,Bab Taukid – bab التوكيد,20,2,Lafaz taukid harus mengikuti yang ditaukidi dalam hal...,Maknanya saja,I'rab dan ma'rifatnya,Jumlah hurufnya,Bunyi sajaknya,b
+bab_taukid,Bab Taukid – bab التوكيد,20,3,Isim yang dinakirahkan (nakirah) hukumnya...,Wajib ditaukidi,Tidak bisa ditaukidi,Boleh ditaukidi dengan syarat tertentu,Hanya bisa ditaukidi sekali,b
+bab_taukid,Bab Taukid – bab التوكيد,20,4,Lafaz taukid yang terkenal ada empat. Manakah yang bukan termasuknya?,نَفْسٌ,عَيْنٌ,كُلٌّ,بَعْضٌ,d
+bab_taukid,Bab Taukid – bab التوكيد,20,5,"""أَجْمَعُ"" dan turunannya seperti ""أَكْتَعُ""، ""أَبْتَعُ""، ""أَبْصَعُ"" berfungsi sebagai pengikut dari lafaz...",Nafsun,Ainun,Ajma'u,Kullun,c
+bab_taukid,Bab Taukid – bab التوكيد,20,6,"""جَاءَ زَيْدٌ نَفْسُهُ"" — kata نَفْسُهُ berfungsi sebagai...",Badal,Taukid,Na'at,Athaf,b
+bab_taukid,Bab Taukid – bab التوكيد,20,7,"""جَيْشَ الْأَمِيرِ كُلُّهُ تَأَخَّرَ"" — kata كُلُّهُ di sini menaukidi makna...",Sebagian,Keseluruhan (tidak ada yang tertinggal),Sedikit,Tidak pasti,b
+bab_taukid,Bab Taukid – bab التوكيد,20,8,"Untuk mentaukidi sebuah kalimat (jumlah), caranya adalah dengan...",Menambahkan kullun,Mengulang kalimat tersebut,Menambahkan nafsun,Membuang sebagian kalimat,b
+bab_taukid,Bab Taukid – bab التوكيد,20,9,"""اِنْتَهَى اِنْتَهَى"" adalah contoh taukid jenis...",Taukid isim dengan nafsun,Taukid kalimat dengan mengulanginya,Taukid dengan ajma'u,Badal isytimal,b
+bab_taukid,Bab Taukid – bab التوكيد,20,10,Mengapa isim nakirah tidak bisa ditaukidi?,Karena terlalu pendek,"Karena taukid mensyaratkan kejelasan dan ketegasan rujukan, yang tidak dimiliki nakirah",Karena nakirah selalu manshub,Karena nakirah tidak punya i'rab,b
+bab_badal,Bab Badal – bab البدل,21,1,"Badal terjadi ketika ada isim atau fi'il yang jatuh setelah lafaz yang sama, tanpa adanya...",Harakat,Huruf athaf,Mudhaf,Tanwin,b
+bab_badal,Bab Badal – bab البدل,21,2,I'rab badal mengikuti i'rab...,Lafaz sesudahnya,Lafaz yang pertama (mubdal minhu),Selalu rafa',Selalu manshub,b
+bab_badal,Bab Badal – bab البدل,21,3,Badal terbagi menjadi berapa macam?,Tiga,Empat,Lima,Enam,c
+bab_badal,Bab Badal – bab البدل,21,4,"""جَاءَنِي زَيْدٌ أَخُوكَ"" — kata أَخُوكَ adalah contoh badal jenis...",Badal ba'd minal kul,Badal kul minal kul (keseluruhan),Badal isytimal,Badal ghalath,b
+bab_badal,Bab Badal – bab البدل,21,5,"""أَكَلْتُ عِنْدِي رَغِيفاً نِصْفَهُ"" — kata نِصْفَهُ adalah contoh badal...",Kul minal kul,Ba'd minal kul (sebagian dari keseluruhan),Isytimal,Idlrab,b
+bab_badal,Bab Badal – bab البدل,21,6,"""إِلَيَّ زَيْدٌ عِلْمُهُ الَّذِي دَرَسَ"" — kata عِلْمُهُ adalah contoh badal...",Kul minal kul,Ba'd minal kul,Isytimal (yang berkaitan/mencakup),Ghalath,c
+bab_badal,Bab Badal – bab البدل,21,7,"Jika seseorang mengucapkan suatu lafaz tanpa sengaja/keliru lalu membetulkannya, badal tersebut dinamakan badal...",Idlrab,Ghalath (kekeliruan),Isytimal,Kul minal kul,b
+bab_badal,Bab Badal – bab البدل,21,8,"Jika seseorang sengaja mengalihkan pembicaraan dari satu hal ke hal lain, ini disebut badal...",Ghalath,Idlrab,Isytimal,Kul minal kul,b
+bab_badal,Bab Badal – bab البدل,21,9,"""مَنْ يُؤْمِنْ يُثَبْ يَدْخُلْ جِنَاناً"" — kata يَدْخُلْ adalah contoh badal jenis...",Badal isim dari isim,Badal fi'il dari fi'il,Athaf,Taukid,b
+bab_badal,Bab Badal – bab البدل,21,10,Perbedaan utama badal dengan na'at adalah...,"Badal selalu manshub, na'at selalu marfu'","Badal menggantikan kedudukan lafaz sebelumnya (seakan independen), na'at hanya menyifati","Badal hanya untuk fi'il, na'at hanya untuk isim",Tidak ada perbedaan,b
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,1,"Sebelum bab ini, sudah ada tiga isim yang dinashabkan (khabar kana, isim inna, maf'ul zhanna). Berapa macam lagi isim manshub yang dibahas dalam bab ini?",Lima,Tujuh,Sepuluh,Dua belas,c
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,2,Isim manshub yang pertama dan paling utama dibahas adalah...,Hal,Maf'ul bih,Zharaf,Tamyiz,b
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,3,Definisi maf'ul bih adalah...,Isim yang menunjukkan waktu,Isim manshub yang menjadi sasaran/objek dari suatu pekerjaan,Isim yang menjelaskan sebab,Isim yang menyertai fi'il,b
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,4,Maf'ul bih bisa berupa isim zhahir dan isim...,Mu'rab,Dlamir,Mabni,Nakirah,b
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,5,Dlamir muttashil pada maf'ul bih contohnya adalah...,جَاءَنِي,أَنَا,هُوَ,نَحْنُ,a
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,6,"Dlamir munfashil untuk maf'ul bih, contohnya adalah...",نِي,هُ,إِيَّايَ,تُ,c
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,7,"""حَيِّيْتَ أَكْرِمْ بِALَّذِي حَيَّانَا"" — kata حَيَّانَا mengandung dlamir munfashil...",إِيَّايَ,إِيَّانَا/نَا,إِيَّاكَ,إِيَّاهُ,b
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,8,Dlamir munfashil maf'ul bih jumlahnya ada berapa macam?,Sepuluh,Dua belas,Empat belas,Delapan,b
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,9,Hukum dlamir munfashil dibandingkan dlamir muttashil dalam kedudukan maf'ul adalah...,Dlamir munfashil lebih diutamakan,Keduanya setara dalam penggunaan sesuai posisinya,Dlamir munfashil tidak bisa jadi maf'ul,Dlamir muttashil tidak bisa jadi maf'ul,b
+bab_isim_yang_dibaca_nashob,Bab Isim yang dibaca Nashob – bab منصوبات الأسماء,22,10,"""كَاحْذَرُوا أَهْلَ الطَّمَعْ"" — kata أَهْلَ berkedudukan sebagai...",Fa'il,Maf'ul bih (isim zhahir),Mubtada',Khabar,b
+bab_masdar,Bab Masdar – bab  المصدر,23,1,Mashdar dalam tashrif fi'il merupakan urutan yang ke...,Pertama,Kedua,Ketiga,Keempat,c
+bab_masdar,Bab Masdar – bab  المصدر,23,2,"Mashdar dari ""قَامَ"" adalah...",يَقُومُ,قِيَاماً,قُمْ,قَائِمٌ,b
+bab_masdar,Bab Masdar – bab  المصدر,23,3,Mashdar dinashabkan oleh fi'il yang sifatnya...,Tampak jelas (dzahir),Dikira-kirakan (muqaddar),Selalu di awal kalimat,Selalu majzum,b
+bab_masdar,Bab Masdar – bab  المصدر,23,4,Mashdar yang cocok dengan fi'ilnya baik lafaz maupun makna disebut mashdar...,Lafdzi,Ma'nawi,Muqaddar,Mabni,a
+bab_masdar,Bab Masdar – bab  المصدر,23,5,Mashdar yang hanya cocok maknanya saja dengan fi'il (tidak cocok lafaznya) disebut mashdar...,Lafdzi,Ma'nawi,Muqaddar,Zhahir,b
+bab_masdar,Bab Masdar – bab  المصدر,23,6,"""قُمْ قِيَاماً"" adalah contoh mashdar jenis...",Lafdzi,Ma'nawi,Muqaddar,Majhul,a
+bab_masdar,Bab Masdar – bab  المصدر,23,7,"""قُمْ وُقُوفاً"" adalah contoh mashdar jenis...",Lafdzi,Ma'nawi (karena beda akar kata tapi sama makna),Muqaddar,Majhul,b
+bab_masdar,Bab Masdar – bab  المصدر,23,8,"Mengapa ""وُقُوفاً"" dianggap mashdar ma'nawi dari ""قُمْ""?",Karena berasal dari akar kata yang sama persis,Karena maknanya sama (berdiri/diam) meski akar katanya berbeda,Karena keduanya fi'il madhi,Karena keduanya isim fa'il,b
+bab_masdar,Bab Masdar – bab  المصدر,23,9,"Mashdar yang dinashabkan, secara umum berfungsi untuk...",Menjadi fa'il,Menjelaskan dan menguatkan makna kerja dari fi'ilnya,Menjadi mubtada',Menjadi khabar kana,b
+bab_masdar,Bab Masdar – bab  المصدر,23,10,Hukum nashab mashdar disebabkan oleh fi'il yang...,Tampak jelas dalam kalimat,"Dikira-kirakan (tersirat), bukan fi'il yang benar-benar ada",Selalu fi'il amar,Selalu disebutkan dua kali,b
+bab_dhorof,Bab Dhorof – bab  الظرف,24,1,Definisi zharaf adalah...,Isim yang menunjukkan pelaku,"Isim yang menunjukkan makna waktu atau tempat, dinashabkan",Isim yang menunjukkan sifat,Isim yang menggantikan fa'il,b
+bab_dhorof,Bab Dhorof – bab  الظرف,24,2,"Menurut ahli nahwu, zharaf selalu menakdirkan makna huruf...",مِنْ,فِي,إِلَى,عَلَى,b
+bab_dhorof,Bab Dhorof – bab  الظرف,24,3,"Zharaf terbagi menjadi dua jenis utama, yaitu...",Mufrad dan jama',Zharaf zaman dan zharaf makan,Mudzakkar dan mu'annats,Ma'rifat dan nakirah,b
+bab_dhorof,Bab Dhorof – bab  الظرف,24,4,"""لَيْلَةً، يَوْماً، سِنِينَ"" adalah contoh-contoh zharaf...",Zaman (waktu),Makan (tempat),Mubham,Mu'annats,a
+bab_dhorof,Bab Dhorof – bab  الظرف,24,5,"""أَمَامَهُ، خَلْفَهُ، فَوْقَهُ، تَحْتَهُ"" adalah contoh-contoh zharaf...",Zaman,Makan (tempat),Mashdar,Hal,b
+bab_dhorof,Bab Dhorof – bab  الظرف,24,6,Zharaf makan yang bersifat mubham (tidak jelas batasnya) memerlukan...,Tidak perlu penjelasan tambahan,Penjelasan/keterangan tambahan agar dipahami maksudnya,Selalu dijerkan,Selalu dibaca rafa',b
+bab_dhorof,Bab Dhorof – bab  الظرف,24,7,Nashabnya zharaf (baik zaman maupun makan) terjadi karena pengaruh...,Huruf jer,Fi'il yang menyertainya,Huruf athaf,Mubtada',b
+bab_dhorof,Bab Dhorof – bab  الظرف,24,8,"""سِرْتُ مِيلاً"" — kata مِيلاً berkedudukan sebagai zharaf yang dinashabkan oleh fi'il...",أَمَامَ,سِرْتُ,خَلْفَ,تَحْتَ,b
+bab_dhorof,Bab Dhorof – bab  الظرف,24,9,"""يَمِينَهُ، شِمَالَهُ"" termasuk dalam jenis zharaf...",Zaman mubham,Makan (menunjukkan arah/posisi),Mashdar,Hal,b
+bab_dhorof,Bab Dhorof – bab  الظرف,24,10,"""هُنَاكَ"" dan ""هَهُنَا"" adalah contoh zharaf makan yang menunjukkan makna...",Waktu tertentu,Tempat (di sana/di sini),Sebab,Tujuan,b
+bab_hal,Bab Hal – bab  الحال,25,1,Definisi hal adalah...,Isim yang menunjukkan waktu,Sifat yang dinashabkan untuk menjelaskan keadaan yang masih samar,Isim pengganti fa'il,Isim yang menunjukkan tempat,b
+bab_hal,Bab Hal – bab  الحال,25,2,Hal biasanya berupa isim...,Ma'rifat,Nakirah,Mudhaf,Mabni,b
+bab_hal,Bab Hal – bab  الحال,25,3,Posisi hal dalam kalimat biasanya...,Di awal kalimat,Diakhirkan (setelah shahibul hal),Di tengah kalimat selalu,Tidak memiliki posisi tetap,b
+bab_hal,Bab Hal – bab  الحال,25,4,"""جَاءَ زَيْدٌ رَاكِباً"" — kata رَاكِباً berkedudukan sebagai...",Maf'ul bih,Hal,Khabar,Na'at,b
+bab_hal,Bab Hal – bab  الحال,25,5,Shahibul hal (pemilik hal) pada umumnya harus berupa isim...,Nakirah,Ma'rifat,Mudhaf,Mabni,b
+bab_hal,Bab Hal – bab  الحال,25,6,"Meskipun umumnya ma'rifat, terkadang shahibul hal juga bisa berupa isim...",Nakirah (dalam kondisi tertentu),Mubham,Mabni,Athaf,a
+bab_hal,Bab Hal – bab  الحال,25,7,Hal yang berupa isim jamid (bukan isim musytaq) memerlukan...,Tidak perlu penafsiran khusus,Penakwilan agar bisa berfungsi sebagai hal,Selalu dibaca rafa',Diletakkan di awal kalimat,b
+bab_hal,Bab Hal – bab  الحال,25,8,"""قَدْ ضَرَبْتُ عَبْدَهُ مَكْتُوفاً"" — kata مَكْتُوفاً menjelaskan keadaan dari...",Pelaku (dlarib),Objek (عَبْدَهُ),Waktu kejadian,Tempat kejadian,b
+bab_hal,Bab Hal – bab  الحال,25,9,"Terkadang hal bisa berada di permulaan kalam, ini menunjukkan bahwa posisi hal...",Selalu kaku di akhir,"Fleksibel, meski biasanya diakhirkan",Tidak boleh berubah,Harus selalu di tengah,b
+bab_hal,Bab Hal – bab  الحال,25,10,Fungsi utama hal dalam kalimat adalah...,Menjadi objek utama,Menjelaskan keadaan/tingkah pelaku atau objek saat suatu peristiwa terjadi,Menjadi predikat kalimat,Menggantikan fa'il yang dibuang,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,1,Definisi tamyiz adalah...,Isim yang menunjukkan keadaan,Isim manshub yang menjelaskan nisbat atau jenis tertentu yang masih samar,Isim yang menggantikan fa'il,Isim yang menunjukkan waktu,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,2,"""انْصَبَّ زَيْدٌ عَرَقاً"" — kata عَرَقاً adalah tamyiz yang menjelaskan...",Tempat,Jenis/zat yang mengalir (keringat),Waktu,Sebab,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,3,"""اشْتَرَيْتُ أَرْبَعاً نِعَاجاً"" — kata نِعَاجاً berfungsi sebagai tamyiz yang menjelaskan...",Sifat,Jenis dari bilangan (domba betina),Waktu,Tempat,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,4,Tamyiz wajib berupa isim...,Ma'rifat,Nakirah,Mudhaf,Mabni,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,5,Posisi tamyiz dalam kalimat wajib...,Di awal kalimat,Diakhirkan (setelah kalimat yang dijelaskan),"Bebas, bisa di mana saja",Di tengah kalimat,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,6,"""اشْتَرَيْتُ أَلْفَ رِطْلٍ سَاجاً"" — kata سَاجاً menjelaskan jenis dari kata sebelumnya yang berupa...",Sifat,Ukuran/takaran (seribu kati),Waktu,Tempat,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,7,"""بِعْتُهُ مَكِيلَةً أُرُزّاً"" — kata أُرُzاً (beras) berfungsi sebagai tamyiz dari...",Sifat penjual,Jenis benda yang ditakar (makilah),Waktu transaksi,Tempat transaksi,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,8,Tamyiz berbeda dengan hal dalam hal jenis kata yang dijelaskan: tamyiz menjelaskan...,Keadaan pelaku,Dzat/jenis/jumlah (bukan keadaan tingkah),Waktu kejadian,Tempat kejadian,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,9,"""كَانَ زَيْدٌ عَلَا قَدْراً"" — kata قَدْراً berfungsi sebagai tamyiz yang menjelaskan...",Tempat,Aspek/segi (kedudukan/kadar),Waktu,Sebab,b
+bab_tamyiz,Bab Tamyiz – bab  التمييز,26,10,Mengapa tamyiz harus nakirah dan diakhirkan?,Karena aturan baku tanpa alasan,"Karena tamyiz berfungsi menjelaskan sesuatu yang masih samar sebelumnya, jadi posisinya logis di akhir",Karena tamyiz selalu berupa dlamir,Karena tamyiz selalu jama',b
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,1,Definisi istisna' adalah...,Menjelaskan keadaan pelaku,Mengecualikan sesuatu dari hukum kalam dengan huruf istitsna',Menggabungkan dua kalimat,Menguatkan makna kalimat,b
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,2,Manakah yang bukan termasuk lafaz istisna'?,إِلَّا,غَيْرُ,خَلَا,بَلْ,d
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,3,Lafaz yang diistisna'kan dengan إِلَّا dinashabkan jika kalamnya berupa kalam...,Manfi (negatif),Tamm mujab (sempurna dan positif),Naqish (tidak sempurna),Nahi (larangan),b
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,4,"""قَامَ كُلُّ الْقَوْمِ إِلَّا وَاحِداً"" — kata وَاحِداً dinashabkan karena kalamnya berupa...",Kalam manfi,Kalam tamm mujab,Kalam naqish,Kalam nahi,b
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,5,"Jika istisna' berasal dari kalam tamm yang manfi (menerima nafi), maka mustatsna boleh dijadikan...",Wajib manshub saja,"Badal (mengikuti i'rab mustatsna minhu), dan nashab juga boleh",Wajib majrur,Wajib marfu' saja,b
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,6,Istisna' muttashil adalah istisna' yang mustatsna-nya...,Sejenis dengan mustatsna minhu,Berbeda jenis dengan mustatsna minhu,Tidak ada mustatsna minhu,Selalu manshub,a
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,7,Istisna' munqathi' adalah istisna' yang mustatsna-nya...,Sejenis dengan mustatsna minhu,Berbeda jenis dengan mustatsna minhu,Selalu dibaca rafa',Tidak memiliki hukum khusus,b
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,8,"""قَامَ الْقَوْمُ إِلَّا حِمَاراً"" (jika onta bukan termasuk kaum) adalah contoh istisna'...",Muttashil,Munqathi',Tidak sah,Badal wajib,b
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,9,"Jika istisna' berasal dari kalam naqish (tidak ada mustatsna minhu, didahului nafi), maka lafaz illa...",Wajib dipakai untuk nashab,"Diilgha'kan (tidak beramal), dan amil sebelumnya beramal langsung pada mustatsna",Tidak boleh digunakan,Harus diulang dua kali,b
+bab_istitsna,Bab Istitsna – bab  الاستثناء,27,10,"Mustatsna setelah lafaz خَلَا، حَاشَا، عَدَا boleh dibaca dengan dua cara, yaitu...",Hanya rafa',Jer (jika dianggap huruf jer) atau nashab (jika dianggap fi'il),Hanya jazm,Hanya manshub,b
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,1,Hukum laa (nafiyah lil jins) dalam beramal adalah seperti hukum...,Kana,"Inna (menashabkan isim, merafa'kan khabar)",Dzanna,Zharaf,b
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,2,Isim laa yang dinashabkan harus berupa isim...,Ma'rifat,Nakirah yang bersanding langsung dengannya,Mudhaf ilaih,Mabni,b
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,3,"""لَا غُلَامَ حَاضِرٌ"" — kata غُلَامَ adalah contoh isim laa yang berupa...",Mudhaf ilaih,Mudhaf (atau musyabbih bil mudhaf),Mufrad mabni,Isim ma'rifat,b
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,4,"Jika laa diulang-ulang dalam kalimat, maka boleh...",Hanya beramal,Hanya tidak beramal,Beramal atau tidak beramal (keduanya boleh),Tidak boleh diulang sama sekali,c
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,5,"Jika isim laa berupa isim mufrad (bukan mudhaf), maka isim tersebut harus...",Dinashabkan dengan tanwin,Dimabnikan atau dirafa'kan dengan tanwin,Dijerkan,Dijazmkan,b
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,6,"""لَا أَخٌ وَلَا أَبٌ"" — pada contoh ini, kata أَخٌ dan أَبٌ dibaca rafa' dengan tanwin karena...",Berupa mudhaf,Berupa isim mufrad yang dirafa'kan dengan tanwin (bukan dimanshubkan),Berupa isim ma'rifat,Sudah diulang dua kali,b
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,7,"Jika kamu mema'rifatkan isim laa, atau memisahkan antara laa dan isimnya, maka hukumnya...",Wajib rafa' dengan tanwin dan mengulang laa,Wajib nashab tanpa tanwin,Wajib jer,Tidak boleh digunakan sama sekali,a
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,8,"""لَا عَلِيٌّ حَاضِرٌ وَلَا عُمَرْ"" — mengapa عَلِيٌّ dirafa'kan dengan tanwin?",Karena merupakan mudhaf,"Karena isim ma'rifat (nama orang), sehingga laa tidak beramal nashab",Karena diulang dua kali tanpa alasan,Karena bersanding langsung dengan laa,b
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,9,Perbedaan utama antara laa nafiyah lil jins dengan inna adalah...,Tidak ada perbedaan,"Laa mensyaratkan isim setelahnya berupa nakirah yang bersanding langsung, inna tidak",Inna hanya untuk isim mudhaf,Laa hanya untuk isim ma'rifat,b
+bab_la_yang_beramal_seperti_amal_inna,Bab La yang Beramal Seperti Amal Inna – bab  لا العاملة عمل إن,28,10,"""لَا لَنَا عَبْدٌ وَلَا مَا يُدَّخَرْ"" — kata عَبْدٌ dirafa'kan dengan tanwin karena...",Berupa mudhaf,"Terpisah dari laa (karena ada ""لَنَا"" di antaranya)",Berupa isim jamid,Diulang tiga kali,b
+bab_munada,Bab Munada – bab  النداء,29,1,Munada (yang dipanggil) bisa berupa berapa macam isim?,Tiga,Empat,Lima,Enam,c
+bab_munada,Bab Munada – bab  النداء,29,2,Manakah yang bukan termasuk lima jenis munada?,Mufrad alam,Mufrad nakirah maqshudah,Mudhaf,Jama' taksir secara umum,d
+bab_munada,Bab Munada – bab  النداء,29,3,Munada mufrad alam dan mufrad nakirah maqshudah hukumnya...,Selalu dinashabkan,Dimabnikan sesuai i'rab rafa' tanpa tanwin,Selalu dijerkan,Boleh ditanwin,b
+bab_munada,Bab Munada – bab  النداء,29,4,"""يَا عَلِيُّ"" — kata عَلِيُّ adalah contoh munada jenis...",Mufrad alam (dimabnikan dengan dhammah),Mudhaf,Syibih mudhaf,Nakirah ghairu maqshudah,a
+bab_munada,Bab Munada – bab  النداء,29,5,"Munada mudhaf, syibih mudhaf, dan mufrad nakirah ghairu maqshudah hukumnya...",Dimabnikan,Dinashabkan,Dijerkan,Dijazmkan,b
+bab_munada,Bab Munada – bab  النداء,29,6,"""يَا غُلَامِي"" — kata غُلَامِي adalah contoh munada jenis...",Mufrad alam,Mudhaf (dinashabkan),Mufrad nakirah maqshudah,Mabni rafa',b
+bab_munada,Bab Munada – bab  النداء,29,7,"""يَا غَافِلاً عَنْ ذِكْرِ رَبِّهِ"" — kata غَافِلاً adalah contoh munada jenis...",Mufrad alam,Mudhaf,Syibih mudhaf (karena bersambung dengan keterangan setelahnya),Nakirah maqshudah,c
+bab_munada,Bab Munada – bab  النداء,29,8,Perbedaan utama antara munada mufrad nakirah maqshudah dan ghairu maqshudah adalah...,Tidak ada perbedaan,"Maqshudah ditujukan pada orang tertentu (dimabnikan), ghairu maqshudah tidak spesifik (dinashabkan)",Keduanya selalu dinashabkan,Keduanya selalu dimabnikan,b
+bab_munada,Bab Munada – bab  النداء,29,9,"""يَا كَاشِفَ الْبَلْوَى"" — kata كَاشِفَ adalah contoh munada jenis...",Mufrad alam,Mudhaf (dinashabkan),Nakirah maqshudah,Mabni dhammah,b
+bab_munada,Bab Munada – bab  النداء,29,10,"Fungsi huruf ""يَا"" dalam bab ini adalah sebagai...",Huruf athaf,Huruf nida (panggilan),Huruf istisna',Huruf jer,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,1,Maf'ul li ajlih adalah mashdar yang dinashabkan untuk menjelaskan...,Waktu kejadian,Sebab/illat dari suatu pekerjaan (fi'il),Tempat kejadian,Keadaan pelaku,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,2,Syarat maf'ul li ajlih adalah harus satu (sama) dengan amilnya dalam hal...,Bentuk kata saja,Waktu dan fa'ilnya,Jumlah huruf,Jenis kelamin kata,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,3,"""قُمْ لِزَيْدٍ اتِّقَاءَ شَرِّهِ"" — kata اتِّقَاءَ berfungsi menjelaskan...",Waktu berdiri,Sebab/alasan berdiri (menghindari kejelekan),Tempat berdiri,Cara berdiri,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,4,"""وَاقْصِدْ عَلِيّاً ابْتِغَاءَ بِرِّهِ"" — kata ابْتِغَاءَ menjelaskan sebab dari fi'il...",عَلِيّاً,اقْصِدْ,بِرِّهِ,Tidak ada fi'ilnya,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,5,"Jika maf'ul li ajlih dan fi'ilnya tidak memiliki fa'il yang sama, maka...",Tetap sah sebagai maf'ul li ajlih,Tidak memenuhi syarat sebagai maf'ul li ajlih,Harus diubah jadi hal,Harus diubah jadi tamyiz,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,6,Maf'ul li ajlih berbeda dengan zharaf karena maf'ul li ajlih menjelaskan...,Waktu,"Alasan/sebab, bukan waktu atau tempat",Tempat,Keadaan,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,7,Bentuk kata maf'ul li ajlih biasanya berupa...,Isim fa'il,Mashdar,Isim maf'ul,Fi'il madhi,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,8,"Syarat ""waktu yang sama"" pada maf'ul li ajlih berarti...",Peristiwa terjadi di waktu berbeda,Sebab dan akibat (fi'il) terjadi pada waktu yang bersamaan,Tidak ada hubungan dengan waktu,Harus terjadi di masa lalu,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,9,Maf'ul li ajlih hukum i'rabnya adalah...,Marfu',Manshub,Majrur,Majzum,b
+bab_maful_liajlih,Bab Maf'ul Li Ajlih – bab  المفعول لأجله,30,10,"Jika tidak memenuhi syarat (beda fa'il atau waktu), maka mashdar tersebut tidak bisa langsung dinashabkan sebagai maf'ul li ajlih, melainkan perlu...",Dibuang saja,Menggunakan huruf jer sebagai penghubung sebab,Diubah jadi fi'il,Dijadikan mubtada',b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,1,Maf'ul ma'ah adalah isim yang jatuh sesudah huruf wawu yang disebut wawu...,Athaf,"Ma'iyyah (bermakna ""bersama"")",Qasam,Rubba,b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,2,Maf'ul ma'ah menjelaskan makna...,Sebab suatu pekerjaan,Kebersamaan dalam melakukan suatu pekerjaan,Waktu pekerjaan,Tempat pekerjaan,b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,3,Maf'ul ma'ah dinashabkan oleh...,Huruf jer,Fi'il yang menyertainya atau yang serupa fi'il (isim fa'il),Huruf athaf,Huruf nida,b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,4,"""جَاءَ الْأَمِيرُ وَالْعَسْكَرَا"" — kata الْعَسْكَرَا berkedudukan sebagai...",Fa'il,Maf'ul ma'ah,Khabar,Mubtada',b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,5,"""سِرْتُ وَالْأَمِيرَ لِلْقُرَى"" — kata الْأَمِيرَ menjelaskan makna...",Tempat,Kebersamaan (aku berjalan bersama pemimpin),Waktu,Sebab,b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,6,Perbedaan maf'ul ma'ah dengan athaf (yang menggunakan wawu juga) adalah...,Tidak ada perbedaan,"Maf'ul ma'ah menekankan kebersamaan aktivitas, sementara athaf hanya menggabungkan dua hal sederajat",Maf'ul ma'ah selalu marfu',Athaf selalu manshub,b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,7,"""اسْتَوَى الْمَاءُ وَالْخَشَبَ"" — kata الْخَشَبَ dinashabkan sebagai maf'ul ma'ah karena fi'ilnya adalah...",جَاءَ,اسْتَوَى,سِرْتُ,Tidak ada fi'ilnya,b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,8,"Maf'ul ma'ah dapat dinashabkan juga oleh isim yang serupa dengan fi'il, contohnya...",Isim mashdar,Isim fa'il,Isim zaman,Isim makan,b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,9,"Mengapa wawu pada maf'ul ma'ah disebut ""wawu ma'iyyah"" bukan ""wawu athaf""?",Karena bentuk hurufnya berbeda,"Karena maknanya menekankan ""bersama-sama"", bukan sekadar menggabungkan dua hal yang sederajat",Karena tidak ada hubungannya dengan makna,Karena selalu di awal kalimat,b
+bab_maful_maah,Bab Maf'ul Ma'ah – bab  المفعول معه,31,10,I'rab maf'ul ma'ah adalah...,Marfu',Manshub,Majrur,Majzum,b
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,1,"Yang dapat menjerkan isim ada tiga macam, yaitu...","Fi'il, isim, huruf","Huruf, mudhaf, isim yang mengikuti isim yang dijerkan (tawabi')","Mubtada', khabar, fi'il","Hal, tamyiz, zharaf",b
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,2,Manakah yang bukan termasuk huruf jer yang disebutkan dalam bab ini?,مِنْ,إِلَى,عَلَى,إِنَّ,d
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,3,"Huruf jer yang disebutkan dalam nazham ini meliputi: min, ila, ba, kaf, fi, lam, an, dan...",عَلَى,أَنَّ,لَيْتَ,كَأَنَّ,a
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,4,Manakah yang termasuk huruf untuk sumpah (qasam) yang juga menjerkan isim?,مِنْ,إِلَى,وَاوُ، بَاءُ، تَاءُ,عَنْ,c
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,5,"""مُذْ"" dan ""مُنْذُ"" adalah huruf jer yang biasanya digunakan untuk menunjukkan makna...",Tempat,Sejak (waktu),Sebab,Tujuan,b
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,6,"""رُbَّ"" sebagai huruf jer biasanya menunjukkan makna...",Kepastian,Sedikit/jarang,Banyak/sering,Kebersamaan,b
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,7,"""كَسَرْتُ مِنْ مِصْرَ إِلَى الْعِرَاقِ"" — huruf مِنْ dan إِلَى di sini berfungsi untuk menunjukkan...",Sebab,Asal dan tujuan (titik awal dan akhir),Waktu,Kebersamaan,b
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,8,"""وَجِئْتُ لِلْمَحْبُوبِ بِاشْتِيَاقِ"" — huruf بِ pada بِاشْتِيَاقِ menjerkan kata اشْتِيَاقِ yang menunjukkan makna...",Tempat,Sebab (karena rindu),Waktu,Tujuan,b
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,9,"""Wawu rubba"" yang terbuang artinya adalah...",Wawu yang selalu ditulis,Huruf rubba dalam bentuk wawu yang biasanya tidak disebutkan secara eksplisit,Huruf athaf,Huruf istisna',b
+bab_isim_yang_dibaca_jer,Bab Isim yang dibaca Jer – bab  مخفوضات الأسماء,32,10,Isim yang mengikuti isim yang dijerkan (tawabi') ikut dijerkan karena prinsip...,Selalu independen,"Mengikuti i'rab kata yang diikutinya (seperti na'at, athaf, taukid, badal)",Selalu manshub,Selalu marfu',b
+bab_idofah,Bab Idofah – bab  الإضافة,33,1,"Ketika isim dijadikan mudhaf, maka tanwin atau nun pada isim tersebut harus...",Tetap dipertahankan,Dibuang,Diganti dengan alif,Diganti dengan ya',b
+bab_idofah,Bab Idofah – bab  الإضافة,33,2,"""أَهْلُكُمْ"" (bukan ahlukumun) adalah contoh mudhaf yang...",Tanwinnya tetap,Tanwinnya dibuang karena menjadi mudhaf,Nunnya ditambah,Berubah jenis kata,b
+bab_idofah,Bab Idofah – bab  الإضافة,33,3,Mudhaf ilaih (isim yang mengikuti mudhaf) hukum i'rabnya adalah...,Rafa',Nashab,Jer,Jazm,c
+bab_idofah,Bab Idofah – bab  الإضافة,33,4,"Idhafah dapat mengandung makna tersirat berupa salah satu huruf jer, yaitu...",عَلَى، عَنْ، إِلَى,فِي، لِ، مِنْ,بِ، كَ، حَتَّى,مُذْ، مُنْذُ، رُبَّ,b
+bab_idofah,Bab Idofah – bab  الإضافة,33,5,"""عَبْدُ زَيْدٍ"" (budak Zaid) — makna idhafahnya tersirat huruf...",لِ (kepunyaan),فِي (di dalam),مِنْ (dari jenis),عَلَى (di atas),a
+bab_idofah,Bab Idofah – bab  الإضافة,33,6,"""خَاتَمُ حَدِيدٍ"" (cincin besi) — makna idhafahnya tersirat huruf...",لِ,فِي,مِنْ (terbuat dari),عَلَى,c
+bab_idofah,Bab Idofah – bab  الإضافة,33,7,"""مَكْرُ اللَّيْلِ"" (tipu daya di malam hari) — makna idhafahnya tersirat huruf...",لِ,فِي (waktu/tempat terjadinya),مِنْ,عَلَى,b
+bab_idofah,Bab Idofah – bab  الإضافة,33,8,"Pada bab ini, hukum-hukum mengenai naat, athaf, taukid, dan badal disebut sebagai...",Bab idhafah itu sendiri,Tawabi' (kalimat yang mengikuti),Munada,Tamyiz,b
+bab_idofah,Bab Idofah – bab  الإضافة,33,9,Berapa total bait nazham Imrithi yang disebutkan di akhir kitab?,204,254 (atau disebut sekitar 250),300,100,b
+bab_idofah,Bab Idofah – bab  الإضافة,33,10,Penulis nazham Imrithi (Asy-Syaikh Syarafuddin Yahya Al-Imrithi) menyebutkan dalam penutup bahwa kitab ini selesai ditulis pada bulan...,Ramadhan,Jumadil Ula (Jumada as-Sabi'in/Jumadil Awal) tahun 970 H,Syawal,Muharram,b
