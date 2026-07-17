@@ -635,7 +635,7 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
             label,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
               color: textColor,
               height: 1.3,

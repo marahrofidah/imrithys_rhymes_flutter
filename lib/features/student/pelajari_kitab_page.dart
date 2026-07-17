@@ -45,7 +45,7 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
     },
     {
       'key': '10_bab_fiil_fiil',
-      'label': 'Bab Fiil-fiil – باب الفعل الفعل',
+      'label': 'Bab Fiil-fiil – باب الأفعال',
       'number': 10,
     },
     {

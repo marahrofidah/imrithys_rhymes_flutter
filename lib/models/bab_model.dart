@@ -84,7 +84,7 @@ class BabList {
       BabModel(
         key: '10_bab_fiil_fiil',
         labelId: 'Bab Fiil Fiil',
-        labelAr: "باب الفعل الفعل",
+        labelAr: "باب الأفعال",
         audioUrl: '$bucketBase/10_bab_fiil_fiil.mp3',
       ),
       BabModel(

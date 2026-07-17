@@ -32,15 +32,11 @@ class TeacherProfilePage extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF65A6F1), Color(0xFF6E6EB0)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+            color: const Color(0xFF65A6F1),
             borderRadius: BorderRadius.circular(40),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.15),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -57,7 +53,7 @@ class TeacherProfilePage extends StatelessWidget {
                   border: Border.all(color: Colors.white, width: 4),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.1),
+                      color: Colors.black.withValues(alpha: 0.2),
                       blurRadius: 10,
                     ),
                   ],
@@ -85,7 +81,9 @@ class TeacherProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                teacherGender == 'laki-laki' ? 'Ustadz (Guru)' : 'Ustadzah (Guru)',
+                teacherGender == 'laki-laki'
+                    ? 'Ustadz (Guru)'
+                    : 'Ustadzah (Guru)',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white70,
@@ -111,6 +109,11 @@ class TeacherProfilePage extends StatelessWidget {
                   : teacherGender == 'perempuan'
                   ? 'Perempuan'
                   : '-',
+            ),
+            _buildInfoRow(
+              Icons.calendar_today_outlined,
+              'Tanggal Bergabung',
+              _formatDate(user?.createdAt),
             ),
           ],
         ),
@@ -141,24 +144,32 @@ class TeacherProfilePage extends StatelessWidget {
         const SizedBox(height: 24),
 
         // Logout Button
-        ElevatedButton.icon(
-          onPressed: onLogout,
-          icon: const Icon(Icons.logout_rounded, color: Colors.white),
-          label: const Text(
-            'Logout',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+        SizedBox(
+          width: double.infinity,
+          height: 52,
+          child: OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              side: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
             ),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFF66893),
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+            onPressed: onLogout,
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.logout_rounded, color: Color(0xFFEF4444), size: 20),
+                SizedBox(width: 8),
+                Text(
+                  'Keluar dari Akun',
+                  style: TextStyle(
+                    color: Color(0xFFEF4444),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-            elevation: 2,
           ),
         ),
         const SizedBox(height: 140),
@@ -166,36 +177,33 @@ class TeacherProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoCard({
-    required String title,
-    required List<Widget> items,
-  }) {
+  Widget _buildInfoCard({required String title, required List<Widget> items}) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             title,
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF3A327C),
+              color: Color.fromARGB(255, 43, 113, 194),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 4),
           ...items,
         ],
       ),
@@ -212,7 +220,7 @@ class TeacherProfilePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFF65A6F1), size: 24),
+          Icon(icon, color: const Color(0xFF65A6F1), size: 28),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -220,18 +228,17 @@ class TeacherProfilePage extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey.shade500,
-                  ),
+                  style: TextStyle(fontSize: 16, color: Colors.grey.shade500),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   value,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: isCode ? const Color(0xFFFFA231) : const Color(0xFF2D2D2D),
+                    color: isCode
+                        ? const Color(0xFFFFA231)
+                        : const Color(0xFF2D2D2D),
                   ),
                 ),
               ],
@@ -240,5 +247,24 @@ class TeacherProfilePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _formatDate(DateTime? date) {
+    if (date == null) return '-';
+    const months = [
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember',
+    ];
+    return "${date.day} ${months[date.month - 1]} ${date.year}";
   }
 }

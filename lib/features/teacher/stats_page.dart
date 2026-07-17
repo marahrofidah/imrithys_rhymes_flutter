@@ -60,13 +60,13 @@ class TeacherStatsPage extends StatelessWidget {
         // Class Progress Section
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(28),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(40),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.08),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 10,
                 offset: const Offset(0, 3),
               ),
@@ -78,12 +78,12 @@ class TeacherStatsPage extends StatelessWidget {
               const Text(
                 'Perkembangan Kuis Kelas',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF3A327C),
+                  color: Color.fromARGB(255, 43, 113, 194),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 4),
               students.isEmpty
                   ? const Center(
                       child: Text(
@@ -95,11 +95,13 @@ class TeacherStatsPage extends StatelessWidget {
                       children: List.generate(students.length, (index) {
                         final student = students[index];
                         final id = student['id'] as String? ?? '';
-                        final name = student['full_name'] as String? ??
+                        final name =
+                            student['full_name'] as String? ??
                             student['username'] as String? ??
                             'Murid';
                         final progress = studentProgressMap[id];
-                        final quizPassed = progress?['quiz_passed'] as int? ?? 0;
+                        final quizPassed =
+                            progress?['quiz_passed'] as int? ?? 0;
                         final percent = quizPassed / 33.0;
 
                         return Padding(
@@ -108,12 +110,13 @@ class TeacherStatsPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     name,
                                     style: const TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xFF2D2D2D),
                                     ),
@@ -121,7 +124,7 @@ class TeacherStatsPage extends StatelessWidget {
                                   Text(
                                     '$quizPassed/33 kuis (${(percent * 100).toStringAsFixed(0)}%)',
                                     style: TextStyle(
-                                      fontSize: 13,
+                                      fontSize: 14,
                                       color: Colors.grey.shade600,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -135,9 +138,10 @@ class TeacherStatsPage extends StatelessWidget {
                                   value: percent,
                                   minHeight: 10,
                                   backgroundColor: Colors.grey.shade100,
-                                  valueColor: const AlwaysStoppedAnimation<Color>(
-                                    Color(0xFF65A6F1),
-                                  ),
+                                  valueColor:
+                                      const AlwaysStoppedAnimation<Color>(
+                                        Color(0xFF65A6F1),
+                                      ),
                                 ),
                               ),
                             ],
@@ -161,13 +165,13 @@ class TeacherStatsPage extends StatelessWidget {
     required Color color,
   }) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(40),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),
@@ -176,8 +180,8 @@ class TeacherStatsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: color, size: 28),
-          const SizedBox(height: 12),
+          Icon(icon, color: color, size: 32),
+          const SizedBox(height: 4),
           Text(
             value,
             style: TextStyle(
@@ -190,17 +194,14 @@ class TeacherStatsPage extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(
-              fontSize: 15,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Color(0xFF2D2D2D),
             ),
           ),
           Text(
             subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey.shade500,
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
           ),
         ],
       ),
