@@ -364,366 +364,362 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        titleSpacing: 16,
-        toolbarHeight: 70,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Info icon
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/info'),
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color(0xFFA3C7F0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.10),
-                      blurRadius: 5,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: const Center(
-                  child: Text(
-                    'i',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            // Logo tengah
-            Image.asset(
-              'assets/images/imrithys_rhymes.png',
-              height: 48,
-              fit: BoxFit.contain,
-            ),
-
-            // User avatar — sesuai gender dari database
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/profile'),
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey.shade200,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.15),
-                      blurRadius: 5,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                  image: DecorationImage(
-                    image: AssetImage(
-                      userGender == 'laki-laki'
-                          ? 'assets/images/laki-laki.png'
-                          : userGender == 'perempuan'
-                          ? 'assets/images/perempuan.png'
-                          : 'assets/images/person.png',
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                height: 150,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF65A6F1),
-                  borderRadius: BorderRadius.circular(50),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.15),
-                      blurRadius: 5,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                clipBehavior: Clip.hardEdge,
-                child: Stack(
+      body: SafeArea(
+        bottom: false,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Top Header Row (scrolls with page content)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Teks kiri
-                    Positioned(
-                      left: 30,
-                      top: 0,
-                      bottom: 0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Assalamualaikum,\n$userName',
-                            style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              height: 1.3,
+                    // Info icon
+                    GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, '/info'),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: const Color(0xFFA3C7F0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.10),
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                              offset: const Offset(0, 2),
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          const Text(
-                            'Siap menaklukkan\nbait hari ini?',
+                          ],
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'i',
                             style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              height: 1.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    Positioned(
-                      right: 20,
-                      bottom: 0,
-                      child: Image.asset(
-                        'assets/images/person.png',
-                        height: 110,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 14),
-
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 14,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFA231),
-                  borderRadius: BorderRadius.circular(50),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.15),
-                      blurRadius: 5,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    // Lingkaran putih dengan api + angka streak
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 12,
-                        right: 18,
-                        top: 12,
-                        bottom: 12,
-                      ),
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(139, 255, 255, 255),
-                        borderRadius: BorderRadius.all(Radius.circular(40)),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/images/api.png',
-                            width: 38,
-                            height: 38,
-                            fit: BoxFit.contain,
-                          ),
-                          const SizedBox(width: 0),
-                          Text(
-                            '$_streakCount',
-                            style: const TextStyle(
-                              fontSize: 38,
+                              fontSize: 32,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFFFF6B00),
+                              color: Color.fromARGB(255, 255, 255, 255),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 14),
-                    // Teks Focus Track
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Focus Track',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Dengarkan 1 Bab Syair sebanyak 5x agar Focus Track bertambah',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              height: 1.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              const Center(
-                child: Text(
-                  'Rhymes Activity',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(221, 131, 131, 131),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 0),
-
-              GestureDetector(
-                onTap: () async {
-                  await Navigator.pushNamed(context, '/dengarkan-syair');
-                  // Refresh streak setelah kembali dari halaman sy
-                  _loadStreak();
-                },
-                child: SizedBox(
-                  height: 140,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        top: 20,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF6E6EB0),
-                            borderRadius: BorderRadius.circular(50),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.15),
-                                blurRadius: 5,
-                                spreadRadius: 1,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          padding: const EdgeInsets.only(
-                            left: 130,
-                            right: 20,
-                            top: 12,
-                            bottom: 12,
-                          ),
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Dengarkan Syair',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(height: 6),
-                              Text(
-                                'Pilih bab yang ingin kamu\ndengarkan!',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white,
-                                  height: 1.4,
-                                ),
-                              ),
-                            ],
                           ),
                         ),
                       ),
+                    ),
+
+                    // Logo tengah
+                    Image.asset(
+                      'assets/images/imrithys_rhymes.png',
+                      height: 48,
+                      fit: BoxFit.contain,
+                    ),
+
+                    // User avatar — sesuai gender dari database
+                    GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, '/profile'),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey.shade200,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.15),
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                          image: DecorationImage(
+                            image: AssetImage(
+                              userGender == 'laki-laki'
+                                  ? 'assets/images/laki-laki.png'
+                                  : userGender == 'perempuan'
+                                  ? 'assets/images/perempuan.png'
+                                  : 'assets/images/person.png',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: double.infinity,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF65A6F1),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.15),
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: Stack(
+                    children: [
+                      // Teks kiri
                       Positioned(
-                        left: -5,
+                        left: 30,
                         top: 0,
+                        bottom: 0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Assalamualaikum,\n$userName',
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                height: 1.3,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            const Text(
+                              'Siap menaklukkan\nbait hari ini?',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                height: 1.4,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Positioned(
+                        right: 20,
+                        bottom: 0,
                         child: Image.asset(
-                          'assets/images/earphone.png',
-                          width: 124,
-                          height: 124,
+                          'assets/images/person.png',
+                          height: 110,
                           fit: BoxFit.contain,
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(height: 14),
+                const SizedBox(height: 14),
 
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: _buildSquareCard(
-                      imagePath: 'assets/images/kuis_db.png',
-                      label: 'Kerjakan\nKuis',
-                      color: const Color(0xFFF66893),
-                      imageAlignment: Alignment.topLeft,
-                      textAlign: TextAlign.right,
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/kerjakan-kuis'),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 14,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFA231),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.15),
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      // Lingkaran putih dengan api + angka streak
+                      Container(
+                        padding: const EdgeInsets.only(
+                          left: 12,
+                          right: 18,
+                          top: 12,
+                          bottom: 12,
+                        ),
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(139, 255, 255, 255),
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/api.png',
+                              width: 38,
+                              height: 38,
+                              fit: BoxFit.contain,
+                            ),
+                            const SizedBox(width: 0),
+                            Text(
+                              '$_streakCount',
+                              style: const TextStyle(
+                                fontSize: 38,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFFF6B00),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      // Teks Focus Track
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Focus Track',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'Dengarkan 1 Bab Syair sebanyak 5x agar Focus Track bertambah',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                height: 1.4,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                const Center(
+                  child: Text(
+                    'Rhymes Activity',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(221, 131, 131, 131),
                     ),
                   ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: _buildSquareCard(
-                      imagePath: 'assets/images/kitab.png',
-                      label: 'Pelajari\nKitab',
-                      color: const Color(0xFFFCC100),
-                      imageAlignment: Alignment.topRight,
-                      textAlign: TextAlign.left,
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/pelajari-kitab'),
+                ),
+                const SizedBox(height: 0),
+
+                GestureDetector(
+                  onTap: () async {
+                    await Navigator.pushNamed(context, '/dengarkan-syair');
+                    // Refresh streak setelah kembali dari halaman sy
+                    _loadStreak();
+                  },
+                  child: SizedBox(
+                    height: 140,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          top: 20,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF6E6EB0),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.15),
+                                  blurRadius: 5,
+                                  spreadRadius: 1,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.only(
+                              left: 130,
+                              right: 20,
+                              top: 12,
+                              bottom: 12,
+                            ),
+                            child: const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Dengarkan Syair',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(height: 6),
+                                Text(
+                                  'Pilih bab yang ingin kamu\ndengarkan!',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: -5,
+                          top: 0,
+                          child: Image.asset(
+                            'assets/images/earphone.png',
+                            width: 124,
+                            height: 124,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 130),
-            ],
+                ),
+                const SizedBox(height: 14),
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: _buildSquareCard(
+                        imagePath: 'assets/images/kuis_db.png',
+                        label: 'Kerjakan\nKuis',
+                        color: const Color(0xFFF66893),
+                        imageAlignment: Alignment.topLeft,
+                        textAlign: TextAlign.right,
+                        onTap: () =>
+                            Navigator.pushNamed(context, '/kerjakan-kuis'),
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: _buildSquareCard(
+                        imagePath: 'assets/images/kitab.png',
+                        label: 'Pelajari\nKitab',
+                        color: const Color(0xFFFCC100),
+                        imageAlignment: Alignment.topRight,
+                        textAlign: TextAlign.left,
+                        onTap: () =>
+                            Navigator.pushNamed(context, '/pelajari-kitab'),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 130),
+              ],
+            ),
           ),
         ),
       ),
       bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.transparent,
-        ),
+        data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
         child: Material(
           color: Colors.transparent,
           elevation: 0,

@@ -4,14 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../services/auth_service.dart';
 
-class InfoPage extends StatefulWidget {
-  const InfoPage({super.key});
+class TeacherInfoPage extends StatefulWidget {
+  const TeacherInfoPage({super.key});
 
   @override
-  State<InfoPage> createState() => _InfoPageState();
+  State<TeacherInfoPage> createState() => _TeacherInfoPageState();
 }
 
-class _InfoPageState extends State<InfoPage> {
+class _TeacherInfoPageState extends State<TeacherInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +63,7 @@ class _InfoPageState extends State<InfoPage> {
               ),
               const SizedBox(height: 16),
 
-              // 1. Tentang Aplikasi Card (dengan overlapping icon tentang.png)
+              // 1. Tentang Aplikasi Card
               Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -98,7 +98,7 @@ class _InfoPageState extends State<InfoPage> {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Aplikasi pembelajaran kitab Imrithi yang membantu pengguna menghafal, mendengarkan, dan menguji pemahaman secara interaktif dilengkapi metode tikrar.',
+                          'Aplikasi pembelajaran kitab Imrithi yang membantu guru mengelola kelas, memantau kemajuan hafalan, dan mengevaluasi aktivitas kuis santri secara interaktif.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16,
@@ -124,11 +124,11 @@ class _InfoPageState extends State<InfoPage> {
               const SizedBox(height: 24),
 
               // 2. Fitur Aplikasi Card (Kuning)
-              _buildStudentFeatures(),
+              _buildTeacherFeatures(),
               const SizedBox(height: 24),
 
               // 3. Panduan Penggunaan Card (Ungu)
-              _buildStudentGuide(),
+              _buildTeacherGuide(),
               const SizedBox(height: 24),
 
               // 4. Tentang Penyusun Card (Pink)
@@ -180,56 +180,17 @@ class _InfoPageState extends State<InfoPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Dosen Pembimbing :',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                    const Text(
+                      "Kontak Penyusun",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '1. Al-Ustadz Dihin Muriyatmoko S.ST., M.T.\n2. Al-Ustadz Faisal Reza Pradhana S.Kom., M.Kom.',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // 5. Social Links Card (Biru Muda)
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 20,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF9CCAFF),
-                  borderRadius: BorderRadius.circular(40),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.2),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
+                    const SizedBox(height: 16),
                     _buildContactRow(
-                      Icons.email_outlined,
+                      Icons.email_rounded,
                       'marahrofidah7@gmail.com',
                       () => _launchUrl('mailto:marahrofidah7@gmail.com'),
                     ),
@@ -249,18 +210,178 @@ class _InfoPageState extends State<InfoPage> {
                 ),
               ),
               const SizedBox(
-                height: 130,
+                height: 140,
               ), // Spasi agar tidak tertutup bottom nav
             ],
           ),
         ),
       ),
-
       bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  // ── HELPERS ────────────────────────────────────────────────
+  Widget _buildTeacherFeatures() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFCC100),
+        borderRadius: BorderRadius.circular(40),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          const Text(
+            'Fitur Guru',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildFiturItem(
+                  imagePath: 'assets/images/kelas.png',
+                  label: 'Manajemen\nKelas',
+                  textColor: const Color(0xFF3A327C),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: _buildFiturItem(
+                  imagePath: 'assets/images/kitab.png',
+                  label: 'Monitoring\nProgress Murid',
+                  textColor: const Color(0xFF3A327C),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTeacherGuide() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+      decoration: BoxDecoration(
+        color: const Color(0xFF6E6EB0),
+        borderRadius: BorderRadius.circular(40),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          const Text(
+            'Panduan Guru',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 24),
+          _buildGuideStep(
+            stepNumber: '1',
+            title: 'Dapatkan Kode Kelas',
+            description:
+                'Pada beranda utama (Home), guru akan melihat kartu oranye bertuliskan Kode Kelas. Kode ini dibuat secara otomatis.',
+          ),
+          const Divider(color: Colors.white24, height: 24),
+          _buildGuideStep(
+            stepNumber: '2',
+            title: 'Bagikan Kode Kelas',
+            description:
+                'Ketuk kartu Kode Kelas untuk menyalinnya secara otomatis, lalu bagikan kode tersebut kepada para santri.',
+          ),
+          const Divider(color: Colors.white24, height: 24),
+          _buildGuideStep(
+            stepNumber: '3',
+            title: 'Santri Bergabung',
+            description:
+                'Saat santri mendaftar akun baru, minta mereka memasukkan Kode Kelas tersebut agar otomatis terhubung dengan kelas guru.',
+          ),
+          const Divider(color: Colors.white24, height: 24),
+          _buildGuideStep(
+            stepNumber: '4',
+            title: 'Pantau Perkembangan',
+            description:
+                'Pantau keaktifan santri di tab Beranda (daftar murid & streak) serta tab Statistik (diagram persentase penyelesaian kuis).',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGuideStep({
+    required String stepNumber,
+    required String title,
+    required String description,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 32,
+          height: 32,
+          decoration: const BoxDecoration(
+            color: Color(0xFFFFA231),
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: Text(
+              stepNumber,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                description,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.white70,
+                  height: 1.4,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _buildFiturItem({
     required String imagePath,
@@ -268,31 +389,23 @@ class _InfoPageState extends State<InfoPage> {
     required Color textColor,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 8),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(35),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(imagePath, height: 70, width: 70, fit: BoxFit.contain),
+          Image.asset(imagePath, height: 60, fit: BoxFit.contain),
           const SizedBox(height: 8),
           Text(
             label,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 13,
               fontWeight: FontWeight.bold,
               color: textColor,
-              height: 1.2,
+              height: 1.3,
             ),
           ),
         ],
@@ -300,26 +413,18 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 
-  Future<void> _launchUrl(String urlString) async {
-    final Uri url = Uri.parse(urlString);
-    try {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-    } catch (e) {
-      debugPrint('Could not launch $urlString: $e');
-    }
-  }
-
   Widget _buildContactRow(dynamic icon, String text, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           icon is IconData
-              ? Icon(icon, color: Colors.white, size: 22)
-              : FaIcon(icon as FaIconData, color: Colors.white, size: 22),
-          const SizedBox(width: 14),
-          Expanded(
+              ? Icon(icon, color: Colors.white, size: 20)
+              : FaIcon(icon as FaIconData, color: Colors.white, size: 20),
+          const SizedBox(width: 10),
+          Flexible(
             child: Text(
               text,
               style: const TextStyle(
@@ -333,8 +438,6 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
   }
-
-  // ── BOTTOM NAV ────────────────────────────────────────────
 
   Widget _buildBottomNav() {
     return Theme(
@@ -377,23 +480,32 @@ class _InfoPageState extends State<InfoPage> {
                         _buildNavItem(
                           Icons.home_rounded,
                           0,
-                          onTap: () => Navigator.pop(context),
+                          onTap: () => Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            '/teacher-dashboard',
+                            (route) => false,
+                            arguments: 0,
+                          ),
                         ),
                         _buildNavItem(
-                          Icons.menu_book_rounded,
+                          Icons.bar_chart_rounded,
                           1,
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, '/pelajari-kitab');
-                          },
+                          onTap: () => Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            '/teacher-dashboard',
+                            (route) => false,
+                            arguments: 1,
+                          ),
                         ),
                         _buildNavItem(
                           Icons.person_rounded,
                           2,
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, '/profile');
-                          },
+                          onTap: () => Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            '/teacher-dashboard',
+                            (route) => false,
+                            arguments: 2,
+                          ),
                         ),
                         _buildNavItem(
                           Icons.logout_rounded,
@@ -462,130 +574,14 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 
-  Widget _buildStudentFeatures() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFCC100),
-        borderRadius: BorderRadius.circular(40),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          const Text(
-            'Fitur Aplikasi',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: _buildFiturItem(
-                  imagePath: 'assets/images/earphone.png',
-                  label: 'Dengarkan\nSyair',
-                  textColor: const Color(0xFF3A327C),
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: _buildFiturItem(
-                  imagePath: 'assets/images/kelas.png',
-                  label: 'Monitoring\nGuru',
-                  textColor: const Color(0xFF3A327C),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          Row(
-            children: [
-              Expanded(
-                child: _buildFiturItem(
-                  imagePath: 'assets/images/kitab.png',
-                  label: 'Pelajari Kitab',
-                  textColor: const Color(0xFF2E7D32),
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: _buildFiturItem(
-                  imagePath: 'assets/images/kuis.png',
-                  label: 'Kerjakan Kuis',
-                  textColor: const Color(0xFFE65100),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+  Future<void> _launchUrl(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Tidak dapat membuka $urlString')),
+        );
+      }
+    }
   }
-
-
-
-  Widget _buildStudentGuide() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-      decoration: BoxDecoration(
-        color: const Color(0xFF6E6EB0),
-        borderRadius: BorderRadius.circular(40),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          const Text(
-            'Panduan Penggunaan',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Image.asset(
-            'assets/images/1.png',
-            width: double.infinity,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(height: 16),
-          Image.asset(
-            'assets/images/2.png',
-            width: double.infinity,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(height: 16),
-          Image.asset(
-            'assets/images/3.png',
-            width: double.infinity,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(height: 16),
-          Image.asset(
-            'assets/images/4.png',
-            width: double.infinity,
-            fit: BoxFit.contain,
-          ),
-        ],
-      ),
-    );
-  }
-
 }

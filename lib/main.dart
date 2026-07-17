@@ -7,6 +7,7 @@ import 'features/auth/landing_page.dart';
 import 'features/auth/login_page.dart';
 import 'features/auth/register_page.dart';
 import 'features/teacher/dashboard_page.dart';
+import 'features/teacher/info_page.dart';
 import 'features/student/dashboard_page.dart';
 import 'features/student/dengarkan_syair_page.dart';
 import 'features/student/kerjakan_kuis_page.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
         '/kerjakan-kuis': (context) => const KerjakanKuisPage(),
         '/pelajari-kitab': (context) => const PelajariKitabPage(),
         '/info': (context) => const InfoPage(),
+        '/teacher-info': (context) => const TeacherInfoPage(),
         '/profile': (context) => const StudentProfilePage(),
       },
     );

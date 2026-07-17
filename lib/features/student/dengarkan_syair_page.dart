@@ -228,22 +228,17 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double topPadding = _currentBab != null ? 405.0 : 268.0;
+
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
-      body: Column(
+      body: Stack(
         children: [
-          const SafeArea(bottom: false, child: SizedBox(height: 8)),
-          // ---- Header earphone + judul ----
-          _buildHeader(),
-
-          // ---- Mini player (muncul jika ada audio aktif) ----
-          if (_currentBab != null) _buildMiniPlayer(),
-
-          // ---- Scrollable list ----
-          Expanded(
+          // ---- Scrollable list (placed behind the header) ----
+          Positioned.fill(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              padding: EdgeInsets.fromLTRB(24, topPadding, 24, 130),
               child: Column(
                 children: [
                   // Progress papan hari ini
@@ -252,9 +247,60 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
 
                   // Daftar bab
                   ..._babs.map((bab) => _buildBabTile(bab)),
-                  const SizedBox(height: 130),
                 ],
               ),
+            ),
+          ),
+
+          // ---- Pinned Header & Pinned Mini Player with fading bottom edge ----
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          const SafeArea(
+                            bottom: false,
+                            child: SizedBox(height: 0),
+                          ),
+                          _buildHeader(),
+                        ],
+                      ),
+                    ),
+                    // Pinned Mini Player (only visible when audio is active)
+                    if (_currentBab != null) _buildMiniPlayer(),
+                  ],
+                ),
+                // Fading gradient edge at the bottom of the header (only when mini player is not active)
+                if (_currentBab == null)
+                  Positioned(
+                    bottom:
+                        -12, // Menggeser gradasi agar lebih naik ke atas (semakin mendekati 0 semakin turun)
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height:
+                          16, // Memperpendek tinggi gradasi agar efek pudar lebih tipis
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white,
+                            Colors.white.withValues(alpha: 0.0),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
         ],
@@ -309,6 +355,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
               ),
             ],
           ),
+          const SizedBox(height: 20),
           // Content Row: Earphone + Title
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -706,9 +753,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
 
   Widget _buildBottomNav() {
     return Theme(
-      data: Theme.of(context).copyWith(
-        canvasColor: Colors.transparent,
-      ),
+      data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
       child: Material(
         color: Colors.transparent,
         elevation: 0,

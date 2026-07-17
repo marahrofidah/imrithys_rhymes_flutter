@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import '../../services/auth_service.dart';
 import '../../services/supabase_service.dart';
 import '../../models/class_model.dart';
+import 'stats_page.dart';
+import 'profile_page.dart';
 
 class TeacherDashboardPage extends StatefulWidget {
   const TeacherDashboardPage({super.key});
@@ -22,6 +24,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
   Map<String, Map<String, dynamic>> _studentProgressMap = {};
   bool _isLoading = true;
   int _selectedIndex = 0;
+  bool _hasSetInitialIndex = false;
 
   @override
   void initState() {
@@ -60,135 +63,177 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args is int && !_hasSetInitialIndex) {
+      _selectedIndex = args;
+      _hasSetInitialIndex = true;
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        titleSpacing: 16,
-        toolbarHeight: 70,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Info icon (lingkaran biru muda)
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFFA3C7F0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.15),
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: const Center(
-                child: Text(
-                  'i',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                ),
-              ),
-            ),
-
-            // Logo tengah
-            Image.asset(
-              'assets/images/imrithys_rhymes.png',
-              height: 48,
-              fit: BoxFit.contain,
-            ),
-
-            // Avatar guru sesuai gender
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey.shade200,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.15),
-                    blurRadius: 5,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-                image: DecorationImage(
-                  image: AssetImage(
-                    teacherGender == 'laki-laki'
-                        ? 'assets/images/laki-laki.png'
-                        : teacherGender == 'perempuan'
-                        ? 'assets/images/perempuan.png'
-                        : 'assets/images/person.png',
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(color: Color(0xFF65A6F1)),
             )
-          : RefreshIndicator(
-              onRefresh: _loadData,
-              color: const Color(0xFF65A6F1),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 8,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // ── Welcome Card
-                      _buildWelcomeCard(),
-                      const SizedBox(height: 14),
+          : SafeArea(
+              bottom: false,
+              child: RefreshIndicator(
+                onRefresh: _loadData,
+                color: const Color(0xFF65A6F1),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Top Header Row (scrolls with page content)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Info icon
+                            GestureDetector(
+                              onTap: () =>
+                                  Navigator.pushNamed(context, '/teacher-info'),
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: const Color(0xFFA3C7F0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withValues(
+                                        alpha: 0.15,
+                                      ),
+                                      blurRadius: 5,
+                                      spreadRadius: 1,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    'i',
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
 
-                      // ── Kode Kelas Card ──
-                      _buildKodeKelasCard(),
-                      const SizedBox(height: 14),
+                            // Logo tengah
+                            Image.asset(
+                              'assets/images/imrithys_rhymes.png',
+                              height: 48,
+                              fit: BoxFit.contain,
+                            ),
 
-                      // ── Stats Row ──
-                      _buildStatsRow(),
-                      const SizedBox(height: 20),
-
-                      // ── Daftar Murid ──
-                      const Text(
-                        'Daftar Murid',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(221, 107, 107, 107),
+                            // Avatar guru sesuai gender — tap untuk buka profil
+                            GestureDetector(
+                              onTap: () => setState(() => _selectedIndex = 2),
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.grey.shade200,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withValues(
+                                        alpha: 0.15,
+                                      ),
+                                      blurRadius: 5,
+                                      spreadRadius: 1,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      teacherGender == 'laki-laki'
+                                          ? 'assets/images/laki-laki.png'
+                                          : teacherGender == 'perempuan'
+                                          ? 'assets/images/perempuan.png'
+                                          : 'assets/images/person.png',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 12),
+                        const SizedBox(height: 20),
 
-                      _students.isEmpty
-                          ? _buildEmptyStudents()
-                          : _buildStudentList(),
-
-                      const SizedBox(height: 100),
-                    ],
+                        // Konten sesuai tab terpilih
+                        _buildTabContent(),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-
       bottomNavigationBar: _buildBottomNav(),
+    );
+  }
+
+  Widget _buildTabContent() {
+    switch (_selectedIndex) {
+      case 0:
+        return _buildHomeTab();
+      case 1:
+        return TeacherStatsPage(
+          students: _students,
+          studentProgressMap: _studentProgressMap,
+        );
+      case 2:
+        return TeacherProfilePage(
+          teacherName: teacherName,
+          teacherGender: teacherGender,
+          classModel: _classModel,
+          totalStudents: _students.length,
+          onLogout: _handleLogout,
+        );
+      default:
+        return _buildHomeTab();
+    }
+  }
+
+  Widget _buildHomeTab() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // ── Welcome Card
+        _buildWelcomeCard(),
+        const SizedBox(height: 14),
+
+        // ── Kode Kelas Card ──
+        _buildKodeKelasCard(),
+        const SizedBox(height: 14),
+
+        // ── Stats Row ──
+        _buildStatsRow(),
+        const SizedBox(height: 20),
+
+        // ── Daftar Murid ──
+        const Text(
+          'Daftar Murid',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(221, 107, 107, 107),
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        _students.isEmpty ? _buildEmptyStudents() : _buildStudentList(),
+
+        const SizedBox(height: 100),
+      ],
     );
   }
 
@@ -450,7 +495,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.15),
@@ -470,15 +515,15 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                 Text(
                   name,
                   style: const TextStyle(
-                    fontSize: 15,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2D2D2D),
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 0),
                 Text(
                   'Kuis selesai: $quizDone/33',
-                  style: TextStyle(fontSize: 13, color: Colors.grey.shade500),
+                  style: TextStyle(fontSize: 16, color: Colors.grey.shade500),
                 ),
               ],
             ),
@@ -494,12 +539,17 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text('🔥', style: TextStyle(fontSize: 16)),
+                Image.asset(
+                  'assets/images/api.png',
+                  width: 24,
+                  height: 24,
+                  fit: BoxFit.contain,
+                ),
                 const SizedBox(width: 4),
                 Text(
                   '$streak',
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFFFF6B00),
                   ),
@@ -543,9 +593,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
   // ─────────────────────────────────────────
   Widget _buildBottomNav() {
     return Theme(
-      data: Theme.of(context).copyWith(
-        canvasColor: Colors.transparent,
-      ),
+      data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
       child: Material(
         color: Colors.transparent,
         elevation: 0,
