@@ -52,10 +52,12 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
 
   Future<void> _checkOfflineAndLoad() async {
     if (mounted) setState(() => _isLoadingProgress = true);
-    
+
     bool offline = false;
     try {
-      final result = await InternetAddress.lookup('example.com').timeout(const Duration(seconds: 2));
+      final result = await InternetAddress.lookup(
+        'example.com',
+      ).timeout(const Duration(seconds: 2));
       if (result.isEmpty || result[0].rawAddress.isEmpty) {
         offline = true;
       }
@@ -162,7 +164,8 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           _topBabs = results[0] as List<Map<String, dynamic>>;
           _todayCounts = results[1] as Map<String, int>;
           _isLoadingProgress = false;
-          _isOffline = false; // We successfully loaded progress, so we are online
+          _isOffline =
+              false; // We successfully loaded progress, so we are online
         });
       }
     } catch (e) {
@@ -193,7 +196,9 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       }
 
       // Update streak jika ada bab yang sudah ≥ 5x
-      final bool streakIncreased = await _supabase.updateStreakIfNeeded(_userId!);
+      final bool streakIncreased = await _supabase.updateStreakIfNeeded(
+        _userId!,
+      );
 
       // Refresh progress display
       await _loadProgress();
@@ -219,7 +224,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
             ),
             duration: const Duration(seconds: 3),
           ),
-         );
+        );
       }
     } catch (e) {
       debugPrint('Error saving progress (device is likely offline): $e');
@@ -267,7 +272,9 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Bab ini belum diunduh dan tidak dapat diputar offline.'),
+                content: Text(
+                  'Bab ini belum diunduh dan tidak dapat diputar offline.',
+                ),
                 backgroundColor: Colors.orange,
               ),
             );
@@ -345,7 +352,9 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text('Hapus Audio'),
-        content: Text('Apakah Anda yakin ingin menghapus audio offline ${bab.labelId}?'),
+        content: Text(
+          'Apakah Anda yakin ingin menghapus audio offline ${bab.labelId}?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -926,7 +935,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                         ),
                       ),
                     ),
-                  
+
                   // Tombol download/hapus audio offline
                   _buildDownloadButton(bab),
                   const SizedBox(width: 10),
