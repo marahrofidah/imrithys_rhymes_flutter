@@ -1,11 +1,10 @@
 import 'package:flutter/services.dart';
 import 'dart:ui';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// ignore: unused_import
 import '../../services/auth_service.dart';
-import '../../services/download_service.dart';
 
 class PelajariKitabPage extends StatefulWidget {
   const PelajariKitabPage({super.key});
@@ -15,10 +14,6 @@ class PelajariKitabPage extends StatefulWidget {
 }
 
 class _PelajariKitabPageState extends State<PelajariKitabPage> {
-  final DownloadService _downloadService = DownloadService();
-  bool _isOffline = false;
-  final Set<String> _downloadedPdfKeys = {};
-  final Map<String, double> _downloadPdfProgress = {};
   // ── 33 Bab Imrithyi ───────────────────────────────────────
   final List<Map<String, dynamic>> _babList = [
     {'key': '1_pembukaan', 'label': 'Pembukaan – المقدمة', 'number': 1},
@@ -133,37 +128,6 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-    _checkOfflineStatus();
-    _initDownloads();
-  }
-
-  Future<void> _checkOfflineStatus() async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        if (mounted) setState(() => _isOffline = false);
-      }
-    } catch (_) {
-      if (mounted) setState(() => _isOffline = true);
-    }
-  }
-
-  Future<void> _initDownloads() async {
-    await _downloadService.initialize();
-    for (final bab in _babList) {
-      final key = bab['key'] as String;
-      final downloaded = await _downloadService.isPdfDownloaded(key);
-      if (downloaded && mounted) {
-        setState(() {
-          _downloadedPdfKeys.add(key);
-        });
-      }
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -270,35 +234,13 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
 
   // ── BAB LIST ──────────────────────────────────────────────
   Widget _buildBabList() {
-    final List<Map<String, dynamic>> visibleBabs = _isOffline
-        ? _babList.where((bab) => _downloadedPdfKeys.contains(bab['key'] as String)).toList()
-        : _babList;
-
-    if (_isOffline && visibleBabs.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(vertical: 40),
-        child: Center(
-          child: Text(
-            'Belum ada PDF yang diunduh.\nHubungkan ke internet untuk mengunduh kitab.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
-              fontStyle: FontStyle.italic,
-              height: 1.5,
-            ),
-          ),
-        ),
-      );
-    }
-
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       padding: EdgeInsets.zero,
-      itemCount: visibleBabs.length,
+      itemCount: _babList.length,
       itemBuilder: (context, index) {
-        final bab = visibleBabs[index];
+        final bab = _babList[index];
         return Padding(
           padding: const EdgeInsets.only(bottom: 14),
           child: GestureDetector(
@@ -322,24 +264,13 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
                   ),
                 ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        bab['label'] as String,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    _buildDownloadPdfButton(bab),
-                  ],
+              child: Text(
+                bab['label'] as String,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -349,204 +280,18 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
     );
   }
 
-  void _openPdf(Map<String, dynamic> bab) async {
-    final key = bab['key'] as String;
-    final downloaded = await _downloadService.isPdfDownloaded(key);
+  void _openPdf(Map<String, dynamic> bab) {
+    // URL dasar dari Supabase Storage bucket 'pdf-bab'
+    // Menggunakan key dari bab sebagai nama file .pdf
+    final String supabaseUrl = dotenv.env['SUPABASE_URL']!;
+    final String pdfUrl =
+        '$supabaseUrl/storage/v1/object/public/pdf-bab/${bab['key']}.pdf';
 
-    if (downloaded) {
-      final localPath = await _downloadService.getPdfPath(key);
-      if (mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => PdfViewerPage(
-              babLabel: bab['label'] as String,
-              localPath: localPath,
-            ),
-          ),
-        );
-      }
-    } else {
-      if (_isOffline) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Bab ini belum diunduh dan tidak dapat dibaca offline.'),
-              backgroundColor: Colors.orange,
-            ),
-          );
-        }
-        return;
-      }
-
-      final String supabaseUrl = dotenv.env['SUPABASE_URL']!;
-      final String pdfUrl =
-          '$supabaseUrl/storage/v1/object/public/pdf-bab/$key.pdf';
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => PdfViewerPage(
-            babLabel: bab['label'] as String,
-            pdfUrl: pdfUrl,
-          ),
-        ),
-      );
-    }
-  }
-
-  Future<void> _downloadPdf(Map<String, dynamic> bab) async {
-    final key = bab['key'] as String;
-    if (_downloadPdfProgress.containsKey(key)) return;
-
-    setState(() {
-      _downloadPdfProgress[key] = 0.0;
-    });
-
-    try {
-      final String supabaseUrl = dotenv.env['SUPABASE_URL']!;
-      final String pdfUrl =
-          '$supabaseUrl/storage/v1/object/public/pdf-bab/$key.pdf';
-      final localPath = await _downloadService.getPdfPath(key);
-
-      await _downloadService.downloadFile(
-        url: pdfUrl,
-        savePath: localPath,
-        onProgress: (p) {
-          if (mounted) {
-            setState(() {
-              _downloadPdfProgress[key] = p;
-            });
-          }
-        },
-      );
-
-      if (mounted) {
-        setState(() {
-          _downloadedPdfKeys.add(key);
-          _downloadPdfProgress.remove(key);
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Selesai mengunduh PDF ${bab['label']}'),
-            backgroundColor: Colors.green,
-          ),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _downloadPdfProgress.remove(key);
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Gagal mengunduh PDF: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    }
-  }
-
-  Future<void> _deleteDownloadedPdf(Map<String, dynamic> bab) async {
-    final key = bab['key'] as String;
-    final confirm = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Hapus PDF Kitab'),
-        content: Text('Apakah Anda yakin ingin menghapus PDF offline ${bab['label']}?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Batal'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Hapus', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
-
-    if (confirm == true) {
-      try {
-        await _downloadService.deletePdf(key);
-        if (mounted) {
-          setState(() {
-            _downloadedPdfKeys.remove(key);
-          });
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('PDF offline ${bab['label']} berhasil dihapus'),
-              backgroundColor: Colors.blueGrey,
-            ),
-          );
-        }
-      } catch (e) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Gagal menghapus PDF: ${e.toString()}'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      }
-    }
-  }
-
-  Widget _buildDownloadPdfButton(Map<String, dynamic> bab) {
-    final key = bab['key'] as String;
-    final isDownloaded = _downloadedPdfKeys.contains(key);
-    final isDownloading = _downloadPdfProgress.containsKey(key);
-    final progress = _downloadPdfProgress[key] ?? 0.0;
-
-    if (isDownloading) {
-      return SizedBox(
-        width: 24,
-        height: 24,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            const CircularProgressIndicator(
-              strokeWidth: 2,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-            Text(
-              '${(progress * 100).toInt()}%',
-              style: const TextStyle(
-                fontSize: 7,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (isDownloaded) {
-      return GestureDetector(
-        onTap: () => _deleteDownloadedPdf(bab),
-        child: const Icon(
-          Icons.delete_outline_rounded,
-          color: Colors.white70,
-          size: 22,
-        ),
-      );
-    }
-
-    if (_isOffline) {
-      return const SizedBox.shrink();
-    }
-
-    return GestureDetector(
-      onTap: () => _downloadPdf(bab),
-      child: const Icon(
-        Icons.download_rounded,
-        color: Colors.white70,
-        size: 22,
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            PdfViewerPage(babLabel: bab['label'] as String, pdfUrl: pdfUrl),
       ),
     );
   }
@@ -676,19 +421,16 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
 // ── PDF VIEWER PAGE ─────────────────────────────────────────
 class PdfViewerPage extends StatelessWidget {
   final String babLabel;
-  final String? pdfUrl;
-  final String? localPath;
+  final String pdfUrl;
 
   const PdfViewerPage({
     super.key,
     required this.babLabel,
-    this.pdfUrl,
-    this.localPath,
+    required this.pdfUrl,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isLocal = localPath != null;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -712,29 +454,17 @@ class PdfViewerPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: isLocal
-          ? SfPdfViewer.file(
-              File(localPath!),
-              onDocumentLoadFailed: (PdfDocumentLoadFailedDetails details) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Gagal memuat PDF offline: ${details.description}'),
-                    backgroundColor: Colors.red,
-                  ),
-                );
-              },
-            )
-          : SfPdfViewer.network(
-              pdfUrl!,
-              onDocumentLoadFailed: (PdfDocumentLoadFailedDetails details) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Gagal memuat PDF online: ${details.description}'),
-                    backgroundColor: Colors.red,
-                  ),
-                );
-              },
+      body: SfPdfViewer.network(
+        pdfUrl,
+        onDocumentLoadFailed: (PdfDocumentLoadFailedDetails details) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Gagal memuat PDF: ${details.description}'),
+              backgroundColor: Colors.red,
             ),
+          );
+        },
+      ),
     );
   }
 }
