@@ -1,5 +1,36 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
+
+class DownloadTask {
+  final String id;
+  final String title;
+  final double progress;
+  final bool isDone;
+  final bool isFailed;
+
+  DownloadTask({
+    required this.id,
+    required this.title,
+    this.progress = 0.0,
+    this.isDone = false,
+    this.isFailed = false,
+  });
+
+  DownloadTask copyWith({
+    double? progress,
+    bool? isDone,
+    bool? isFailed,
+  }) {
+    return DownloadTask(
+      id: id,
+      title: title,
+      progress: progress ?? this.progress,
+      isDone: isDone ?? this.isDone,
+      isFailed: isFailed ?? this.isFailed,
+    );
+  }
+}
 
 class DownloadService {
   static final DownloadService _instance = DownloadService._internal();
@@ -12,6 +43,8 @@ class DownloadService {
 
   Directory? _audioDir;
   Directory? _pdfDir;
+
+  final ValueNotifier<List<DownloadTask>> activeDownloads = ValueNotifier<List<DownloadTask>>([]);
 
   Future<void> initialize() async {
     final appDir = await getApplicationDocumentsDirectory();
@@ -79,8 +112,14 @@ class DownloadService {
   Future<void> downloadFile({
     required String url,
     required String savePath,
+    required String title,
+    required String id,
     required Function(double progress) onProgress,
   }) async {
+    // Add to active downloads
+    final task = DownloadTask(id: id, title: title, progress: 0.0);
+    activeDownloads.value = [...activeDownloads.value, task];
+
     final File tempFile = File('$savePath.tmp');
     if (await tempFile.exists()) {
       await tempFile.delete();
@@ -107,7 +146,17 @@ class DownloadService {
         downloadedBytes += chunk.length;
         if (contentLength > 0) {
           final double progress = downloadedBytes / contentLength;
-          onProgress(progress.clamp(0.0, 1.0));
+          final currentProgress = progress.clamp(0.0, 1.0);
+          
+          // Update active downloads list
+          activeDownloads.value = activeDownloads.value.map((t) {
+            if (t.id == id) {
+              return t.copyWith(progress: currentProgress);
+            }
+            return t;
+          }).toList();
+
+          onProgress(currentProgress);
         }
       }
 
@@ -119,10 +168,36 @@ class DownloadService {
         await finalFile.delete();
       }
       await tempFile.rename(savePath);
+
+      // Update task to done, then remove after a short delay
+      activeDownloads.value = activeDownloads.value.map((t) {
+        if (t.id == id) {
+          return t.copyWith(progress: 1.0, isDone: true);
+        }
+        return t;
+      }).toList();
+
+      Future.delayed(const Duration(seconds: 2), () {
+        activeDownloads.value = activeDownloads.value.where((t) => t.id != id).toList();
+      });
+
     } catch (e) {
       if (await tempFile.exists()) {
         await tempFile.delete();
       }
+      
+      // Update task to failed, then remove after a short delay
+      activeDownloads.value = activeDownloads.value.map((t) {
+        if (t.id == id) {
+          return t.copyWith(isFailed: true);
+        }
+        return t;
+      }).toList();
+
+      Future.delayed(const Duration(seconds: 2), () {
+        activeDownloads.value = activeDownloads.value.where((t) => t.id != id).toList();
+      });
+
       rethrow;
     } finally {
       httpClient.close();

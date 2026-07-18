@@ -14,6 +14,7 @@ import 'features/student/kerjakan_kuis_page.dart';
 import 'features/student/pelajari_kitab_page.dart';
 import 'features/student/info_page.dart';
 import 'features/student/profile_page.dart';
+import 'widgets/global_download_overlay.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,6 +56,14 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Roboto',
       ),
+      builder: (context, child) {
+        return Stack(
+          children: [
+            child!,
+            const GlobalDownloadOverlay(),
+          ],
+        );
+      },
       home: const LandingPage(),
       routes: {
         '/landing': (context) => const LandingPage(),

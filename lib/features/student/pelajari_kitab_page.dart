@@ -412,6 +412,8 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
       await _downloadService.downloadFile(
         url: pdfUrl,
         savePath: localPath,
+        title: 'Kitab ${bab['label']}',
+        id: 'pdf_$key',
         onProgress: (p) {
           if (mounted) {
             setState(() {
@@ -426,12 +428,6 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
           _downloadedPdfKeys.add(key);
           _downloadPdfProgress.remove(key);
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Selesai mengunduh PDF ${bab['label']}'),
-            backgroundColor: Colors.green,
-          ),
-        );
       }
     } catch (e) {
       if (mounted) {

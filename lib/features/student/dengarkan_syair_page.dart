@@ -310,6 +310,8 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       await _downloadService.downloadFile(
         url: bab.audioUrl,
         savePath: localPath,
+        title: bab.labelId,
+        id: 'audio_${bab.key}',
         onProgress: (p) {
           if (mounted) {
             setState(() {
@@ -324,12 +326,6 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           _downloadedKeys.add(bab.key);
           _downloadProgress.remove(bab.key);
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Selesai mengunduh ${bab.labelId}'),
-            backgroundColor: Colors.green,
-          ),
-        );
       }
     } catch (e) {
       if (mounted) {
