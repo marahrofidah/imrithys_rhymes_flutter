@@ -392,7 +392,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
               ),
             ),
             Image.asset(
-              'assets/images/logo.png',
+              'assets/images/logo.webp',
               height: 40,
               fit: BoxFit.contain,
             ),
@@ -403,7 +403,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/kuis.png',
+              'assets/images/kuis.webp',
               width: 140,
               height: 140,
               fit: BoxFit.contain,

@@ -409,7 +409,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
 
                     // Logo tengah
                     Image.asset(
-                      'assets/images/imrithys_rhymes.png',
+                      'assets/images/imrithys_rhymes.webp',
                       height: 48,
                       fit: BoxFit.contain,
                     ),
@@ -434,10 +434,10 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           image: DecorationImage(
                             image: AssetImage(
                               userGender == 'laki-laki'
-                                  ? 'assets/images/laki-laki.png'
+                                  ? 'assets/images/laki-laki.webp'
                                   : userGender == 'perempuan'
-                                  ? 'assets/images/perempuan.png'
-                                  : 'assets/images/person.png',
+                                  ? 'assets/images/perempuan.webp'
+                                  : 'assets/images/person.webp',
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -500,7 +500,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                         right: 20,
                         bottom: 0,
                         child: Image.asset(
-                          'assets/images/person.png',
+                          'assets/images/person.webp',
                           height: 110,
                           fit: BoxFit.contain,
                         ),
@@ -548,7 +548,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Image.asset(
-                              'assets/images/api.png',
+                              'assets/images/api.webp',
                               width: 38,
                               height: 38,
                               fit: BoxFit.contain,
@@ -672,7 +672,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           left: -5,
                           top: 0,
                           child: Image.asset(
-                            'assets/images/earphone.png',
+                            'assets/images/earphone.webp',
                             width: 124,
                             height: 124,
                             fit: BoxFit.contain,
@@ -689,7 +689,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                   children: [
                     Expanded(
                       child: _buildSquareCard(
-                        imagePath: 'assets/images/kuis_db.png',
+                        imagePath: 'assets/images/kuis_db.webp',
                         label: 'Kerjakan\nKuis',
                         color: const Color(0xFFF66893),
                         imageAlignment: Alignment.topLeft,
@@ -701,7 +701,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                     const SizedBox(width: 14),
                     Expanded(
                       child: _buildSquareCard(
-                        imagePath: 'assets/images/kitab.png',
+                        imagePath: 'assets/images/kitab.webp',
                         label: 'Pelajari\nKitab',
                         color: const Color(0xFFFCC100),
                         imageAlignment: Alignment.topRight,

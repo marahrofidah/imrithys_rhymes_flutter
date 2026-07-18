@@ -67,14 +67,14 @@ class _LandingPageState extends State<LandingPage>
                 children: [
                   const SizedBox(height: 20),
                   Image.asset(
-                    'assets/images/person.png',
+                    'assets/images/person.webp',
                     fit: BoxFit.contain,
                     width: 150,
                     height: 150,
                   ),
                   const SizedBox(height: 20),
                   Image.asset(
-                    'assets/images/imrithys_rhymes.png',
+                    'assets/images/imrithys_rhymes.webp',
                     width: 200,
                     height: 80,
                     fit: BoxFit.contain,

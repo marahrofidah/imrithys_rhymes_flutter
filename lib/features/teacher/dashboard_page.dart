@@ -128,7 +128,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
 
                             // Logo tengah
                             Image.asset(
-                              'assets/images/imrithys_rhymes.png',
+                              'assets/images/imrithys_rhymes.webp',
                               height: 48,
                               fit: BoxFit.contain,
                             ),
@@ -155,10 +155,10 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                                   image: DecorationImage(
                                     image: AssetImage(
                                       teacherGender == 'laki-laki'
-                                          ? 'assets/images/laki-laki.png'
+                                          ? 'assets/images/laki-laki.webp'
                                           : teacherGender == 'perempuan'
-                                          ? 'assets/images/perempuan.png'
-                                          : 'assets/images/person.png',
+                                          ? 'assets/images/perempuan.webp'
+                                          : 'assets/images/person.webp',
                                     ),
                                     fit: BoxFit.cover,
                                   ),
@@ -298,7 +298,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
             right: 10,
             bottom: 0,
             child: Image.asset(
-              'assets/images/person.png',
+              'assets/images/person.webp',
               height: 120,
               fit: BoxFit.contain,
             ),
@@ -540,7 +540,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
-                  'assets/images/api.png',
+                  'assets/images/api.webp',
                   width: 24,
                   height: 24,
                   fit: BoxFit.contain,

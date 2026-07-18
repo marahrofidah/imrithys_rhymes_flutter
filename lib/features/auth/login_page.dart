@@ -420,7 +420,7 @@ class _LoginPageState extends State<LoginPage>
               height: 100,
               child: Center(
                 child: Image.asset(
-                  'assets/images/person.png',
+                  'assets/images/person.webp',
                   fit: BoxFit.contain,
                   width: 100,
                   height: 100,
@@ -429,7 +429,7 @@ class _LoginPageState extends State<LoginPage>
             ),
             const SizedBox(height: 12),
             Image.asset(
-              'assets/images/imrithys_rhymes.png',
+              'assets/images/imrithys_rhymes.webp',
               width: 150,
               height: 60,
               fit: BoxFit.contain,

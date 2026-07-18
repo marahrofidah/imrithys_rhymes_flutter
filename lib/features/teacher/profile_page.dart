@@ -60,10 +60,10 @@ class TeacherProfilePage extends StatelessWidget {
                   image: DecorationImage(
                     image: AssetImage(
                       teacherGender == 'laki-laki'
-                          ? 'assets/images/laki-laki.png'
+                          ? 'assets/images/laki-laki.webp'
                           : teacherGender == 'perempuan'
-                          ? 'assets/images/perempuan.png'
-                          : 'assets/images/person.png',
+                          ? 'assets/images/perempuan.webp'
+                          : 'assets/images/person.webp',
                     ),
                     fit: BoxFit.cover,
                   ),

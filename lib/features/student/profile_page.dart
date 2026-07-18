@@ -167,10 +167,10 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
               image: DecorationImage(
                 image: AssetImage(
                   userGender == 'laki-laki'
-                      ? 'assets/images/laki-laki.png'
+                      ? 'assets/images/laki-laki.webp'
                       : userGender == 'perempuan'
-                      ? 'assets/images/perempuan.png'
-                      : 'assets/images/person.png',
+                      ? 'assets/images/perempuan.webp'
+                      : 'assets/images/person.webp',
                 ),
                 fit: BoxFit.cover,
               ),
@@ -236,7 +236,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             child: Column(
               children: [
                 const Image(
-                  image: AssetImage('assets/images/api.png'),
+                  image: AssetImage('assets/images/api.webp'),
                   width: 50,
                   height: 50,
                 ),
@@ -281,7 +281,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             child: Column(
               children: [
                 const Image(
-                  image: AssetImage('assets/images/kuis.png'),
+                  image: AssetImage('assets/images/kuis.webp'),
                   width: 50,
                   height: 50,
                 ),
@@ -417,7 +417,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             //   shape: BoxShape.circle,
             // ),
             child: Image(
-              image: AssetImage('assets/images/kelas.png'),
+              image: AssetImage('assets/images/kelas.webp'),
               width: 60,
               height: 60,
             ),

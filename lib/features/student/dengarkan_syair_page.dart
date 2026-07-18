@@ -349,7 +349,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                 ),
               ),
               Image.asset(
-                'assets/images/logo.png',
+                'assets/images/logo.webp',
                 height: 40,
                 fit: BoxFit.contain,
               ),
@@ -361,7 +361,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/earphone.png',
+                'assets/images/earphone.webp',
                 width: 140,
                 height: 140,
                 fit: BoxFit.contain,

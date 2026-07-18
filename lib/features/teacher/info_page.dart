@@ -56,7 +56,7 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
               // Logo Tengah di bawah tombol back
               Center(
                 child: Image.asset(
-                  'assets/images/logo.png',
+                  'assets/images/logo.webp',
                   height: 80,
                   fit: BoxFit.contain,
                 ),
@@ -113,7 +113,7 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
                     left: -5,
                     top: -10,
                     child: Image.asset(
-                      'assets/images/tentang.png',
+                      'assets/images/tentang.webp',
                       width: 100,
                       height: 100,
                       fit: BoxFit.contain,
@@ -289,7 +289,7 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
             children: [
               Expanded(
                 child: _buildFiturItem(
-                  imagePath: 'assets/images/kelas.png',
+                  imagePath: 'assets/images/kelas.webp',
                   label: 'Manajemen\nKelas',
                   textColor: const Color(0xFF526993),
                 ),
@@ -297,7 +297,7 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
               const SizedBox(width: 14),
               Expanded(
                 child: _buildFiturItem(
-                  imagePath: 'assets/images/monitoring.png',
+                  imagePath: 'assets/images/monitoring.webp',
                   label: 'Monitoring\nProgress Murid',
                   textColor: const Color(0xFF2A617D),
                 ),
@@ -340,7 +340,7 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
           _buildGuideCard(
             step: '1',
             isLeftImage: true,
-            imagePath: 'assets/images/dapatkan.png',
+            imagePath: 'assets/images/dapatkan.webp',
             title: 'Dapatkan Kode Kelas',
             description: const Text.rich(
               TextSpan(
@@ -383,7 +383,7 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
           _buildGuideCard(
             step: '2',
             isLeftImage: false,
-            imagePath: 'assets/images/bagikan.png',
+            imagePath: 'assets/images/bagikan.webp',
             title: 'Bagikan Kode Kelas',
             description: const Text.rich(
               TextSpan(
@@ -410,7 +410,7 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
           _buildGuideCard(
             step: '3',
             isLeftImage: true,
-            imagePath: 'assets/images/murid.png',
+            imagePath: 'assets/images/murid.webp',
             title: 'Murid Bergabung',
             description: const Text.rich(
               TextSpan(
@@ -437,7 +437,7 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
           _buildGuideCard(
             step: '4',
             isLeftImage: false,
-            imagePath: 'assets/images/pantau.png',
+            imagePath: 'assets/images/pantau.webp',
             title: 'Pantau Perkembangan',
             description: const Text.rich(
               TextSpan(

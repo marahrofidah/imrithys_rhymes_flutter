@@ -184,7 +184,7 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
               ),
             ),
             Image.asset(
-              'assets/images/logo.png',
+              'assets/images/logo.webp',
               height: 40,
               fit: BoxFit.contain,
             ),
@@ -194,7 +194,7 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/kitab.png',
+              'assets/images/kitab.webp',
               width: 140,
               height: 140,
               fit: BoxFit.contain,

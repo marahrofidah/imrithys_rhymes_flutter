@@ -56,14 +56,14 @@ class _InfoPageState extends State<InfoPage> {
               // Logo Tengah di bawah tombol back
               Center(
                 child: Image.asset(
-                  'assets/images/logo.png',
+                  'assets/images/logo.webp',
                   height: 80,
                   fit: BoxFit.contain,
                 ),
               ),
               const SizedBox(height: 16),
 
-              // 1. Tentang Aplikasi Card (dengan overlapping icon tentang.png)
+              // 1. Tentang Aplikasi Card (dengan overlapping icon tentang.webp)
               Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -113,7 +113,7 @@ class _InfoPageState extends State<InfoPage> {
                     left: -5,
                     top: -10,
                     child: Image.asset(
-                      'assets/images/tentang.png',
+                      'assets/images/tentang.webp',
                       width: 100,
                       height: 100,
                       fit: BoxFit.contain,
@@ -492,7 +492,7 @@ class _InfoPageState extends State<InfoPage> {
             children: [
               Expanded(
                 child: _buildFiturItem(
-                  imagePath: 'assets/images/earphone.png',
+                  imagePath: 'assets/images/earphone.webp',
                   label: 'Dengarkan\nSyair',
                   textColor: const Color(0xFF3A327C),
                 ),
@@ -500,7 +500,7 @@ class _InfoPageState extends State<InfoPage> {
               const SizedBox(width: 14),
               Expanded(
                 child: _buildFiturItem(
-                  imagePath: 'assets/images/kelas.png',
+                  imagePath: 'assets/images/kelas.webp',
                   label: 'Monitoring\nGuru',
                   textColor: const Color(0xFF3A327C),
                 ),
@@ -512,7 +512,7 @@ class _InfoPageState extends State<InfoPage> {
             children: [
               Expanded(
                 child: _buildFiturItem(
-                  imagePath: 'assets/images/kitab.png',
+                  imagePath: 'assets/images/kitab.webp',
                   label: 'Pelajari Kitab',
                   textColor: const Color(0xFF2E7D32),
                 ),
@@ -520,7 +520,7 @@ class _InfoPageState extends State<InfoPage> {
               const SizedBox(width: 14),
               Expanded(
                 child: _buildFiturItem(
-                  imagePath: 'assets/images/kuis.png',
+                  imagePath: 'assets/images/kuis.webp',
                   label: 'Kerjakan Kuis',
                   textColor: const Color(0xFFE65100),
                 ),
@@ -561,25 +561,25 @@ class _InfoPageState extends State<InfoPage> {
           ),
           const SizedBox(height: 20),
           Image.asset(
-            'assets/images/1.png',
+            'assets/images/1.webp',
             width: double.infinity,
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 16),
           Image.asset(
-            'assets/images/2.png',
+            'assets/images/2.webp',
             width: double.infinity,
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 16),
           Image.asset(
-            'assets/images/3.png',
+            'assets/images/3.webp',
             width: double.infinity,
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 16),
           Image.asset(
-            'assets/images/4.png',
+            'assets/images/4.webp',
             width: double.infinity,
             fit: BoxFit.contain,
           ),
