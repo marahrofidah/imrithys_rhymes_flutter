@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../services/auth_service.dart';
@@ -23,6 +24,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
   List<Map<String, dynamic>> _students = [];
   Map<String, Map<String, dynamic>> _studentProgressMap = {};
   bool _isLoading = true;
+  bool _isOffline = false;
   int _selectedIndex = 0;
   bool _hasSetInitialIndex = false;
 
@@ -38,26 +40,51 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
 
   Future<void> _loadData() async {
     setState(() => _isLoading = true);
+    
+    bool offline = false;
     try {
-      final supabase = SupabaseService();
-      final classData = await supabase.getClassByTeacherId(teacherId);
-      List<Map<String, dynamic>> students = [];
-      Map<String, Map<String, dynamic>> progressMap = {};
-      if (classData != null) {
-        students = await supabase.getStudentsInClass(classData.id);
-        final studentIds = students.map((s) => s['id'] as String).toList();
-        progressMap = await supabase.getStudentsQuizAndStreak(studentIds);
+      final result = await InternetAddress.lookup('example.com').timeout(const Duration(seconds: 2));
+      if (result.isEmpty || result[0].rawAddress.isEmpty) {
+        offline = true;
       }
+    } catch (_) {
+      offline = true;
+    }
+
+    if (mounted) {
+      setState(() {
+        _isOffline = offline;
+      });
+    }
+
+    if (!offline) {
+      try {
+        final supabase = SupabaseService();
+        final classData = await supabase.getClassByTeacherId(teacherId);
+        List<Map<String, dynamic>> students = [];
+        Map<String, Map<String, dynamic>> progressMap = {};
+        if (classData != null) {
+          students = await supabase.getStudentsInClass(classData.id);
+          final studentIds = students.map((s) => s['id'] as String).toList();
+          progressMap = await supabase.getStudentsQuizAndStreak(studentIds);
+        }
+        if (mounted) {
+          setState(() {
+            _classModel = classData;
+            _students = students;
+            _studentProgressMap = progressMap;
+            _isLoading = false;
+          });
+        }
+      } catch (e) {
+        if (mounted) setState(() => _isLoading = false);
+      }
+    } else {
       if (mounted) {
         setState(() {
-          _classModel = classData;
-          _students = students;
-          _studentProgressMap = progressMap;
           _isLoading = false;
         });
       }
-    } catch (e) {
-      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -189,6 +216,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
         return TeacherStatsPage(
           students: _students,
           studentProgressMap: _studentProgressMap,
+          isOffline: _isOffline,
         );
       case 2:
         return TeacherProfilePage(
@@ -197,6 +225,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
           classModel: _classModel,
           totalStudents: _students.length,
           onLogout: _handleActualLogout,
+          isOffline: _isOffline,
         );
       default:
         return _buildHomeTab();
@@ -204,6 +233,105 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
   }
 
   Widget _buildHomeTab() {
+    if (_isOffline) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // ── Welcome Card
+          _buildWelcomeCard(),
+          const SizedBox(height: 20),
+
+          // Offline notice card
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(40),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.15),
+                  blurRadius: 15,
+                  offset: const Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFFEAEA),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.wifi_off_rounded,
+                      color: Color(0xFFEF4444),
+                      size: 40,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                const Text(
+                  'Koneksi Internet Diperlukan',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2D2D2D),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'Dashboard memerlukan koneksi internet untuk memuat kelas dan perkembangan murid dari server.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: 180,
+                  height: 44,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF65A6F1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      elevation: 0,
+                    ),
+                    onPressed: _loadData,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.refresh_rounded, color: Colors.white),
+                        SizedBox(width: 8),
+                        Text(
+                          'Coba Lagi',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 100),
+        ],
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

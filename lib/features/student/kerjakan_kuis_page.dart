@@ -133,6 +133,7 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
   Map<String, dynamic>? _selectedBab;
   bool _dropdownOpen = false;
   bool _loadingData = true;
+  bool _isOffline = false;
 
   int _completedBabs = 0;
   final int _totalBabs = 33;
@@ -147,7 +148,37 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    _checkOfflineAndLoad();
+  }
+
+  Future<void> _checkOfflineAndLoad() async {
+    if (mounted) setState(() => _loadingData = true);
+    
+    bool offline = false;
+    try {
+      final result = await InternetAddress.lookup('example.com').timeout(const Duration(seconds: 2));
+      if (result.isEmpty || result[0].rawAddress.isEmpty) {
+        offline = true;
+      }
+    } catch (_) {
+      offline = true;
+    }
+
+    if (mounted) {
+      setState(() {
+        _isOffline = offline;
+      });
+    }
+
+    if (!offline) {
+      _loadData();
+    } else {
+      if (mounted) {
+        setState(() {
+          _loadingData = false;
+        });
+      }
+    }
   }
 
   @override
@@ -354,6 +385,8 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
       return;
     }
 
+    if (!mounted) return;
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -376,26 +409,117 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SafeArea(bottom: false, child: SizedBox(height: 8)),
-            _buildHeader(),
-            const SizedBox(height: 16),
-            _buildProgressCard(),
-            const SizedBox(height: 20),
-            _buildBabSelector(),
-            const SizedBox(height: 16),
-            _buildMulaiKuisButton(),
-            const SizedBox(height: 24),
-            _buildHistorySection(),
-            const SizedBox(height: 130),
-          ],
-        ),
-      ),
+      body: _isOffline
+          ? _buildOfflineScreen()
+          : SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SafeArea(bottom: false, child: SizedBox(height: 8)),
+                  _buildHeader(),
+                  const SizedBox(height: 16),
+                  _buildProgressCard(),
+                  const SizedBox(height: 20),
+                  _buildBabSelector(),
+                  const SizedBox(height: 16),
+                  _buildMulaiKuisButton(),
+                  const SizedBox(height: 24),
+                  _buildHistorySection(),
+                  const SizedBox(height: 130),
+                ],
+              ),
+            ),
       bottomNavigationBar: _buildBottomNav(),
+    );
+  }
+
+  Widget _buildOfflineScreen() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SafeArea(bottom: false, child: SizedBox(height: 8)),
+          _buildHeader(),
+          const SizedBox(height: 60),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFFEAEA),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.wifi_off_rounded,
+                      color: Color(0xFFEF4444),
+                      size: 50,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                const Text(
+                  'Koneksi Internet Diperlukan',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2D2D2D),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Maaf, kuis memerlukan koneksi internet untuk memuat soal dan riwayat dari server. Hubungkan internet untuk melanjutkan.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                SizedBox(
+                   width: 200,
+                   height: 48,
+                   child: ElevatedButton(
+                     style: ElevatedButton.styleFrom(
+                       backgroundColor: const Color(0xFFF66893),
+                       shape: RoundedRectangleBorder(
+                         borderRadius: BorderRadius.circular(14),
+                       ),
+                       elevation: 0,
+                     ),
+                     onPressed: _checkOfflineAndLoad,
+                     child: const Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         Icon(Icons.refresh_rounded, color: Colors.white),
+                         SizedBox(width: 8),
+                         Text(
+                           'Coba Lagi',
+                           style: TextStyle(
+                             color: Colors.white,
+                             fontSize: 16,
+                             fontWeight: FontWeight.bold,
+                           ),
+                         ),
+                       ],
+                     ),
+                   ),
+                 ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 130),
+        ],
+      ),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'dart:ui';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
 import '../../services/supabase_service.dart';
@@ -25,6 +26,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
   String _className = 'Belum bergabung ke kelas';
   String _classEnrollmentDate = '';
   bool _loading = true;
+  bool _isOffline = false;
 
   @override
   void initState() {
@@ -36,7 +38,37 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
     userEmail = user?.email ?? '-';
     userGender = user?.gender ?? '';
     userCreatedAt = user?.createdAt;
-    _loadProfileData();
+    _checkOfflineAndLoad();
+  }
+
+  Future<void> _checkOfflineAndLoad() async {
+    if (mounted) setState(() => _loading = true);
+    
+    bool offline = false;
+    try {
+      final result = await InternetAddress.lookup('example.com').timeout(const Duration(seconds: 2));
+      if (result.isEmpty || result[0].rawAddress.isEmpty) {
+        offline = true;
+      }
+    } catch (_) {
+      offline = true;
+    }
+
+    if (mounted) {
+      setState(() {
+        _isOffline = offline;
+      });
+    }
+
+    if (!offline) {
+      _loadProfileData();
+    } else {
+      if (mounted) {
+        setState(() {
+          _loading = false;
+        });
+      }
+    }
   }
 
   Future<void> _loadProfileData() async {
@@ -90,43 +122,160 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
-      body: _loading
-          ? const Center(
-              child: CircularProgressIndicator(color: Color(0xFF65A6F1)),
-            )
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildProfileHeader(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 16,
+      body: _isOffline
+          ? _buildOfflineScreen()
+          : _loading
+              ? const Center(
+                  child: CircularProgressIndicator(color: Color(0xFF65A6F1)),
+                )
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _buildProfileHeader(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 16,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildSectionTitle('Statistik Belajar'),
+                            const SizedBox(height: 12),
+                            _buildStatsGrid(),
+                            const SizedBox(height: 24),
+                            _buildSectionTitle('Detail Akun'),
+                            const SizedBox(height: 12),
+                            _buildAccountDetailsCard(),
+                            const SizedBox(height: 24),
+                            _buildSectionTitle('Kelas Saya'),
+                            const SizedBox(height: 12),
+                            _buildClassCard(),
+                            const SizedBox(height: 36),
+                            _buildLogoutButton(),
+                            const SizedBox(height: 130),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+      bottomNavigationBar: _buildBottomNav(),
+    );
+  }
+
+  Widget _buildOfflineScreen() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _buildProfileHeader(),
+          const SizedBox(height: 40),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFFEAEA),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.wifi_off_rounded,
+                      color: Color(0xFFEF4444),
+                      size: 40,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'Koneksi Internet Diperlukan',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2D2D2D),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40),
+                  child: Text(
+                    'Profil memerlukan koneksi internet untuk memuat statistik belajar dan info kelas dari server.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: 180,
+                  height: 44,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF65A6F1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      elevation: 0,
+                    ),
+                    onPressed: _checkOfflineAndLoad,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildSectionTitle('Statistik Belajar'),
-                        const SizedBox(height: 12),
-                        _buildStatsGrid(),
-                        const SizedBox(height: 24),
-                        _buildSectionTitle('Detail Akun'),
-                        const SizedBox(height: 12),
-                        _buildAccountDetailsCard(),
-                        const SizedBox(height: 24),
-                        _buildSectionTitle('Kelas Saya'),
-                        const SizedBox(height: 12),
-                        _buildClassCard(),
-                        const SizedBox(height: 36),
-                        _buildLogoutButton(),
-                        const SizedBox(height: 130),
+                        Icon(Icons.refresh_rounded, color: Colors.white),
+                        SizedBox(width: 8),
+                        Text(
+                          'Coba Lagi',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: 180,
+                  height: 44,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Color(0xFFEF4444), width: 1.5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    onPressed: _handleActualLogout,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.logout_rounded, color: Color(0xFFEF4444), size: 16),
+                        SizedBox(width: 8),
+                        Text(
+                          'Logout Akun',
+                          style: TextStyle(
+                            color: Color(0xFFEF4444),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-      bottomNavigationBar: _buildBottomNav(),
+          ),
+          const SizedBox(height: 130),
+        ],
+      ),
     );
   }
 

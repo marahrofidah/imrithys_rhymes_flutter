@@ -50,18 +50,21 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
 
   Future<void> _checkEnrollment() async {
     try {
+      // ignore: unused_local_variable
       final enrolled = await SupabaseService().isStudentEnrolled(userId);
       if (!mounted) return;
       setState(() {
         _checkingEnrollment = false;
       });
 
-      // Tampilkan dialog jika belum punya kelas
+      // Di-nonaktifkan agar tidak otomatis memunculkan dialog join kelas di dashboard
+      /*
       if (!enrolled) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           _showJoinClassDialog();
         });
       }
+      */
     } catch (e) {
       debugPrint('Error checking enrollment: $e');
       if (mounted) {
@@ -148,6 +151,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     );
   }
 
+  // ignore: unused_element
   void _showJoinClassDialog() {
     final codeController = TextEditingController();
     bool isJoining = false;

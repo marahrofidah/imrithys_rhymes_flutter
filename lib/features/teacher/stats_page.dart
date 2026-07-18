@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 class TeacherStatsPage extends StatelessWidget {
   final List<Map<String, dynamic>> students;
   final Map<String, Map<String, dynamic>> studentProgressMap;
+  final bool isOffline;
 
   const TeacherStatsPage({
     super.key,
     required this.students,
     required this.studentProgressMap,
+    this.isOffline = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (isOffline) {
+      return _buildOfflineView();
+    }
     final totalStudents = students.length;
     double avgQuizProgress = 0.0;
     int maxStreak = 0;
@@ -204,6 +209,67 @@ class TeacherStatsPage extends StatelessWidget {
             style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildOfflineView() {
+    return Center(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(32),
+        margin: const EdgeInsets.symmetric(vertical: 40),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(40),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.15),
+              blurRadius: 15,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 80,
+              height: 80,
+              decoration: const BoxDecoration(
+                color: Color(0xFFFFEAEA),
+                shape: BoxShape.circle,
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.wifi_off_rounded,
+                  color: Color(0xFFEF4444),
+                  size: 40,
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Statistik Tidak Tersedia',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2D2D2D),
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Koneksi internet diperlukan untuk memuat statistik perkembangan murid secara real-time dari server.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.grey,
+                height: 1.5,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

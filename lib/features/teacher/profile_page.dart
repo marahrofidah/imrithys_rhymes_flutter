@@ -8,6 +8,7 @@ class TeacherProfilePage extends StatelessWidget {
   final ClassModel? classModel;
   final int totalStudents;
   final VoidCallback onLogout;
+  final bool isOffline;
 
   const TeacherProfilePage({
     super.key,
@@ -16,6 +17,7 @@ class TeacherProfilePage extends StatelessWidget {
     required this.classModel,
     required this.totalStudents,
     required this.onLogout,
+    this.isOffline = false,
   });
 
   @override
@@ -120,27 +122,32 @@ class TeacherProfilePage extends StatelessWidget {
         const SizedBox(height: 16),
 
         // Class Info Card
-        _buildInfoCard(
-          title: 'Informasi Kelas',
-          items: [
-            _buildInfoRow(
-              Icons.class_outlined,
-              'Nama Kelas',
-              classModel?.name ?? 'Belum membuat kelas',
-            ),
-            _buildInfoRow(
-              Icons.vpn_key_outlined,
-              'Kode Kelas',
-              classModel?.code ?? '------',
-              isCode: true,
-            ),
-            _buildInfoRow(
-              Icons.people_outline,
-              'Total Murid',
-              '$totalStudents Murid',
-            ),
-          ],
-        ),
+        isOffline
+            ? _buildOfflineCard(
+                title: 'Informasi Kelas',
+                message: 'Koneksi internet diperlukan untuk melihat informasi kelas.',
+              )
+            : _buildInfoCard(
+                title: 'Informasi Kelas',
+                items: [
+                  _buildInfoRow(
+                    Icons.class_outlined,
+                    'Nama Kelas',
+                    classModel?.name ?? 'Belum membuat kelas',
+                  ),
+                  _buildInfoRow(
+                    Icons.vpn_key_outlined,
+                    'Kode Kelas',
+                    classModel?.code ?? '------',
+                    isCode: true,
+                  ),
+                  _buildInfoRow(
+                    Icons.people_outline,
+                    'Total Murid',
+                    '$totalStudents Murid',
+                  ),
+                ],
+              ),
         const SizedBox(height: 24),
 
         // Logout Button
@@ -242,6 +249,53 @@ class TeacherProfilePage extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOfflineCard({required String title, required String message}) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(28),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(40),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.15),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 43, 113, 194),
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Icon(
+            Icons.wifi_off_rounded,
+            color: Color(0xFFEF4444),
+            size: 36,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 15,
+              color: Colors.grey,
+              height: 1.4,
             ),
           ),
         ],

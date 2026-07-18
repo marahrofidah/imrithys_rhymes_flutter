@@ -45,21 +45,38 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   void initState() {
     super.initState();
     _userId = AuthService().currentUser?.id;
-    _checkOfflineStatus().then((_) {
-      _loadProgress();
-    });
     _initDownloads();
     _setupAudioListeners();
+    _checkOfflineAndLoad();
   }
 
-  Future<void> _checkOfflineStatus() async {
+  Future<void> _checkOfflineAndLoad() async {
+    if (mounted) setState(() => _isLoadingProgress = true);
+    
+    bool offline = false;
     try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        if (mounted) setState(() => _isOffline = false);
+      final result = await InternetAddress.lookup('example.com').timeout(const Duration(seconds: 2));
+      if (result.isEmpty || result[0].rawAddress.isEmpty) {
+        offline = true;
       }
     } catch (_) {
-      if (mounted) setState(() => _isOffline = true);
+      offline = true;
+    }
+
+    if (mounted) {
+      setState(() {
+        _isOffline = offline;
+      });
+    }
+
+    if (!offline) {
+      await _loadProgress();
+    } else {
+      if (mounted) {
+        setState(() {
+          _isLoadingProgress = false;
+        });
+      }
     }
   }
 
@@ -622,6 +639,15 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                   strokeWidth: 2,
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white54),
                 ),
+              ),
+            )
+          else if (_isOffline)
+            const Text(
+              'Koneksi internet diperlukan untuk melihat progress.',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white54,
+                fontStyle: FontStyle.italic,
               ),
             )
           else if (_topBabs.isEmpty)
