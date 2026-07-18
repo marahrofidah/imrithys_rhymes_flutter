@@ -1,9 +1,12 @@
+import 'package:flutter/services.dart';
 import 'dart:ui';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../../models/bab_model.dart';
 import '../../services/auth_service.dart';
 import '../../services/supabase_service.dart';
+import '../../services/download_service.dart';
 
 class DengarkanSyairPage extends StatefulWidget {
   const DengarkanSyairPage({super.key});
@@ -16,6 +19,7 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   final List<BabModel> _babs = BabList.getBabs();
   final SupabaseService _supabase = SupabaseService();
+  final DownloadService _downloadService = DownloadService();
 
   String? _userId;
   bool _isLoadingProgress = true;
@@ -32,12 +36,43 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   Duration _position = Duration.zero;
   bool _isRecordedThisSession = false;
 
+  // State download & offline
+  bool _isOffline = false;
+  final Set<String> _downloadedKeys = {};
+  final Map<String, double> _downloadProgress = {};
+
   @override
   void initState() {
     super.initState();
     _userId = AuthService().currentUser?.id;
-    _loadProgress();
+    _checkOfflineStatus().then((_) {
+      _loadProgress();
+    });
+    _initDownloads();
     _setupAudioListeners();
+  }
+
+  Future<void> _checkOfflineStatus() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        if (mounted) setState(() => _isOffline = false);
+      }
+    } catch (_) {
+      if (mounted) setState(() => _isOffline = true);
+    }
+  }
+
+  Future<void> _initDownloads() async {
+    await _downloadService.initialize();
+    for (final bab in _babs) {
+      final downloaded = await _downloadService.isAudioDownloaded(bab.key);
+      if (downloaded && mounted) {
+        setState(() {
+          _downloadedKeys.add(bab.key);
+        });
+      }
+    }
   }
 
   void _setupAudioListeners() {
@@ -110,64 +145,68 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           _topBabs = results[0] as List<Map<String, dynamic>>;
           _todayCounts = results[1] as Map<String, int>;
           _isLoadingProgress = false;
+          _isOffline = false; // We successfully loaded progress, so we are online
         });
       }
-    } catch (_) {
-      if (mounted) setState(() => _isLoadingProgress = false);
+    } catch (e) {
+      debugPrint('Error loading progress: $e');
+      if (mounted) {
+        setState(() {
+          _isLoadingProgress = false;
+          _isOffline = true; // Set offline status on failure
+        });
+      }
     }
   }
 
   Future<void> _onAudioCompleted(BabModel bab) async {
     if (_userId == null) return;
 
-    // Catat ke database
-    final error = await _supabase.recordListening(
-      studentId: _userId!,
-      babKey: bab.key,
-      babLabel: bab.fullLabel,
-    );
+    try {
+      // Catat ke database
+      final error = await _supabase.recordListening(
+        studentId: _userId!,
+        babKey: bab.key,
+        babLabel: bab.fullLabel,
+      );
 
-    if (error != null) {
-      if (mounted) {
+      if (error != null) {
+        debugPrint('Gagal menyimpan progress ke database Supabase: $error');
+        return;
+      }
+
+      // Update streak jika ada bab yang sudah ≥ 5x
+      final bool streakIncreased = await _supabase.updateStreakIfNeeded(_userId!);
+
+      // Refresh progress display
+      await _loadProgress();
+
+      // Tampilkan notifikasi jika streak benar-benar bertambah hari ini
+      if (mounted && streakIncreased) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Gagal menyimpan progress: $error'),
-            backgroundColor: Colors.red.shade400,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
-      return;
-    }
-
-    // Update streak jika ada bab yang sudah ≥ 5x
-    final bool streakIncreased = await _supabase.updateStreakIfNeeded(_userId!);
-
-    // Refresh progress display
-    await _loadProgress();
-
-    // Tampilkan notifikasi jika streak benar-benar bertambah hari ini
-    if (mounted && streakIncreased) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Keren! ${bab.labelId} sudah 5 kali! Target hari ini tercapai, streak bertambah!',
-                  style: const TextStyle(color: Colors.white),
+            content: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Keren! ${bab.labelId} sudah 5 kali! Target hari ini tercapai, streak bertambah!',
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
+            backgroundColor: const Color(0xFF6E6EB0),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            duration: const Duration(seconds: 3),
           ),
-          backgroundColor: const Color(0xFF6E6EB0),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          duration: const Duration(seconds: 3),
-        ),
-      );
+         );
+      }
+    } catch (e) {
+      debugPrint('Error saving progress (device is likely offline): $e');
+      // Fail silently without disrupting user's listening experience
     }
   }
 
@@ -199,7 +238,28 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
 
     try {
       await _audioPlayer.stop();
-      await _audioPlayer.play(UrlSource(bab.audioUrl));
+
+      // Cek apakah audio sudah diunduh
+      final downloaded = await _downloadService.isAudioDownloaded(bab.key);
+      if (downloaded) {
+        final localPath = await _downloadService.getAudioPath(bab.key);
+        await _audioPlayer.play(DeviceFileSource(localPath));
+      } else {
+        // Jika sedang offline dan file belum diunduh
+        if (_isOffline) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Bab ini belum diunduh dan tidak dapat diputar offline.'),
+                backgroundColor: Colors.orange,
+              ),
+            );
+            setState(() => _isLoadingAudio = false);
+            return;
+          }
+        }
+        await _audioPlayer.play(UrlSource(bab.audioUrl));
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -211,6 +271,107 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       }
     } finally {
       if (mounted) setState(() => _isLoadingAudio = false);
+    }
+  }
+
+  Future<void> _downloadBab(BabModel bab) async {
+    if (_downloadProgress.containsKey(bab.key)) return; // Sedang diunduh
+
+    setState(() {
+      _downloadProgress[bab.key] = 0.0;
+    });
+
+    try {
+      final localPath = await _downloadService.getAudioPath(bab.key);
+      await _downloadService.downloadFile(
+        url: bab.audioUrl,
+        savePath: localPath,
+        onProgress: (p) {
+          if (mounted) {
+            setState(() {
+              _downloadProgress[bab.key] = p;
+            });
+          }
+        },
+      );
+
+      if (mounted) {
+        setState(() {
+          _downloadedKeys.add(bab.key);
+          _downloadProgress.remove(bab.key);
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Selesai mengunduh ${bab.labelId}'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _downloadProgress.remove(bab.key);
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Gagal mengunduh audio: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _deleteDownloadedBab(BabModel bab) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('Hapus Audio'),
+        content: Text('Apakah Anda yakin ingin menghapus audio offline ${bab.labelId}?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Hapus', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      try {
+        await _downloadService.deleteAudio(bab.key);
+        if (mounted) {
+          setState(() {
+            _downloadedKeys.remove(bab.key);
+            // Jika sedang diputar, hentikan pemutaran
+            if (_currentBab?.key == bab.key) {
+              _audioPlayer.stop();
+              _currentBab = null;
+              _isPlaying = false;
+            }
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Audio offline ${bab.labelId} berhasil dihapus'),
+              backgroundColor: Colors.blueGrey,
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Gagal menghapus audio: ${e.toString()}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
     }
   }
 
@@ -230,6 +391,10 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   Widget build(BuildContext context) {
     final double topPadding = _currentBab != null ? 405.0 : 268.0;
 
+    final List<BabModel> visibleBabs = _isOffline
+        ? _babs.where((bab) => _downloadedKeys.contains(bab.key)).toList()
+        : _babs;
+
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
@@ -246,7 +411,24 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                   const SizedBox(height: 16),
 
                   // Daftar bab
-                  ..._babs.map((bab) => _buildBabTile(bab)),
+                  if (_isOffline && visibleBabs.isEmpty)
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 40),
+                      child: Center(
+                        child: Text(
+                          'Belum ada bab yang diunduh.\nHubungkan ke internet untuk mengunduh syair.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                            fontStyle: FontStyle.italic,
+                            height: 1.5,
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    ...visibleBabs.map((bab) => _buildBabTile(bab)),
                 ],
               ),
             ),
@@ -718,6 +900,11 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                         ),
                       ),
                     ),
+                  
+                  // Tombol download/hapus audio offline
+                  _buildDownloadButton(bab),
+                  const SizedBox(width: 10),
+
                   if (isDone)
                     const Icon(
                       Icons.check_circle_rounded,
@@ -747,6 +934,65 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildDownloadButton(BabModel bab) {
+    final isDownloaded = _downloadedKeys.contains(bab.key);
+    final isDownloading = _downloadProgress.containsKey(bab.key);
+    final progress = _downloadProgress[bab.key] ?? 0.0;
+    final isActive = _currentBab?.key == bab.key;
+
+    if (isDownloading) {
+      return SizedBox(
+        width: 24,
+        height: 24,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            CircularProgressIndicator(
+              value: progress,
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                isActive ? Colors.white : const Color(0xFF6E6EB0),
+              ),
+            ),
+            Text(
+              '${(progress * 100).toInt()}%',
+              style: TextStyle(
+                fontSize: 7,
+                fontWeight: FontWeight.bold,
+                color: isActive ? Colors.white : const Color(0xFF6E6EB0),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (isDownloaded) {
+      return GestureDetector(
+        onTap: () => _deleteDownloadedBab(bab),
+        child: Icon(
+          Icons.delete_outline_rounded,
+          color: isActive ? Colors.white70 : const Color(0xFFEF5350),
+          size: 22,
+        ),
+      );
+    }
+
+    // Jika offline, sembunyikan tombol download
+    if (_isOffline) {
+      return const SizedBox.shrink();
+    }
+
+    return GestureDetector(
+      onTap: () => _downloadBab(bab),
+      child: Icon(
+        Icons.download_rounded,
+        color: isActive ? Colors.white70 : const Color(0xFF6E6EB0),
+        size: 22,
       ),
     );
   }
@@ -856,8 +1102,8 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Logout'),
-        content: const Text('Apakah Anda yakin ingin keluar?'),
+        title: const Text('Keluar Aplikasi'),
+        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -865,10 +1111,9 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           ),
           TextButton(
             onPressed: () {
-              AuthService().logout();
-              Navigator.pushReplacementNamed(context, '/login');
+              SystemNavigator.pop();
             },
-            child: const Text('Logout', style: TextStyle(color: Colors.red)),
+            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

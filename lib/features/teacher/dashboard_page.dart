@@ -196,7 +196,7 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
           teacherGender: teacherGender,
           classModel: _classModel,
           totalStudents: _students.length,
-          onLogout: _handleLogout,
+          onLogout: _handleActualLogout,
         );
       default:
         return _buildHomeTab();
@@ -668,13 +668,13 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
     );
   }
 
-  void _handleLogout() {
+  void _handleActualLogout() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Logout'),
-        content: const Text('Apakah Anda yakin ingin keluar?'),
+        title: const Text('Keluar dari Akun'),
+        content: const Text('Apakah Anda yakin ingin keluar dari akun Anda? Sesi login akan dihapus.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -683,9 +683,32 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
           TextButton(
             onPressed: () {
               AuthService().logout();
-              Navigator.pushReplacementNamed(context, '/login');
+              Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
             },
             child: const Text('Logout', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _handleLogout() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('Keluar Aplikasi'),
+        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () {
+              SystemNavigator.pop();
+            },
+            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

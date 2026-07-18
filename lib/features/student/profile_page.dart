@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
@@ -464,7 +465,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             borderRadius: BorderRadius.circular(16),
           ),
         ),
-        onPressed: _handleLogout,
+        onPressed: _handleActualLogout,
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -484,13 +485,13 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
     );
   }
 
-  void _handleLogout() {
+  void _handleActualLogout() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Logout'),
-        content: const Text('Apakah Anda yakin ingin keluar?'),
+        title: const Text('Keluar dari Akun'),
+        content: const Text('Apakah Anda yakin ingin keluar dari akun Anda? Sesi login akan dihapus.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -499,9 +500,32 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
           TextButton(
             onPressed: () {
               AuthService().logout();
-              Navigator.pushReplacementNamed(context, '/login');
+              Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
             },
             child: const Text('Logout', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _handleLogout() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('Keluar Aplikasi'),
+        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () {
+              SystemNavigator.pop();
+            },
+            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

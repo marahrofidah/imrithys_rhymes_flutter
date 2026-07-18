@@ -1,7 +1,9 @@
+import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+// ignore: unused_import
 import '../../services/auth_service.dart';
 
 class InfoPage extends StatefulWidget {
@@ -338,9 +340,7 @@ class _InfoPageState extends State<InfoPage> {
 
   Widget _buildBottomNav() {
     return Theme(
-      data: Theme.of(context).copyWith(
-        canvasColor: Colors.transparent,
-      ),
+      data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
       child: Material(
         color: Colors.transparent,
         elevation: 0,
@@ -443,8 +443,8 @@ class _InfoPageState extends State<InfoPage> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Logout'),
-        content: const Text('Apakah Anda yakin ingin keluar?'),
+        title: const Text('Keluar Aplikasi'),
+        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -452,10 +452,9 @@ class _InfoPageState extends State<InfoPage> {
           ),
           TextButton(
             onPressed: () {
-              AuthService().logout();
-              Navigator.pushReplacementNamed(context, '/login');
+              SystemNavigator.pop();
             },
-            child: const Text('Logout', style: TextStyle(color: Colors.red)),
+            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -532,8 +531,6 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 
-
-
   Widget _buildStudentGuide() {
     return Container(
       width: double.infinity,
@@ -587,5 +584,4 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
   }
-
 }

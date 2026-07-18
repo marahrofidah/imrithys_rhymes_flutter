@@ -1,3 +1,4 @@
+import '../../services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatefulWidget {
@@ -32,10 +33,21 @@ class _LandingPageState extends State<LandingPage>
 
     _animationController.forward();
 
-    // Navigate to login page after animation completes
+    // Navigate to dashboard if already logged in, otherwise to login page after animation completes
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.pushReplacementNamed(context, '/login');
+        final authService = AuthService();
+        if (authService.isLoggedIn) {
+          if (authService.isTeacher) {
+            Navigator.pushReplacementNamed(context, '/teacher-dashboard');
+          } else if (authService.isStudent) {
+            Navigator.pushReplacementNamed(context, '/student-dashboard');
+          } else {
+            Navigator.pushReplacementNamed(context, '/login');
+          }
+        } else {
+          Navigator.pushReplacementNamed(context, '/login');
+        }
       }
     });
   }

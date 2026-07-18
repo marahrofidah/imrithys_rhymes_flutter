@@ -1,4 +1,6 @@
+import 'package:flutter/services.dart';
 import 'dart:ui';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../services/supabase_service.dart';
 import '../../services/auth_service.dart';
@@ -161,24 +163,41 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
       return;
     }
     setState(() => _loadingData = true);
-    final results = await Future.wait([
-      SupabaseService().getPassedBabs(_studentId!),
-      SupabaseService().getQuizHistory(_studentId!),
-    ]);
+    try {
+      final results = await Future.wait([
+        SupabaseService().getPassedBabs(_studentId!),
+        SupabaseService().getQuizHistory(_studentId!),
+      ]);
 
-    final passed = results[0] as Set<String>;
-    final history = results[1] as List<Map<String, dynamic>>;
+      final passed = results[0] as Set<String>;
+      final history = results[1] as List<Map<String, dynamic>>;
 
-    if (mounted) {
-      setState(() {
-        _passedBabKeys = passed;
-        _completedBabs = passed.length;
-        _historyList = history;
-        _loadingData = false;
-        if (_selectedBab != null && passed.contains(_selectedBab!['key'])) {
-          _selectedBab = null;
-        }
-      });
+      if (mounted) {
+        setState(() {
+          _passedBabKeys = passed;
+          _completedBabs = passed.length;
+          _historyList = history;
+          _loadingData = false;
+          if (_selectedBab != null && passed.contains(_selectedBab!['key'])) {
+            _selectedBab = null;
+          }
+        });
+      }
+    } catch (e) {
+      debugPrint('Error loading quiz history (likely offline): $e');
+      if (mounted) {
+        setState(() {
+          _loadingData = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Gagal memuat riwayat kuis. Hubungkan internet untuk memuat data terbaru.',
+            ),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
     }
   }
 
@@ -308,8 +327,33 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     if (mounted) setState(() => _dropdownOpen = false);
   }
 
-  void _startQuiz() {
+  void _startQuiz() async {
     if (_selectedBab == null || _studentId == null) return;
+
+    // Cek koneksi internet sebelum memulai kuis
+    bool isOffline = false;
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isEmpty || result[0].rawAddress.isEmpty) {
+        isOffline = true;
+      }
+    } catch (_) {
+      isOffline = true;
+    }
+
+    if (isOffline) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Koneksi internet diperlukan untuk memuat kuis.'),
+            backgroundColor: Colors.orange,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+      return;
+    }
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -891,8 +935,8 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Logout'),
-        content: const Text('Apakah Anda yakin ingin keluar?'),
+        title: const Text('Keluar Aplikasi'),
+        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -900,10 +944,9 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
           ),
           TextButton(
             onPressed: () {
-              AuthService().logout();
-              Navigator.pushReplacementNamed(context, '/login');
+              SystemNavigator.pop();
             },
-            child: const Text('Logout', style: TextStyle(color: Colors.red)),
+            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

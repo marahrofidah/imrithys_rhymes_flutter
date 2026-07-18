@@ -1,7 +1,9 @@
+import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+// ignore: unused_import
 import '../../services/auth_service.dart';
 
 class TeacherInfoPage extends StatefulWidget {
@@ -786,8 +788,8 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Logout'),
-        content: const Text('Apakah Anda yakin ingin keluar?'),
+        title: const Text('Keluar Aplikasi'),
+        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -795,10 +797,9 @@ class _TeacherInfoPageState extends State<TeacherInfoPage> {
           ),
           TextButton(
             onPressed: () {
-              AuthService().logout();
-              Navigator.pushReplacementNamed(context, '/login');
+              SystemNavigator.pop();
             },
-            child: const Text('Logout', style: TextStyle(color: Colors.red)),
+            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

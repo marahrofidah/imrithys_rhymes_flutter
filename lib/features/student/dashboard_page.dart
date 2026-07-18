@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
@@ -33,28 +34,41 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
 
   Future<void> _loadStreak() async {
     if (userId.isEmpty) return;
-    final streakReset = await SupabaseService().checkAndResetStreak(userId);
-    final count = await SupabaseService().getStudentStreakCount(userId);
-    if (mounted) {
-      setState(() => _streakCount = count);
-      if (streakReset) {
-        _showStreakLoseDialog();
+    try {
+      final streakReset = await SupabaseService().checkAndResetStreak(userId);
+      final count = await SupabaseService().getStudentStreakCount(userId);
+      if (mounted) {
+        setState(() => _streakCount = count);
+        if (streakReset) {
+          _showStreakLoseDialog();
+        }
       }
+    } catch (e) {
+      debugPrint('Error loading streak: $e');
     }
   }
 
   Future<void> _checkEnrollment() async {
-    final enrolled = await SupabaseService().isStudentEnrolled(userId);
-    if (!mounted) return;
-    setState(() {
-      _checkingEnrollment = false;
-    });
-
-    // Tampilkan dialog jika belum punya kelas
-    if (!enrolled) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _showJoinClassDialog();
+    try {
+      final enrolled = await SupabaseService().isStudentEnrolled(userId);
+      if (!mounted) return;
+      setState(() {
+        _checkingEnrollment = false;
       });
+
+      // Tampilkan dialog jika belum punya kelas
+      if (!enrolled) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _showJoinClassDialog();
+        });
+      }
+    } catch (e) {
+      debugPrint('Error checking enrollment: $e');
+      if (mounted) {
+        setState(() {
+          _checkingEnrollment = false;
+        });
+      }
     }
   }
 
@@ -884,8 +898,8 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Logout'),
-        content: const Text('Apakah Anda yakin ingin keluar?'),
+        title: const Text('Keluar Aplikasi'),
+        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -893,10 +907,9 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
           ),
           TextButton(
             onPressed: () {
-              AuthService().logout();
-              Navigator.pushReplacementNamed(context, '/login');
+              SystemNavigator.pop();
             },
-            child: const Text('Logout', style: TextStyle(color: Colors.red)),
+            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
