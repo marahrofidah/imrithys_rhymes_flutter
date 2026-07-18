@@ -110,10 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
       // Jika guru, buat kelas otomatis dengan kode acak
       if (_selectedRole == 'teacher') {
-        final newClass = await supabase.createClassForTeacher(
-          newUser.id,
-          name,
-        );
+        final newClass = await supabase.createClassForTeacher(newUser.id, name);
         if (newClass == null) {
           debugPrint('Warning: Gagal membuat kelas untuk guru ${newUser.id}');
         } else {
@@ -252,7 +249,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                     },
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 200),
-                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
                                 decoration: BoxDecoration(
                                   color: _selectedGender == 'laki-laki'
                                       ? const Color(0xFF65A6F1)
@@ -287,7 +286,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                     },
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 200),
-                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
                                 decoration: BoxDecoration(
                                   color: _selectedGender == 'perempuan'
                                       ? const Color(0xFFEF6285)
