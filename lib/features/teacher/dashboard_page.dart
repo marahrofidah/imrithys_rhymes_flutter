@@ -758,7 +758,6 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
                         _buildNavItem(Icons.home_rounded, 0),
                         _buildNavItem(Icons.bar_chart_rounded, 1),
                         _buildNavItem(Icons.person_rounded, 2),
-                        _buildNavItem(Icons.logout_rounded, 3),
                       ],
                     ),
                   ),
@@ -776,7 +775,6 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
     return GestureDetector(
       onTap: () {
         setState(() => _selectedIndex = index);
-        if (index == 3) _handleLogout();
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
@@ -814,29 +812,6 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
               Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
             },
             child: const Text('Logout', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _handleLogout() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Keluar Aplikasi'),
-        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          TextButton(
-            onPressed: () {
-              SystemNavigator.pop();
-            },
-            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

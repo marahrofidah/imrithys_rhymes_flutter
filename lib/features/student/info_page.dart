@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -395,11 +394,6 @@ class _InfoPageState extends State<InfoPage> {
                             Navigator.pushNamed(context, '/profile');
                           },
                         ),
-                        _buildNavItem(
-                          Icons.logout_rounded,
-                          3,
-                          onTap: () => _handleLogout(),
-                        ),
                       ],
                     ),
                   ),
@@ -438,28 +432,7 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 
-  void _handleLogout() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Keluar Aplikasi'),
-        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          TextButton(
-            onPressed: () {
-              SystemNavigator.pop();
-            },
-            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildStudentFeatures() {
     return Container(

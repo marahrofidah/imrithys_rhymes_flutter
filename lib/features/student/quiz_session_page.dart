@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/supabase_service.dart';
+import '../../services/auth_service.dart';
 
 class QuizSessionPage extends StatefulWidget {
   final String studentId;
@@ -71,6 +72,22 @@ class _QuizSessionPageState extends State<QuizSessionPage> {
   }
 
   Future<void> _saveResult() async {
+    final isClassMode = AuthService().isClassMode;
+    if (!isClassMode) {
+      await AuthService().saveLocalQuizResult(
+        widget.studentId,
+        widget.babKey,
+        widget.babLabel,
+        widget.babNumber,
+        _correctCount * 10,
+        _correctCount,
+      );
+      if (mounted) {
+        setState(() => _saving = false);
+      }
+      return;
+    }
+
     setState(() => _saving = true);
     final score = (_correctCount * 10);
     final error = await SupabaseService().saveQuizResult(

@@ -119,6 +119,7 @@ class _LoginPageState extends State<LoginPage>
           final classes = await supabase.getStudentClasses(user.id);
           if (!mounted) return;
           final classId = classes.isNotEmpty ? classes.first.id : null;
+          await AuthService().setClassMode(true);
           _navigateToStudentDashboard(user.id, classId);
         } else {
           // Belum punya kelas, minta input kode kelas
@@ -222,9 +223,10 @@ class _LoginPageState extends State<LoginPage>
                         GestureDetector(
                           onTap: isLoadingCode
                               ? null
-                              : () {
+                              : () async {
                                   classCodeController.clear();
                                   Navigator.pop(context);
+                                  await AuthService().setClassMode(false);
                                   // Navigate ke student dashboard tanpa kelas
                                   _navigateToStudentDashboard(studentId, null);
                                 },
@@ -323,6 +325,7 @@ class _LoginPageState extends State<LoginPage>
                                       if (!mounted) return;
 
                                       if (enrolled) {
+                                        await AuthService().setClassMode(true);
                                         navigator.pop();
                                         _navigateToStudentDashboard(
                                           studentId,

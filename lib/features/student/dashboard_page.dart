@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
@@ -21,6 +20,8 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
   bool _checkingEnrollment = true;
   int _streakCount = 0;
 
+  bool _isClassMode = false;
+
   @override
   void initState() {
     super.initState();
@@ -28,6 +29,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     userName = user?.fullName ?? user?.username ?? 'Murid';
     userGender = user?.gender ?? '';
     userId = user?.id ?? '';
+    _isClassMode = AuthService().isClassMode;
     _checkEnrollment();
     _loadStreak();
   }
@@ -35,8 +37,15 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
   Future<void> _loadStreak() async {
     if (userId.isEmpty) return;
     try {
-      final streakReset = await SupabaseService().checkAndResetStreak(userId);
-      final count = await SupabaseService().getStudentStreakCount(userId);
+      bool streakReset = false;
+      int count = 0;
+      if (_isClassMode) {
+        streakReset = await SupabaseService().checkAndResetStreak(userId);
+        count = await SupabaseService().getStudentStreakCount(userId);
+      } else {
+        streakReset = await AuthService().checkAndResetLocalStreak(userId);
+        count = await AuthService().getLocalStreakCount(userId);
+      }
       if (mounted) {
         setState(() => _streakCount = count);
         if (streakReset) {
@@ -166,206 +175,309 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Icon kelas
-                    Container(
-                      width: 70,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF65A6F1).withValues(alpha: 0.12),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Center(
-                        child: Text('🏫', style: TextStyle(fontSize: 34)),
-                      ),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 24,
+                      right: 24,
+                      top: 40,
+                      bottom: 24,
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Masukkan Kode Kelas',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF2D2D2D),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Minta kode kelas kepada gurumu\nuntuk bergabung ke kelas.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey.shade500,
-                        height: 1.5,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Input kode
-                    TextField(
-                      controller: codeController,
-                      textCapitalization: TextCapitalization.characters,
-                      textAlign: TextAlign.center,
-                      maxLength: 6,
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 4,
-                        color: Color(0xFF2D2D2D),
-                      ),
-                      decoration: InputDecoration(
-                        counterText: '',
-                        hintText: 'XXXXXX',
-                        hintStyle: TextStyle(
-                          fontSize: 22,
-                          letterSpacing: 4,
-                          color: Colors.grey.shade300,
-                        ),
-                        filled: true,
-                        fillColor: Colors.grey.shade50,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(color: Colors.grey.shade200),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(color: Colors.grey.shade200),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: const BorderSide(
-                            color: Color(0xFF65A6F1),
-                            width: 2,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Icon kelas
+                        Container(
+                          width: 70,
+                          height: 70,
+                          decoration: BoxDecoration(
+                            color: const Color(
+                              0xFF65A6F1,
+                            ).withValues(alpha: 0.12),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.school_rounded,
+                              size: 34,
+                              color: Color(0xFF65A6F1),
+                            ),
                           ),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 20,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Tombol Gabung
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF65A6F1),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Masukkan Kode Kelas',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF2D2D2D),
                           ),
-                          elevation: 0,
                         ),
-                        onPressed: isJoining
-                            ? null
-                            : () async {
-                                final code = codeController.text
-                                    .trim()
-                                    .toUpperCase();
-                                if (code.length != 6) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        'Kode kelas harus 6 karakter!',
-                                      ),
-                                    ),
-                                  );
-                                  return;
-                                }
+                        const SizedBox(height: 8),
+                        Text(
+                          'Minta kode kelas kepada gurumu\nuntuk bergabung ke kelas.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey.shade500,
+                            height: 1.5,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
 
-                                setDialogState(() => isJoining = true);
+                        // Input kode
+                        TextField(
+                          controller: codeController,
+                          textCapitalization: TextCapitalization.characters,
+                          textAlign: TextAlign.center,
+                          maxLength: 6,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 4,
+                            color: Color(0xFF2D2D2D),
+                          ),
+                          decoration: InputDecoration(
+                            counterText: '',
+                            hintText: 'XXXXXX',
+                            hintStyle: TextStyle(
+                              fontSize: 22,
+                              letterSpacing: 4,
+                              color: Colors.grey.shade300,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey.shade50,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade200,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade200,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(14),
+                              borderSide: const BorderSide(
+                                color: Color(0xFF65A6F1),
+                                width: 2,
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 20,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
 
-                                final supabase = SupabaseService();
-                                final classData = await supabase.getClassByCode(
-                                  code,
-                                );
-
-                                if (classData == null) {
-                                  if (context.mounted) {
-                                    setDialogState(() => isJoining = false);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: const Text(
-                                          'Kode kelas tidak ditemukan!',
-                                        ),
-                                        backgroundColor: Colors.red.shade400,
-                                        behavior: SnackBarBehavior.floating,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            12,
+                        // Tombol Gabung
+                        SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF65A6F1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              elevation: 0,
+                            ),
+                            onPressed: isJoining
+                                ? null
+                                : () async {
+                                    final code = codeController.text
+                                        .trim()
+                                        .toUpperCase();
+                                    if (code.length != 6) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Kode kelas harus 6 karakter!',
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  }
-                                  return;
-                                }
+                                      );
+                                      return;
+                                    }
 
-                                final success = await supabase
-                                    .enrollStudentToClass(userId, classData.id);
+                                    setDialogState(() => isJoining = true);
 
-                                if (!context.mounted) return;
+                                    final supabase = SupabaseService();
+                                    final classData = await supabase
+                                        .getClassByCode(code);
 
-                                if (success) {
-                                  Navigator.of(dialogContext).pop();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Berhasil bergabung ke ${classData.name}! 🎉',
-                                      ),
-                                      backgroundColor: const Color(0xFF65A6F1),
-                                      behavior: SnackBarBehavior.floating,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
+                                    if (classData == null) {
+                                      if (context.mounted) {
+                                        setDialogState(() => isJoining = false);
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: const Text(
+                                              'Kode kelas tidak ditemukan!',
+                                            ),
+                                            backgroundColor:
+                                                Colors.red.shade400,
+                                            behavior: SnackBarBehavior.floating,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      return;
+                                    }
+
+                                    final success = await supabase
+                                        .enrollStudentToClass(
+                                          userId,
+                                          classData.id,
+                                        );
+
+                                    if (!context.mounted) return;
+
+                                    if (success) {
+                                      await AuthService().setClassMode(true);
+                                      if (!context.mounted) return;
+                                      if (!dialogContext.mounted) return;
+                                      if (mounted) {
+                                        setState(() {
+                                          _isClassMode = true;
+                                        });
+                                        _loadStreak();
+                                      }
+                                      Navigator.of(dialogContext).pop();
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Berhasil bergabung ke ${classData.name}! 🎉',
+                                          ),
+                                          backgroundColor: const Color(
+                                            0xFF65A6F1,
+                                          ),
+                                          behavior: SnackBarBehavior.floating,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      setDialogState(() => isJoining = false);
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                            'Gagal bergabung ke kelas.',
+                                          ),
+                                          backgroundColor: Colors.red.shade400,
+                                        ),
+                                      );
+                                    }
+                                  },
+                            child: isJoining
+                                ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2.5,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
                                       ),
                                     ),
-                                  );
-                                } else {
-                                  setDialogState(() => isJoining = false);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: const Text(
-                                        'Gagal bergabung ke kelas.',
-                                      ),
-                                      backgroundColor: Colors.red.shade400,
+                                  )
+                                : const Text(
+                                    'Gabung Kelas',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                  );
-                                }
-                              },
-                        child: isJoining
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2.5,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    Colors.white,
                                   ),
-                                ),
-                              )
-                            : const Text(
-                                'Gabung Kelas',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close_rounded,
+                        color: Color(0xFF2D2D2D),
+                      ),
+                      onPressed: () {
+                        Navigator.of(dialogContext).pop();
+                      },
+                    ),
+                  ),
+                ],
               ),
             );
           },
         );
       },
     );
+  }
+
+  void _handleModeChange(bool isClass) async {
+    if (isClass == _isClassMode) return;
+
+    if (isClass) {
+      setState(() => _checkingEnrollment = true);
+      try {
+        final enrolled = await SupabaseService().isStudentEnrolled(userId);
+        if (!mounted) return;
+        if (enrolled) {
+          await AuthService().setClassMode(true);
+          if (!mounted) return;
+          setState(() {
+            _isClassMode = true;
+            _checkingEnrollment = false;
+          });
+          _loadStreak();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Anda Sedang di Kelas!'),
+              backgroundColor: Color(0xFF65A6F1),
+            ),
+          );
+        } else {
+          setState(() => _checkingEnrollment = false);
+          _showJoinClassDialog();
+        }
+      } catch (e) {
+        debugPrint('Error switching to class mode: $e');
+        if (mounted) {
+          setState(() => _checkingEnrollment = false);
+        }
+      }
+    } else {
+      await AuthService().setClassMode(false);
+      if (!mounted) return;
+      setState(() {
+        _isClassMode = false;
+      });
+      _loadStreak();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Berhasil beralih ke Mandiri!'),
+          backgroundColor: Color(0xFF65A6F1),
+        ),
+      );
+    }
   }
 
   @override
@@ -467,7 +579,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 const SizedBox(height: 20),
                 Container(
                   width: double.infinity,
-                  height: 150,
+                  height: 195,
                   decoration: BoxDecoration(
                     color: const Color(0xFF65A6F1),
                     borderRadius: BorderRadius.circular(50),
@@ -510,6 +622,106 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                                 height: 1.4,
                               ),
                             ),
+                            const SizedBox(height: 10),
+                            Theme(
+                              data: Theme.of(
+                                context,
+                              ).copyWith(cardColor: Colors.white),
+                              child: PopupMenuButton<bool>(
+                                onSelected: (bool isClass) {
+                                  _handleModeChange(isClass);
+                                },
+                                offset: const Offset(0, 40),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                itemBuilder: (context) => [
+                                  const PopupMenuItem<bool>(
+                                    value: false,
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.menu_book_rounded,
+                                          color: Color(0xFF65A6F1),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          'Mandiri',
+                                          style: TextStyle(
+                                            color: Color(0xFF2D2D2D),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const PopupMenuItem<bool>(
+                                    value: true,
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.school_rounded,
+                                          color: Color(0xFF65A6F1),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          'Sedang di Kelas',
+                                          style: TextStyle(
+                                            color: Color(0xFF2D2D2D),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 14,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: const Color(0xFFFCC100),
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        _isClassMode
+                                            ? Icons.school_rounded
+                                            : Icons.menu_book_rounded,
+                                        color: const Color(0xFF65A6F1),
+                                        size: 16,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        _isClassMode
+                                            ? 'Sedang di Kelas'
+                                            : 'Mandiri',
+                                        style: const TextStyle(
+                                          color: Color(0xFF65A6F1),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      const Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        color: Color(0xFF65A6F1),
+                                        size: 16,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -519,7 +731,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                         bottom: 0,
                         child: Image.asset(
                           'assets/images/person.webp',
-                          height: 110,
+                          height: 140,
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -774,7 +986,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                           _buildNavItem(Icons.home_rounded, 0),
                           _buildNavItem(Icons.menu_book_rounded, 1),
                           _buildNavItem(Icons.person_rounded, 2),
-                          _buildNavItem(Icons.logout_rounded, 3),
                         ],
                       ),
                     ),
@@ -875,8 +1086,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
           Navigator.pushNamed(context, '/profile').then((_) {
             if (mounted) setState(() => _selectedIndex = 0);
           });
-        } else if (index == 3) {
-          _handleLogout();
         }
       },
       child: AnimatedContainer(
@@ -893,29 +1102,6 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
           size: 28,
           color: isSelected ? const Color(0xFF5BAEF0) : Colors.grey.shade400,
         ),
-      ),
-    );
-  }
-
-  void _handleLogout() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Keluar Aplikasi'),
-        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          TextButton(
-            onPressed: () {
-              SystemNavigator.pop();
-            },
-            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
-          ),
-        ],
       ),
     );
   }

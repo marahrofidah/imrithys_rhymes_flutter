@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -605,11 +604,6 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
                             Navigator.pushNamed(context, '/profile');
                           },
                         ),
-                        _buildNavItem(
-                          Icons.logout_rounded,
-                          3,
-                          onTap: () => _handleLogout(),
-                        ),
                       ],
                     ),
                   ),
@@ -644,29 +638,6 @@ class _PelajariKitabPageState extends State<PelajariKitabPage> {
           size: 28,
           color: isActive ? const Color(0xFFFCC100) : Colors.grey.shade400,
         ),
-      ),
-    );
-  }
-
-  void _handleLogout() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Keluar Aplikasi'),
-        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          TextButton(
-            onPressed: () {
-              SystemNavigator.pop();
-            },
-            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
-          ),
-        ],
       ),
     );
   }

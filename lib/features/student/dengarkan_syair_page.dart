@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -154,18 +153,31 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
   Future<void> _loadProgress() async {
     if (_userId == null) return;
     setState(() => _isLoadingProgress = true);
+    final isClassMode = AuthService().isClassMode;
     try {
-      final results = await Future.wait([
-        _supabase.getTodayTopBabs(_userId!),
-        _supabase.getTodayListeningCounts(_userId!),
-      ]);
+      final List<Map<String, dynamic>> topBabs;
+      final Map<String, int> todayCounts;
+
+      if (isClassMode) {
+        final results = await Future.wait([
+          _supabase.getTodayTopBabs(_userId!),
+          _supabase.getTodayListeningCounts(_userId!),
+        ]);
+        topBabs = results[0] as List<Map<String, dynamic>>;
+        todayCounts = results[1] as Map<String, int>;
+      } else {
+        topBabs = await AuthService().getLocalTodayTopBabs(_userId!);
+        todayCounts = await AuthService().getLocalTodayListeningCounts(
+          _userId!,
+        );
+      }
+
       if (mounted) {
         setState(() {
-          _topBabs = results[0] as List<Map<String, dynamic>>;
-          _todayCounts = results[1] as Map<String, int>;
+          _topBabs = topBabs;
+          _todayCounts = todayCounts;
           _isLoadingProgress = false;
-          _isOffline =
-              false; // We successfully loaded progress, so we are online
+          _isOffline = false; // Successfully loaded progress
         });
       }
     } catch (e) {
@@ -173,7 +185,8 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
       if (mounted) {
         setState(() {
           _isLoadingProgress = false;
-          _isOffline = true; // Set offline status on failure
+          _isOffline =
+              isClassMode; // Only mark offline if we fail to fetch from server
         });
       }
     }
@@ -181,6 +194,45 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
 
   Future<void> _onAudioCompleted(BabModel bab) async {
     if (_userId == null) return;
+
+    final isClassMode = AuthService().isClassMode;
+    if (!isClassMode) {
+      try {
+        await AuthService().recordLocalListening(
+          _userId!,
+          bab.key,
+          bab.fullLabel,
+        );
+        final bool streakIncreased = await AuthService()
+            .updateLocalStreakIfNeeded(_userId!);
+        await _loadProgress();
+        if (mounted && streakIncreased) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Keren! ${bab.labelId} sudah 5 kali! Target hari ini tercapai, streak bertambah!',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              backgroundColor: const Color(0xFF6E6EB0),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              duration: const Duration(seconds: 3),
+            ),
+          );
+        }
+      } catch (e) {
+        debugPrint('Error saving local progress: $e');
+      }
+      return;
+    }
 
     try {
       // Catat ke database
@@ -1085,11 +1137,6 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
                             Navigator.pushNamed(context, '/profile');
                           },
                         ),
-                        _buildNavItem(
-                          Icons.logout_rounded,
-                          3,
-                          onTap: () => _handleLogout(),
-                        ),
                       ],
                     ),
                   ),
@@ -1124,29 +1171,6 @@ class _DengarkanSyairPageState extends State<DengarkanSyairPage> {
           size: 28,
           color: isActive ? const Color(0xFF6E6EB0) : Colors.grey.shade400,
         ),
-      ),
-    );
-  }
-
-  void _handleLogout() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Keluar Aplikasi'),
-        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          TextButton(
-            onPressed: () {
-              SystemNavigator.pop();
-            },
-            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
-          ),
-        ],
       ),
     );
   }

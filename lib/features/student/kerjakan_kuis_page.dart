@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -194,14 +193,22 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
       return;
     }
     setState(() => _loadingData = true);
+    final isClassMode = AuthService().isClassMode;
     try {
-      final results = await Future.wait([
-        SupabaseService().getPassedBabs(_studentId!),
-        SupabaseService().getQuizHistory(_studentId!),
-      ]);
+      final Set<String> passed;
+      final List<Map<String, dynamic>> history;
 
-      final passed = results[0] as Set<String>;
-      final history = results[1] as List<Map<String, dynamic>>;
+      if (isClassMode) {
+        final results = await Future.wait([
+          SupabaseService().getPassedBabs(_studentId!),
+          SupabaseService().getQuizHistory(_studentId!),
+        ]);
+        passed = results[0] as Set<String>;
+        history = results[1] as List<Map<String, dynamic>>;
+      } else {
+        passed = await AuthService().getLocalPassedBabs(_studentId!);
+        history = await AuthService().getLocalQuizHistory(_studentId!);
+      }
 
       if (mounted) {
         setState(() {
@@ -1011,11 +1018,6 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
                             Navigator.pushNamed(context, '/profile');
                           },
                         ),
-                        _buildNavItem(
-                          Icons.logout_rounded,
-                          3,
-                          onTap: () => _handleLogout(),
-                        ),
                       ],
                     ),
                   ),
@@ -1054,26 +1056,5 @@ class _KerjakanKuisPageState extends State<KerjakanKuisPage> {
     );
   }
 
-  void _handleLogout() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Keluar Aplikasi'),
-        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          TextButton(
-            onPressed: () {
-              SystemNavigator.pop();
-            },
-            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
-  }
+
 }

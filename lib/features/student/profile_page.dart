@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'dart:ui';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -658,28 +657,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
     );
   }
 
-  void _handleLogout() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Keluar Aplikasi'),
-        content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Batal'),
-          ),
-          TextButton(
-            onPressed: () {
-              SystemNavigator.pop();
-            },
-            child: const Text('Keluar', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildBottomNav() {
     return Theme(
@@ -733,11 +711,6 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           },
                         ),
                         _buildNavItem(Icons.person_rounded, 2, isActive: true),
-                        _buildNavItem(
-                          Icons.logout_rounded,
-                          3,
-                          onTap: () => _handleLogout(),
-                        ),
                       ],
                     ),
                   ),
