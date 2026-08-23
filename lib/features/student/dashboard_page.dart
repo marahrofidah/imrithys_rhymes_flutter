@@ -450,7 +450,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
           _loadStreak();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Anda Sedang di Kelas!'),
+              content: Text('Anda di dalam Kelas!'),
               backgroundColor: Color(0xFF65A6F1),
             ),
           );
@@ -666,7 +666,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                                         ),
                                         SizedBox(width: 10),
                                         Text(
-                                          'Sedang di Kelas',
+                                          'Dalam Kelas',
                                           style: TextStyle(
                                             color: Color(0xFF2D2D2D),
                                             fontWeight: FontWeight.w600,
@@ -703,7 +703,7 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                                       const SizedBox(width: 8),
                                       Text(
                                         _isClassMode
-                                            ? 'Sedang di Kelas'
+                                            ? 'Dalam Kelas'
                                             : 'Mandiri',
                                         style: const TextStyle(
                                           color: Color(0xFF65A6F1),

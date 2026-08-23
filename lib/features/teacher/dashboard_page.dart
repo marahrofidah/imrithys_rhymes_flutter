@@ -67,6 +67,29 @@ class _TeacherDashboardPageState extends State<TeacherDashboardPage> {
           students = await supabase.getStudentsInClass(classData.id);
           final studentIds = students.map((s) => s['id'] as String).toList();
           progressMap = await supabase.getStudentsQuizAndStreak(studentIds);
+
+          // Sort students by progress (quiz_passed desc, then streak desc, then name asc)
+          students.sort((a, b) {
+            final aId = a['id'] as String? ?? '';
+            final bId = b['id'] as String? ?? '';
+            final aProg = progressMap[aId] ?? {'quiz_passed': 0, 'streak': 0};
+            final bProg = progressMap[bId] ?? {'quiz_passed': 0, 'streak': 0};
+
+            final aQuiz = aProg['quiz_passed'] as int? ?? 0;
+            final bQuiz = bProg['quiz_passed'] as int? ?? 0;
+            final aStreak = aProg['streak'] as int? ?? 0;
+            final bStreak = bProg['streak'] as int? ?? 0;
+
+            final quizCompare = bQuiz.compareTo(aQuiz);
+            if (quizCompare != 0) return quizCompare;
+
+            final streakCompare = bStreak.compareTo(aStreak);
+            if (streakCompare != 0) return streakCompare;
+
+            final aName = a['full_name'] as String? ?? a['username'] as String? ?? '';
+            final bName = b['full_name'] as String? ?? b['username'] as String? ?? '';
+            return aName.compareTo(bName);
+          });
         }
         if (mounted) {
           setState(() {

@@ -443,6 +443,7 @@ class SupabaseService {
   /// Ambil jumlah streak total murid
   Future<int> getStudentStreakCount(String studentId) async {
     try {
+      await checkAndResetStreak(studentId);
       final response = await _client
           .from('student_streaks')
           .select('streak_count')
@@ -610,6 +611,46 @@ class SupabaseService {
           'quiz_passed': 0,
           'streak': 0,
         };
+      }
+
+      // Batch check and reset broken streaks
+      try {
+        final existingStreaks = await _client
+            .from('student_streaks')
+            .select('student_id, streak_count, last_active_date')
+            .inFilter('student_id', studentIds);
+
+        final brokenStreakStudentIds = <String>[];
+        final today = DateTime.now();
+        final todayStart = DateTime(today.year, today.month, today.day);
+        final yesterdayStart = todayStart.subtract(const Duration(days: 1));
+
+        for (final row in existingStreaks as List) {
+          final streakCount = (row['streak_count'] as int?) ?? 0;
+          if (streakCount == 0) continue;
+
+          final lastActiveDateStr = row['last_active_date'] as String?;
+          if (lastActiveDateStr == null) continue;
+
+          final lastActive = DateTime.parse(lastActiveDateStr);
+          final lastActiveStart = DateTime(lastActive.year, lastActive.month, lastActive.day);
+
+          if (lastActiveStart.isBefore(yesterdayStart)) {
+            brokenStreakStudentIds.add(row['student_id'] as String);
+          }
+        }
+
+        if (brokenStreakStudentIds.isNotEmpty) {
+          await _client
+              .from('student_streaks')
+              .update({
+                'streak_count': 0,
+                'updated_at': DateTime.now().toUtc().toIso8601String(),
+              })
+              .inFilter('student_id', brokenStreakStudentIds);
+        }
+      } catch (err) {
+        debugPrint('Error batch resetting student streaks: $err');
       }
 
       // Ambil kuis yang lolos (is_passed = true)
