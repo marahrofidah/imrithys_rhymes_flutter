@@ -19,8 +19,10 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
   late final String userId;
   bool _checkingEnrollment = true;
   int _streakCount = 0;
-
   bool _isClassMode = false;
+  String? _classId;
+  List<Map<String, dynamic>> _topActiveClassmates = [];
+  bool _loadingClassmates = false;
 
   @override
   void initState() {
@@ -42,6 +44,9 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
       if (_isClassMode) {
         streakReset = await SupabaseService().checkAndResetStreak(userId);
         count = await SupabaseService().getStudentStreakCount(userId);
+        if (_classId != null) {
+          _loadClassmates(_classId!);
+        }
       } else {
         streakReset = await AuthService().checkAndResetLocalStreak(userId);
         count = await AuthService().getLocalStreakCount(userId);
@@ -57,23 +62,77 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
     }
   }
 
+  Future<void> _loadClassmates(String classId) async {
+    if (!mounted) return;
+    setState(() => _loadingClassmates = true);
+    try {
+      final classmates = await SupabaseService().getStudentsInClass(classId);
+      if (classmates.isNotEmpty) {
+        final studentIds = classmates.map((s) => s['id'] as String).toList();
+        final progress = await SupabaseService().getStudentsQuizAndStreak(
+          studentIds,
+        );
+
+        final List<Map<String, dynamic>> mappedClassmates = [];
+        for (var student in classmates) {
+          final sId = student['id'] as String;
+          final stats = progress[sId] ?? {'streak': 0, 'quiz_passed': 0};
+          mappedClassmates.add({
+            'id': sId,
+            'name': student['full_name'] ?? student['username'] ?? 'Murid',
+            'gender': student['gender'] ?? '',
+            'streak': stats['streak'] ?? 0,
+            'quiz_passed': stats['quiz_passed'] ?? 0,
+          });
+        }
+
+        // Sort by streak desc, then quiz_passed desc
+        mappedClassmates.sort((a, b) {
+          final streakCompare = (b['streak'] as int).compareTo(
+            a['streak'] as int,
+          );
+          if (streakCompare != 0) return streakCompare;
+          return (b['quiz_passed'] as int).compareTo(a['quiz_passed'] as int);
+        });
+
+        if (mounted) {
+          setState(() {
+            _topActiveClassmates = mappedClassmates.take(3).toList();
+            _loadingClassmates = false;
+          });
+        }
+      } else {
+        if (mounted) {
+          setState(() => _loadingClassmates = false);
+        }
+      }
+    } catch (err) {
+      debugPrint('Error loading active classmates: $err');
+      if (mounted) {
+        setState(() => _loadingClassmates = false);
+      }
+    }
+  }
+
   Future<void> _checkEnrollment() async {
     try {
-      // ignore: unused_local_variable
-      final enrolled = await SupabaseService().isStudentEnrolled(userId);
+      final enrollments = await SupabaseService()
+          .getStudentClassesWithEnrollment(userId);
       if (!mounted) return;
+
+      String? classId;
+      if (enrollments.isNotEmpty) {
+        classId = enrollments.first['class'].id;
+      }
+
       setState(() {
+        _classId = classId;
         _checkingEnrollment = false;
       });
 
-      // Di-nonaktifkan agar tidak otomatis memunculkan dialog join kelas di dashboard
-      /*
-      if (!enrolled) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _showJoinClassDialog();
-        });
+      if (classId != null) {
+        _loadClassmates(classId);
       }
-      */
     } catch (e) {
       debugPrint('Error checking enrollment: $e');
       if (mounted) {
@@ -740,6 +799,11 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
                 ),
                 const SizedBox(height: 14),
 
+                if (_classId != null && _isClassMode) ...[
+                  _buildSimpleClassmateLeaderboard(),
+                  const SizedBox(height: 14),
+                ],
+
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
@@ -1068,6 +1132,197 @@ class _StudentDashboardPageState extends State<StudentDashboardPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSimpleClassmateLeaderboard() {
+    if (_loadingClassmates) {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF5F9FD),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: const Center(
+          child: SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: Color(0xFF65A6F1),
+            ),
+          ),
+        ),
+      );
+    }
+
+    if (_topActiveClassmates.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5F9FD),
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(color: const Color(0xFFE3EFFC), width: 1.5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Peringkat aktif di Kelas',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF65A6F1),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(_topActiveClassmates.length, (index) {
+              final student = _topActiveClassmates[index];
+              final rank = index + 1;
+              final isCurrentUser = student['id'] == userId;
+              final gender = student['gender'] as String;
+
+              final Color rankColor;
+              if (rank == 1) {
+                rankColor = const Color(0xFFFCC100);
+              } else if (rank == 2) {
+                rankColor = const Color(0xFFC0C0C0);
+              } else {
+                rankColor = const Color(0xFFCD7F32);
+              }
+
+              // Take only the first name to keep it extremely clean
+              final fullName = student['name'] as String;
+              final firstName = fullName.split(' ').first;
+
+              return Expanded(
+                child: Column(
+                  children: [
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        // Avatar
+                        Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: isCurrentUser
+                                  ? const Color(0xFF65A6F1)
+                                  : Colors.transparent,
+                              width: 2,
+                            ),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                gender == 'laki-laki'
+                                    ? 'assets/images/laki-laki.webp'
+                                    : gender == 'perempuan'
+                                    ? 'assets/images/perempuan.webp'
+                                    : 'assets/images/person.webp',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        // Rank Badge
+                        Positioned(
+                          right: -4,
+                          bottom: -4,
+                          child: Container(
+                            width: 18,
+                            height: 18,
+                            decoration: BoxDecoration(
+                              color: rankColor,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 1),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '$rank',
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    // Name
+                    Text(
+                      isCurrentUser ? 'Kamu' : firstName,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: isCurrentUser
+                            ? FontWeight.bold
+                            : FontWeight.w600,
+                        color: isCurrentUser
+                            ? const Color(0xFF65A6F1)
+                            : const Color(0xFF2D2D2D),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 2),
+                    // Stats (Streak count & Quiz progress)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.local_fire_department_rounded,
+                          color: Color(0xFFFFA231),
+                          size: 13,
+                        ),
+                        const SizedBox(width: 2),
+                        Text(
+                          '${student['streak']}',
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFFFA231),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          '|',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade400,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Icon(
+                          Icons.assignment_turned_in_rounded,
+                          color: Colors.grey.shade400,
+                          size: 12,
+                        ),
+                        const SizedBox(width: 2),
+                        Text(
+                          '${student['quiz_passed']}',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ),
+        ],
       ),
     );
   }
